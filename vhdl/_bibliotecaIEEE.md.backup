@@ -1,0 +1,108 @@
+
+# Biblioteca IEEE #
+
+O **IEEE** (_Institute of Electrical and Electronics Engineers_) criou a biblioteca de tipos e funções do VHDL. Ela contém os tipos lógicos **std_logic**, chamado de padrão 1164.
+
+```vhd
+library IEEE;
+use IEEE.std_logic_1164.all;
+```
+
+Essa biblioteca define os tipos de dados básicos e algumas funções.
+
+#### Tipos de dados: ####
+-   std\_ulogic (unsigned int)
+-   std\_logic  (signed int)
+-   std\_ulogic\_vector (vector unsigned int)
+-   std\_logic\_vector  (vector signed int)
+
+
+O tipo std_ulogic pode possuir um dos 9 valores abaixo:
+
+-   "U": não inicializado. Este sinal ainda não foi definido. (a simulação exibirá -< XXXX >-)
+-   "X": desconhecido. Impossível determinar este valor/resultado. Não importa (don't care).
+-   '0': nível lógico 0.
+-   '1': nível lógico 1.
+-   "Z": alta impedância.
+-   "W": sinal fraco indefinido, não é possível afirmar se ele será 0 ou 1.
+-   'L': sinal fraco que deve, provavelmente, ir para 0 (resistor para o terra).
+-   'H': sinal fraco que deve, provavelmente, ir para 1 (resistor para VCC).
+-   '-': não importa. Usado nas comparações quando o nível de um sinal não tem influência no resultado.
+
+
+
+ç
+A tabela de resolução de valores para os sinais STD_LOGIC é a seguinte:
+
+| U | X | 0 | 1 | Z | W | L | H | -    |   |   |
+|---|---|---|---|---|---|---|---|---|---|:---:|
+| U | U | U | U | U | U | U | U | U |   | **U** |
+| U | X | X | X | X | X | X | X | X |   | **X** |
+| U | X | 0 | X | 0 | 0 | 0 | 0 | X |   | **0** |
+| U | X | X | 1 | 1 | 1 | 1 | 1 | X |   | **1** |
+| U | X | 0 | 1 | Z | W | L | H | X |   | **Z** |
+| U | X | 0 | 1 | W | W | W | W | X |   | **W** |
+| U | X | 0 | 1 | L | W | L | W | X |   | **L** |
+| U | X | 0 | 1 | H | W | W | H | X |   | **H** |
+| U | X | X | X | X | X | X | X | X |   | **-** |
+
+
+#### Funções: ####
+-   to\_bit
+-   to\_stdulogic
+-   to\_bitvector
+-   to\_stdlogicvector
+-   rising\_edge (detecta a borda de subida)
+-   falling\_edge  (detecta a borda de descida)
+-   is\_x
+
+
+***
+
+Este sistema promove ystem promoted a useful set of logic values that typical CMOS logic designs could implement in the vast majority of modeling situations.
+The 'Z' literal makes tri-state buffer logic easy. The 'H' and 'L' weak drives permit wired-AND and wired-OR logic.
+'U' state is the default value for all object declarations so that during simulations uninitialized values are easily detectable and thus easily corrected if necessary. Also represents uninitialised memory values
+But '0' and 'H' combine to produce '0' (because H is weak) and similarly, '1' and 'L' combine to produce '1'. So a strong driver can legally overpower a weak one : no harm done.
+Let's look at the 'Z' state : it signifies Undriven, or High Impedance (High-Z). Now Z and H combine to produce H because H, though weak, is still stronger than no driver at all.
+It is traditional to use 'X' as a placeholder to indicate "Don't Care" when building truth tables. Once the circuit design is complete and a real circuit is constructed, the 'X' values will no longer exist. They will become some tangible '0' or '1' value but could be either depending on the final design optimisation.
+STD_LOGIC is what is called a resolved type, that means that there is a priority to the signal. For example, 1 and 0 have a higher priority to H or L so if a signal was driven with an L and a 1 simultaneously, the output would be high (logic 1) because 1 has a higher priority than L.
+***
+Este sistema promoveu um conjunto útil de lógica valores que lógica CMOS de desenhos típicos poderia implementar na grande maioria das situações de modelagem.
+O "Z" torna literal de estado triplo lógica buffer fácil. A 'H' e 'L' unidades fraco permitir com fios e sem fios A ou lógica.
+Estado "U" é o valor padrão para todas as declarações do objeto de modo a que durante simulações de valores não inicializados são facilmente detectáveis e assim facilmente corrigidas se necessário. Também representa os valores de memória não inicializada mas '0' e 'H' se combinam para produzir " 0 " (porque H é fraca) e da mesma forma, '1' e 'L' da colheitadeira para produzir "1". Assim um forte condutor pode legalmente overpower fraco : nenhum dano feito.
+Vejamos o "Z" estado : significa Undriven, ou alta impedância (Alta-Z). Agora Z e H se combinam para produzir H porque H, apesar de fraca, é ainda mais forte do que qualquer driver em todos.
+
+Tradicionalmente, usa-se o 'X' como indicador de que o valor desse bit não tem influencia no resultado. Uma vez que o design do circuito está completo e um circuito real é construído o 'X' valores deixarão de existir. Eles se tornarão visíveis " 0 " ou " 1 " valor mas poderia ser tanto consoante o projeto final de optimização.
+STD_LOGIC é o que é chamado de resolvido, isso significa que o tipo não é uma prioridade para o sinal. Por exemplo, 1 e 0 têm uma prioridade maior para H ou L se um sinal foi conduzido com um L e um 1 em simultâneo, a saída será alta (logic 1) porque 1 tem uma prioridade maior do que L.
+***
+
+A signal is driven with an 'H' and an 'L', the result will be 'W'.
+
+***
+
+
+As operações lógicas básicas:
+-   and
+-   nand
+-   or
+-   nor
+-   xor
+-   xnor
+-   not
+
+
+They can be used like the built-in operations on the bits.
+Examples
+
+```vhd
+signal s1, s2 : std_logic;
+...
+variable v1, v2 : std_logic;
+...
+s1 <= '0';
+v1 := '1';
+s2 <= 'X';
+wait for 10 ns;
+s2 <= s1 and v1;   --    '0'
+v2 := s1 or v1;    --       '1'
+```
