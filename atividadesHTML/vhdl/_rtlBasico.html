@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<h1 id="register-transfer-language-rtl">Register Transfer Language : RTL</h1>
+<p>É uma linguagem que exprime a transferência de dados entre registradores. Também descreve a sequência de micro-operações necessária para executar a função desejada.</p>
+<p>But the description of micro-operation is too lengthy and difficult so we used symbolic notations.</p>
+<p>This symbol of notation describe by R.T.L.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Simbolo</th>
+<th></th>
+<th align="left">Descrição</th>
+<th></th>
+<th align="left">Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Letras e Números</td>
+<td></td>
+<td align="left">Nome do Registrador</td>
+<td></td>
+<td align="left">R1, R2, R3 ...</td>
+</tr>
+<tr class="even">
+<td align="left">Parenteses</td>
+<td></td>
+<td align="left">Faixa dentro do Registrador</td>
+<td></td>
+<td align="left">R1(0-7) Dr(11-5)</td>
+</tr>
+<tr class="odd">
+<td align="left">Setas</td>
+<td></td>
+<td align="left">Transferência de dados</td>
+<td></td>
+<td align="left">R1&lt;--Ac</td>
+</tr>
+<tr class="even">
+<td align="left">Vírgula (,)</td>
+<td></td>
+<td align="left">Separa 2 micro operações</td>
+<td></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Sinal de Controle</td>
+<td></td>
+<td align="left">Uma letra seguida de dois pontos</td>
+<td></td>
+<td align="left">P:R1&lt;--R2</td>
+</tr>
+</tbody>
+</table>
+<p>Um exemplo:</p>
+<p>Show conditional statement by 2 register transfer statement with control function.</p>
+<div class="sourceCode"><pre class="sourceCode asm"><code class="sourceCode fasm">
+<span class="pp">if</span>(P==<span class="dv">1</span>) then
+
+    (R1&lt;--R2)
+
+<span class="pp">else</span>
+
+<span class="pp">if</span>(Q==<span class="dv">1</span>) then
+
+    (R1&lt;--R3)</code></pre></div>
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode asm"><code class="sourceCode fasm">Sol.  P: R1&lt;--R2
+
+      P<span class="st">&#39;Q: R1&lt;--R3</span></code></pre></div>
+<p><br></p>
+<p><strong>Retirado de: Computer Architecture Tutorials - RTL: http://allcomputertopics.blogspot.com/2012/12/register-transfer-language.html</strong></p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+</body>
+</html>

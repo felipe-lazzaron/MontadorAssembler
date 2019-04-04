@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#aula-3-banco-de-registradores">Aula 3: Banco de Registradores</a><ul>
+<li><a href="#objetivos">Objetivos</a></li>
+<li><a href="#lembretes">Lembretes</a><ul>
+<li><a href="#visite-sempre-os-seus-amigos">** Visite sempre os seus amigos:</a></li>
+<li><a href="#dicas">Dicas</a></li>
+</ul></li>
+<li><a href="#banco-ou-arquivo-de-registradores">Banco, ou Arquivo, de Registradores</a><ul>
+<li><a href="#contextualização">Contextualização</a></li>
+<li><a href="#objetivo">Objetivo</a><ul>
+<li><a href="#para-um-chute-inicial">Para um chute inicial:</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="aula-3-banco-de-registradores">Aula 3: Banco de Registradores</h1>
+<h2 id="objetivos">Objetivos</h2>
+<ol style="list-style-type: decimal">
+<li>Aplicar o tipo de dados <em><code>array</code></em> do VHDL.</li>
+<li>Implementar arquivo de registradores em VHDL.</li>
+</ol>
+<h2 id="lembretes">Lembretes</h2>
+<h4 id="visite-sempre-os-seus-amigos">** Visite sempre os seus amigos:</h4>
+<ul>
+<li>Os <a href="./quartus/_recursosQuartus.html#acessar-a-biblioteca-de-modelos-templates">templates do Quartus</a>;</li>
+<li>O guia de referência de VHDL, no site da <a href="http://vhdl.renerta.com">Renerta</a>;</li>
+<li>O livro: <a href="http://freerangefactory.org/books_tuts.html">Digital McLogic Design</a> de Mealy &amp; Mealy;</li>
+<li>O livro <a href="http://booksite.elsevier.com/9780124077263/downloads/VHDL_Tutorials/vhdl-tutorial.pdf">VHDL Tutorial</a> do Ashenden;</li>
+<li>A <a href="./vhdl/_vhdlBasico.html">ajuda interna</a> (ainda em construção).</li>
+</ul>
+<h4 id="dicas">Dicas</h4>
+<ul>
+<li><p>Pense qual resultado que deseja obter:</p>
+<ul>
+<li><p>Esboce no papel um diagrama representando esse objetivo;</p></li>
+<li><p>Ou uma tabela da verdade. Ou o que for mais adequado.</p></li>
+</ul></li>
+<li><p>Monte a estrutura básica do VHDL no seu arquivo de trabalho:</p>
+<ul>
+<li><p>Utilize um componente por arquivo;</p></li>
+<li><p>O nome do arquivo deve ser o nome da entidade desse componente;</p></li>
+<li><p>Assim é mais fácil de reutilizá-lo no futuro.</p></li>
+</ul></li>
+<li><p>Para alguns casos, o uso da configuração com <em>generics</em> permite:</p>
+<ul>
+<li><p>Criar componentes mais versáteis, com largura de entrada/saída parametrizáveis.</p></li>
+<li><p>Aumentando a possibilidade de reutilização desse código.</p></li>
+</ul></li>
+<li><p>Verifique se o esquema RTL é funcionalmente similar ao seu objetivo de implementação.</p></li>
+<li><p>Simule o funcionamento do seu circuito. Se houver uma tabela da verdade:</p>
+<ul>
+<li><p>Ela já indica os vetores de entrada e os resultados na saída.</p></li>
+<li><p>Caso não exista ou a quantidade de possibilidades é muito grande:</p>
+<ul>
+<li>Fique atento para os casos nos extremos da sua faixa de valores de entrada.</li>
+</ul></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="banco-ou-arquivo-de-registradores">Banco, ou Arquivo, de Registradores</h2>
+<h3 id="contextualização">Contextualização</h3>
+<p>Caso queira rever a contextualização do primeiro item, <a href="Aula-02.html">clique aqui</a>.</p>
+<p>O arquivo de registradores é o armazenamento temporário existente dentro da CPU. Nele estão os registradores de propósito geral do processador, que são acessíveis ao programador. A velocidade desse conjunto é um fator importante na velocidade final da CPU.</p>
+<p>Eles são utilizados para armazenar os dados que estão sendo manipulados. Por exemplo, durante a soma de dois valores:</p>
+<p>A = B + C;</p>
+<p>Os valores de B e C são lidos de dois registradores e o valor resultante (A) é armazenado em outro registrador. Para aumentar a velocidade, seria interessante ler os dois registradores ao mesmo tempo. Para tanto, o arquivo de registradores deve possuir duas portas de leitura. Se quiser escrever o resultado durante o mesmo ciclo, será necessária uma porta de escrita adicional.</p>
+<h3 id="objetivo">Objetivo</h3>
+<p>Como o processador MIPS DLX possui duas portas de leitura e uma de escrita, iremos implementar algo semelhante:</p>
+<div class="figure">
+<img src="./imagensComponentes/arquivoRegistradores-1.svg" />
+
+</div>
+<ul>
+<li>8 Registradores de 8 bits;</li>
+<li>2 portas de leitura;</li>
+<li>1 porta de escrita;</li>
+<li>1 sinal de ativar escrita.</li>
+</ul>
+<p>Para que exista uniformidade entre as implementações, use a interface abaixo:</p>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl"><span class="kw">library</span> ieee;
+<span class="kw">use</span> ieee<span class="ot">.</span>std_logic_1164<span class="ot">.</span>all;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="co">-- Baseado no apendice C (Register Files) do COD (Patterson &amp; Hennessy).</span>
+<span class="kw">entity</span> <span class="kw">bancoRegistradores</span> <span class="kw">is</span>
+    <span class="kw">generic</span>
+    (
+        larguraDados        <span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">8</span>;
+        larguraEndBancoRegs <span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">3</span>
+    );
+<span class="co">-- Leitura de 2 registradores e escrita em 1 registrador simultaneamente.</span>
+    <span class="kw">port</span>
+    (
+        clk        <span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic</span>;
+<span class="co">--</span>
+        enderecoA       <span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic_vector</span>((larguraEndBancoRegs<span class="ot">-</span><span class="dv">1</span>) <span class="ot">downto</span> <span class="dv">0</span>);
+        enderecoB       <span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic_vector</span>((larguraEndBancoRegs<span class="ot">-</span><span class="dv">1</span>) <span class="ot">downto</span> <span class="dv">0</span>);
+        enderecoC   <span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic_vector</span>((larguraEndBancoRegs<span class="ot">-</span><span class="dv">1</span>) <span class="ot">downto</span> <span class="dv">0</span>);
+<span class="co">--</span>
+        dadoEscritaC    <span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic_vector</span>((larguraDados<span class="ot">-</span><span class="dv">1</span>) <span class="ot">downto</span> <span class="dv">0</span>);
+<span class="co">--</span>
+        escreveC      <span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;1&#39;</span>;
+<span class="co">--</span>
+        saidaA          <span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic_vector</span>((larguraDados <span class="ot">-</span><span class="dv">1</span>) <span class="ot">downto</span> <span class="dv">0</span>);
+        saidaB          <span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic_vector</span>((larguraDados <span class="ot">-</span><span class="dv">1</span>) <span class="ot">downto</span> <span class="dv">0</span>)
+    );
+<span class="kw">end entity;</span></code></pre></div>
+<p>Lembre-se que a escrita é síncrona e a leitura não.</p>
+<p>Codifique e simule. Verifique que o dado escrito pode ser lido no mesmo ciclo de clock.</p>
+<h4 id="para-um-chute-inicial">Para um chute inicial:</h4>
+<blockquote>
+<p>Veja o <a href="https://booksite.elsevier.com/9780123747501/downloads/Resources.zip">apêndice C</a> do livro texto: &quot;Organização e Projeto de Computadores - a interface Hardware/Software&quot;.</p>
+</blockquote>
+<hr />
+<p>Caso tenha sobrado tempo, tente acabar com as pendências das atividades anteriores.</p>
+<hr />
+<p><strong>Referências:</strong></p>
+<p><a href="./linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<hr />
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<!---
+######### (inicio dos links) ##########
+#######################################
+########### Links Internos ############
+--->
+</body>
+</html>

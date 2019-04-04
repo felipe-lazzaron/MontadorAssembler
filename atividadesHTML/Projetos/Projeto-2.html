@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  .bloco .title {
+      display: block;
+  }
+  
+  /*Bloco de solucao de exercicio*/
+  .bloco .label,
+  .bloco .separator {
+      font-weight: bold;
+  }
+  
+  .bloco .separator {
+      margin-right: .6em;
+  }
+  /* Solução */
+  div.solucao {
+    border-left: .3em solid #dd4444;   /*#dc3c01; */
+    margin-left: -.8em;
+    padding-left: .4em;
+    position: relative;
+    font-size: 90%;
+  }
+  
+  div.solucao .conteudo {
+    display: none;
+    padding-top: 1px;
+  }
+  
+  div.solucao button {
+    color: #0000AF;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  div.solucao button.viewed {
+    color: #FF2020;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(0,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  /*Tamanho absoluto das imagens definidas em markdown*/
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  /*Tamanho relativo das imagens definidas em markdown*/
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+  <script type="text/javascript">
+      function exibe(e)
+      {
+          var div = e.parentNode.firstElementChild;
+  
+          if (div.style.display == "" || div.style.display == "none") {
+              div.style.display = "block";
+              e.setAttribute("class", "viewed");
+              e.innerHTML = "Esconder Solução";
+          } else {
+              div.style.display = "none";
+              e.innerHTML = "Ver Solução";
+          }
+      }
+  </script>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#projeto-2-processador-compatível-com-mips-dlx">Projeto 2: Processador compatível com MIPS DLX</a><ul>
+<li><a href="#descrição">Descrição</a><ul>
+<li><a href="#opções-de-projeto">Opções de Projeto</a></li>
+<li><a href="#entrega">Entrega</a></li>
+<li><a href="#avaliação">Avaliação</a></li>
+<li><a href="#execução">Execução</a></li>
+</ul></li>
+<li><a href="#leituras">Leituras</a></li>
+<li><a href="#referências">Referências</a></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="projeto-2-processador-compatível-com-mips-dlx">Projeto 2: Processador compatível com MIPS DLX</h1>
+<p>Ir para o <a href="#fimDocumento">fim do documento</a> e referências.</p>
+<h2 id="descrição">Descrição</h2>
+<p>Este projeto será a implementação de um processador RISC de 32 bits. Ele deverá executar um dos dois subconjuntos, mostrados abaixo, das instruções do MIPS DLX<!--[MIPS DLX][ArquiteturaDLX]-->.</p>
+<p>O <strong>subconjunto &quot;A&quot;</strong> é formado pelas instruções abaixo:</p>
+<ul>
+<li><p>As instruções de referência à memória:</p>
+<ul>
+<li><p>Carrega palavra (<em>load word: lw</em>);</p></li>
+<li><p>Armazena palavra (<em>store word: sw</em>).</p></li>
+</ul></li>
+<li><p>As instruções lógico-aritméticas:</p>
+<ul>
+<li><p>Soma (<em>add</em>);</p></li>
+<li><p>Subtração (<em>sub</em>);</p></li>
+<li><p>E lógico (<em>AND</em>);</p></li>
+<li><p>OU lógico (<em>OR</em>);</p></li>
+<li><p>Comparação menor que (<em>set if less than: slt</em>).</p></li>
+</ul></li>
+<li><p>As instruções de desvio:</p>
+<ul>
+<li><p>Desvio se igual (<em>branch equal: beq</em>);</p></li>
+<li><p>Salto incondicional (<em>jump: j</em>).</p></li>
+</ul></li>
+</ul>
+<p>O <strong>subconjunto &quot;B&quot;</strong> possui as instruções do subconjunto &quot;A&quot; e adiciona as listadas abaixo:</p>
+<ul>
+<li><p>A instrução de carga:</p>
+<ul>
+<li>Carrega imediato para 16 bits MSB (<em>load upper immediate: lui</em>).</li>
+</ul></li>
+<li><p>As instruções lógico-aritméticas:</p>
+<ul>
+<li><p>Soma com imediato (<em>addi</em>);</p></li>
+<li><p>E lógico com imediato (<em>ANDI</em>);</p></li>
+<li><p>OU lógico com imediato (<em>ORI</em>);</p></li>
+<li><p>Comparação menor que imediato (<em>set if less than: slti</em>).</p></li>
+</ul></li>
+<li><p>As instruções de desvio:</p>
+<ul>
+<li><p>Desvio se não igual (<em>branch not equal: bne</em>);</p></li>
+<li><p>Salto e conecta (<em>jump and link: jal</em>);</p></li>
+<li><p>Salto por registrador (<em>jump register: jr</em>).</p></li>
+</ul></li>
+</ul>
+<p>Tal qual a implementação do livro texto, não trabalharemos com nenhuma das instruções de ponto flutuante. Também não implementaremos todas as instruções que trabalham com inteiros, por exemplo: deslocamento, multiplicação e divisão.</p>
+<p>As instruções restantes, para completar o conjunto todo do MIPS DLX, poderão ser implementadas com as mesmas técnicas usadas para implementar estes subconjuntos.</p>
+<hr />
+<h3 id="opções-de-projeto">Opções de Projeto</h3>
+<p>O projeto deverá implementar as seguintes funcionalidades:</p>
+<ul>
+<li><p>MIPS com <em>pipeline</em>:</p>
+<ul>
+<li><p>Executando as instruções do subconjunto A;</p></li>
+<li><p>Nota máxima: limitada ao C+.</p></li>
+<li><p>Caso sejam adicionadas as instruções abaixo, o limite da nota será B.</p>
+<ul>
+<li><p>Salto e conecta (<em>jump and link: jal</em>);</p></li>
+<li><p>Salto por registrador (<em>jump register: jr</em>).</p></li>
+</ul></li>
+</ul></li>
+<li><p>MIPS com <em>pipeline</em>:</p>
+<ul>
+<li><p>Executando todas instruções do subconjunto B;</p></li>
+<li><p>Nota máxima: limitada ao B+.</p></li>
+</ul></li>
+<li><p>MIPS com <em>pipeline</em>:</p>
+<ul>
+<li><p>Executando as instruções do subconjunto B;</p></li>
+<li><p>Com o hardware para evitar <em>hazards</em>;</p></li>
+<li><p>Nota máxima: sem limite (A+).</p></li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="entrega">Entrega</h3>
+<p>A data de entrega, conforme o plano de aula, será:</p>
+<ul>
+<li><p>Dentro do prazo e com limite de nota definido nas opções de projeto: <strong>29/05/2019</strong>.</p></li>
+<li><p>Não haverá entrega em atraso.</p></li>
+</ul>
+<!---
+-   Com atraso. O limite de nota é rebaixado em uma letra (em relação às opções de projeto): 22/11/2018.
+--->
+<h3 id="avaliação">Avaliação</h3>
+<p>A avaliação do projeto segue o descrito no plano de aula. Ela será feita através dos seguintes itens:</p>
+<ul>
+<li><p>Apresentação do projeto, no kit de desenvolvimento:</p>
+<ul>
+<li>Com arguição do(s) professor(es).</li>
+</ul></li>
+<li><p>Entrega de um resumo explicativo do funcionamento do circuito, contendo:</p>
+<ul>
+<li><p>Diagrama de blocos do projeto;</p></li>
+<li><p>Diagrama de estados (se for o caso);</p></li>
+<li><p>Com comentários (opcional) sobre os problemas encontrados.</p></li>
+</ul></li>
+<li><p>Entrega do projeto do Quartus, com:</p>
+<ul>
+<li><p>Código VHDL, devidamente documentado e com o nome dos participantes;</p></li>
+<li><p>Arquivo com conteúdo da microprogramação (se for o caso).</p></li>
+</ul></li>
+</ul>
+<h3 id="execução">Execução</h3>
+<p>Em grupo, com até <strong>4</strong> (quatro) alunos.</p>
+<hr />
+<h2 id="leituras">Leituras</h2>
+<p>Ler os itens abaixo, do livro texto (Organização e Projeto de Computadores: A Interface Hardware/Software):</p>
+<ul>
+<li><p>Capítulo 4, item 4.1 até 4.9;</p></li>
+<li><p>Apêndice C e D, completos;</p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/MIPS_architecture">Arquitetura do MIPS na wikipedia (nosso interesse: MIPS I).</a></p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/DLX">A página do DLX na wikipedia.</a></p></li>
+<li><p>Um resumo de <a href="https://booksite.elsevier.com/9780124077263/downloads/COD_5e_Greencard.pdf">referência sobre o MIPS</a> (todas instruções e outros detalhes - download gratuito no site da editora).</p></li>
+<li><p>Resumo (interno) da <a href="../MIPS/_arquitetura.html">arquitetura do MIPS</a></p></li>
+</ul>
+<p><br></p>
+<h2 id="referências">Referências</h2>
+<p><a href="../linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<p><br></p>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+<!---
+######### (inicio dos links) ##########
+--->
+<!--
+
+[metodologia]: ../MIPS/metodo.html
+
+[detalhesMulticore]: ../MIPS/multicore.html
+-->
+</body>
+</html>

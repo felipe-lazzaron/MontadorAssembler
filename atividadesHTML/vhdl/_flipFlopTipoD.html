@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<h1 id="flip-flop-tipo-d">Flip flop tipo D</h1>
+<p>Observe a influência da posição da atribuição da saída Qbarra.</p>
+<p>A primeira forma, implementa dois <em>flip-flops</em>. Já a segunda forma, implementa um <em>flip-flop</em>.</p>
+<p><br></p>
+<h2 id="código-vhdl-que-implementa-dois-flip-flops">Código VHDL que Implementa <strong>Dois</strong> <em>Flip-Flops</em></h2>
+<div class="sourceCode"><pre class="sourceCode vhdl"><code class="sourceCode vhdl"><span class="kw">library</span> IEEE;
+<span class="kw">use</span> IEEE<span class="ot">.</span>STD_LOGIC_1164<span class="ot">.</span>ALL;
+
+<span class="kw">entity</span> <span class="kw">flip_flop</span> <span class="kw">is</span>
+<span class="kw">port</span>
+(
+    <span class="co">-- Input ports</span>
+    dado<span class="ot">:</span> <span class="kw">in</span> <span class="dt">STD_LOGIC</span>;
+    clock<span class="ot">:</span> <span class="kw">in</span> <span class="dt">STD_LOGIC</span>; <span class="co">-- := &lt;default_value&gt;;</span>
+    <span class="co">-- Output ports</span>
+    Q<span class="ot">:</span> <span class="kw">out</span> <span class="dt">STD_LOGIC</span>;
+    Qbarra <span class="ot">:</span> <span class="kw">out</span> <span class="dt">STD_LOGIC</span>);
+<span class="er">end flip_flop;</span>
+
+<span class="kw">architecture</span> <span class="kw">comportamento</span> <span class="kw">of</span> <span class="kw">flip_flop</span> <span class="kw">is</span>
+<span class="co">-- Declarations (optional)</span>
+<span class="kw">begin</span>
+
+    <span class="co">-- Update the variable only when updates are enabled</span>
+    <span class="kw">process</span>(clock)
+    <span class="kw">begin</span>
+        <span class="kw">if</span> (<span class="kw">rising_edge</span>(clock)) <span class="kw">then</span>
+            Q <span class="ot">&lt;=</span> dado;
+            Qbarra <span class="ot">&lt;=</span> <span class="kw">NOT</span>(dado);       <span class="co">-- A atribuição do Qbarra dentro do processo força a implementação de outro flip-flop</span>
+        <span class="kw">end if;</span>
+    <span class="kw">end process</span>;
+
+<span class="er">end comportamento;</span></code></pre></div>
+<h3 id="esquema-rtl-do-flip-flop-do-código-acima">Esquema RTL do Flip-Flop do código acima</h3>
+<p><img src="../imagensQuartus/flipFlopRTL.png" alt="Esquema RTL do Flip-Flop tipo D" style="width:600px;"/></p>
+<hr />
+<h2 id="código-vhdl-que-implementa-um-flip-flop">Código VHDL que Implementa <strong>Um</strong> <em>Flip-Flop</em></h2>
+<div class="sourceCode"><pre class="sourceCode vhdl"><code class="sourceCode vhdl"><span class="kw">library</span> IEEE;
+<span class="kw">use</span> IEEE<span class="ot">.</span>STD_LOGIC_1164<span class="ot">.</span>ALL;
+
+<span class="kw">entity</span> <span class="kw">flip_flop</span> <span class="kw">is</span>
+<span class="kw">port</span>
+(
+    <span class="co">-- Input ports</span>
+    dado<span class="ot">:</span> <span class="kw">in</span> <span class="dt">STD_LOGIC</span>;
+    clock<span class="ot">:</span> <span class="kw">in</span> <span class="dt">STD_LOGIC</span>; <span class="co">-- := &lt;default_value&gt;;</span>
+    <span class="co">-- Output ports</span>
+    Q<span class="ot">:</span> <span class="kw">out</span> <span class="dt">STD_LOGIC</span>;
+    Qbarra <span class="ot">:</span> <span class="kw">out</span> <span class="dt">STD_LOGIC</span>);
+<span class="er">end flip_flop;</span>
+
+<span class="kw">architecture</span> <span class="kw">comportamento</span> <span class="kw">of</span> <span class="kw">flip_flop</span> <span class="kw">is</span>
+<span class="co">-- Declarations (optional)</span>
+<span class="kw">begin</span>
+
+    <span class="co">-- Update the variable only when updates are enabled</span>
+    <span class="kw">process</span>(clock)
+    <span class="kw">begin</span>
+        <span class="kw">if</span> (<span class="kw">rising_edge</span>(clock)) <span class="kw">then</span>
+            Q <span class="ot">&lt;=</span> dado;
+        <span class="kw">end if;</span>
+    <span class="kw">end process</span>;
+    Qbarra <span class="ot">&lt;=</span> <span class="kw">NOT</span>(Q);                  <span class="co">-- A atribuição do Qbarra fora do processo impede a implementação de outro flip-flop</span>
+
+<span class="er">end comportamento;</span></code></pre></div>
+<h3 id="esquema-rtl-do-flip-flop-do-código-acima-1">Esquema RTL do Flip-Flop do código acima</h3>
+<p><img src="../imagensQuartus/flipFlopRTL2.png" alt="Esquema RTL do Flip-Flop tipo D" style="width:600px;"/></p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+</body>
+</html>

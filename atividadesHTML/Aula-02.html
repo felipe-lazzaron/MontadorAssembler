@@ -1,0 +1,527 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#aula-2-elementos-de-um-computador-simplificado">Aula 2: Elementos de um Computador Simplificado</a><ul>
+<li><a href="#objetivos">Objetivos:</a></li>
+<li><a href="#atividade-endereçamento">Atividade: Endereçamento</a><ul>
+<li><a href="#mapa-de-memória">Mapa de memória</a></li>
+</ul></li>
+<li><a href="#atividade-registrador-em-vhdl.">Atividade: Registrador em VHDL.</a></li>
+<li><a href="#atividade-memória-em-vhdl">Atividade: Memória em VHDL</a><ul>
+<li><a href="#dicas">Dicas</a></li>
+<li><a href="#contextualização">Contextualização:</a><ul>
+<li><a href="#lógica-sequencial-e-memórias.">Lógica sequencial e memórias.</a></li>
+<li><a href="#arrays-em-vhdl.">Arrays em VHDL.</a></li>
+<li><a href="#memória-e-fpga">Memória e FPGA</a></li>
+</ul></li>
+<li><a href="#objetivo">Objetivo</a></li>
+</ul></li>
+<li><a href="#referências">Referências</a></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="aula-2-elementos-de-um-computador-simplificado">Aula 2: Elementos de um Computador Simplificado</h1>
+<h2 id="objetivos">Objetivos:</h2>
+<ol style="list-style-type: decimal">
+<li>Projetar circuito (decodificador) de endereçamento;</li>
+<li>Implementar um registrador em VHDL;</li>
+<li>Aplicar o tipo de dados <em><code>array</code></em> do VHDL;</li>
+<li>Implementar memória RAM em VHDL.</li>
+</ol>
+<hr />
+<h2 id="atividade-endereçamento">Atividade: Endereçamento</h2>
+<h3 id="mapa-de-memória">Mapa de memória</h3>
+<p>Para o circuito abaixo, qual o mapeamento de memória implementado?</p>
+<p>Esse mapeamento é de memória ou de E/S?</p>
+<div class="figure">
+<img src="./imagensCircuitos/decoder-1.jpg" title="Decodificador de Endereços" alt="Decodificador" />
+<p class="caption">Decodificador</p>
+</div>
+<p>Para entender o funcionamento dos CIs usados, consulte a <a href="https://en.wikipedia.org/wiki/List_of_7400-series_integrated_circuits" title="Família 74XX">Lista dos Circuitos Integrados TTL</a>.</p>
+<hr />
+<p>No decodificador abaixo, de um computador de 16 bits, foram utilizadas todas as linhas de endereçamento disponíveis.</p>
+<p>Esse tipo de decodificação é chamada de <a href="https://en.wikipedia.org/wiki/Memory-mapped_I/O">exaustiva ou completa</a> - ela seleciona um único endereço de memória.</p>
+<div class="figure">
+<img src="./imagensCircuitos/I_O-decoder.jpg" title="Decodificador de E/S" alt="Decodificador de E/S" />
+<p class="caption">Decodificador de E/S</p>
+</div>
+<p>Nesse caso, é possível mudar o endereço para 0xF500?</p>
+<p>Quais as modificações necessárias?</p>
+<hr />
+<!---
+A decodificação incompleta, ou parcial, faz com que o trecho de memória endereçado se repita no mapa de memória
+--->
+<p>Desenhe o mapa de memória para o projeto abaixo.</p>
+<div class="figure">
+<img src="./imagensCircuitos/cpu8085.png" title="Endereçamento no 8085" alt="Sistema Mínimo com o 8085" />
+<p class="caption">Sistema Mínimo com o 8085</p>
+</div>
+<hr />
+<h2 id="atividade-registrador-em-vhdl.">Atividade: Registrador em VHDL.</h2>
+<p>Queremos implementar o registrador de 8 bits mostrado abaixo:</p>
+<p>[Imagem do Registrador] (imagensComponentes/registrador8bitsPCFS.png)</p>
+<p>Para criar um registrador, inicialmente, criaremos o esqueleto do circuito:</p>
+<ul>
+<li>Crie um novo arquivo com o nome <em><code>registrador</code></em>;</li>
+<li>Adicione esse arquivo ao projeto.</li>
+<li>Adicione ao arquivo a biblioteca IEEE e a cláusula de uso para: <em><code>ieee.std_logic_1164.all</code></em>;</li>
+<li>Crie uma entidade chamada <em><code>registrador</code></em> ;</li>
+<li>Crie uma arquitetura chamada <em><code>comportamento</code></em>;</li>
+<li>Defina a <a href="./quartus/_recursosQuartus.html#configurar-a-top-level-entity"><em>Top Level Entry</em></a> para a entidade desse arquivo;</li>
+</ul>
+<blockquote>
+<p>É importante usar o nome <em><code>registrador</code></em> para o arquivo e entidade, pois reutilizaremos esse arquivo no projeto hierárquico.</p>
+</blockquote>
+<p><strong>Personalização do código:</strong></p>
+<p><strong>Entidade:</strong></p>
+<p>A largura de dados do registrador será definida com:</p>
+<ul>
+<li>O tipo de dados da biblioteca <strong>IEEE</strong>: <strong><em>std_logic_vector</em></strong>:
+<ul>
+<li>Com o seu limite superior definido por um parâmetro.</li>
+</ul></li>
+<li>A declaração <em><code>generic</code></em>:
+<ul>
+<li>Onde está definido o valor padrão desse parâmetro.</li>
+</ul></li>
+</ul>
+<p>No nosso caso, definiremos a largura de dados do registrador em 8 bits.</p>
+<p>Também adicionaremos um sinal de habilitação (Enable) e outro de reinicialização (Reset).</p>
+<!--
+O código da *`Entity`* será similar a [este código][entidadeRegistrador].
+-->
+<p><strong>Arquitetura:</strong></p>
+<p>O funcionamento do registrador, definido dentro da <em>Architecture</em>, será feito com:</p>
+<ul>
+<li>O template <em><code>Basic Positive Edge Register with Asynchronous Reset and Clock Enable</code></em>.</li>
+<li>Portanto, insira esse <em>template</em> dentro da <em><code>architecture</code></em>:</li>
+</ul>
+<p>O funcionamento é similar ao flip flop tipo D, porém, a atualização da saída é executada para o vetor todo.</p>
+<p>Lembre que o <em>reset</em> deve ser feito em todo o vetor. Para tanto, utilize o comando:</p>
+<ul>
+<li>DOUT &lt;= (OTHERS =&gt; '0');</li>
+</ul>
+<p>Ele faz com que todos os bits do registrador, na quantidade definida no parâmetro <em><code>generic</code></em>, recebam a atribuição do nível lógico '0'.</p>
+<p><a href="./quartus/_compilarProjetoQuartus.html">Compile</a> o circuito e verifique, com o <a href="./quartus/_rtlViewerQuartus.html">RTL Viewer</a>, se o resultado da compilação foi o <a href="./vhdl/_rtlRegistrador.html">desejado</a>.</p>
+<p><strong>Simulação:</strong></p>
+<p>Para testar o registrador, precisaremos de:</p>
+<ul>
+<li>Sinal de <em>clock</em>;</li>
+<li>Sinal de entrada de dados com a largura definida no <em><code>generic</code></em>.</li>
+</ul>
+<p>Na simulação, como foi definida a largura de 8 bits para o registrador, o vetor de teste pode ser agrupado em 8 bits e exibido em hexadecimal. Veja uma opção para fazer o <a href="./vhdl/_simulacaoConfigRegistrador.html">vetor de estímulos</a>.</p>
+<p>Verifique o <a href="./vhdl/_simulacaoRegistrador.html">resultado</a> da simulação.</p>
+<hr />
+<h2 id="atividade-memória-em-vhdl">Atividade: Memória em VHDL</h2>
+<h4 id="dicas">Dicas</h4>
+<ul>
+<li><p>Pense qual resultado que deseja obter:</p>
+<ul>
+<li><p>Esboce no papel um diagrama representando esse objetivo;</p></li>
+<li><p>Ou uma tabela da verdade. Ou o que for mais adequado.</p></li>
+</ul></li>
+<li><p>Monte a estrutura básica do VHDL no seu arquivo de trabalho:</p>
+<ul>
+<li><p>Utilize um componente por arquivo;</p></li>
+<li><p>O nome do arquivo deve ser o nome da entidade desse componente;</p></li>
+<li><p>Assim é mais fácil de reutilizá-lo no futuro.</p></li>
+</ul></li>
+<li><p>Para alguns casos, o uso da configuração com <em>generics</em> permite:</p>
+<ul>
+<li><p>Criar componentes mais versáteis, com largura de entrada/saída parametrizáveis.</p></li>
+<li><p>Aumentando a possibilidade de reutilização desse código.</p></li>
+</ul></li>
+<li><p>Verifique se o esquema RTL é funcionalmente similar ao seu objetivo de implementação.</p></li>
+<li><p>Simule o funcionamento do seu circuito. Se houver uma tabela da verdade:</p>
+<ul>
+<li><p>Ela já indica os vetores de entrada e os resultados na saída.</p></li>
+<li><p>Caso não exista ou a quantidade de possibilidades é muito grande:</p>
+<ul>
+<li>Fique atento para os casos nos extremos da sua faixa de valores de entrada.</li>
+</ul></li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="contextualização">Contextualização:</h3>
+<h4 id="lógica-sequencial-e-memórias.">Lógica sequencial e memórias.</h4>
+<p>De uma forma muito geral, podemos dividir as memórias em dois grupos:</p>
+<ul>
+<li>As que podem ser lidas e escritas dinamicamente:
+<ul>
+<li>RAM (<em>Random Access Memory</em>);</li>
+</ul></li>
+<li>As que podem ser escritas somente durante a sua fabricação/implementação no produto e lidas dinamicamente:
+<ul>
+<li>ROM (<em>Read Only Memory</em>).</li>
+</ul></li>
+</ul>
+<p>As memórias podem ser vistas como um <em>array</em> bidimensional:</p>
+<ul>
+<li>Onde cada elemento é um registrador (o elemento básico da lógica sequencial);</li>
+<li>Esses elementos são agrupados para formar a largura da palavra da memória.</li>
+<li>E esses grupos de registradores podem ser endereçados de forma unívoca:
+<ul>
+<li>Através de um circuito decodificador de endereços:
+<ul>
+<li>Que decodifica o endereço de entrada para uma única linha de palavra.</li>
+</ul></li>
+</ul></li>
+<li>Como é um <em>array</em> bidimensional, cada elemento individual (bit):
+<ul>
+<li>Pode ser identificado através do endereço da palavra a que pertence, e da sua posição de bit dentro dessa palavra.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>O esquema de uma memória RAM de 4 bits e 4 posições:</p>
+<div class="figure">
+<img src="imagensComponentes/memoriaRAM.png" />
+
+</div>
+<p><br></p>
+<p>Na memória estática, para cada célula (bit), temos um circuito similar ao abaixo:</p>
+<p><br></p>
+<div class="figure">
+<img src="imagensComponentes/SRAM_Cell_Inverter_Loop.png" />
+
+</div>
+<hr />
+<h4 id="arrays-em-vhdl.">Arrays em VHDL.</h4>
+<p>Como visto acima, a abstração de uma memória é o <em>array</em>. Portanto, faz todo sentido utilizar um <em>array em VHDL</em> para descrever uma memória.</p>
+<p>Em VHDL, o <em><code>array</code></em> é um tipo de dados composto:</p>
+<ul>
+<li>Contendo uma coleção de dados de um mesmo tipo:
+<ul>
+<li>Diferindo do <em><code>record</code></em>, que é uma coleção de dados de tipos diferentes.</li>
+</ul></li>
+<li>Com a localização desses dados indexada através de um valor do tipo escalar.</li>
+</ul>
+<p>Um exemplo de <em><code>array</code></em> é o <em>std_logic_vector</em>, que é um <em>array</em> de dados contendo somente dados do tipo std_logic.</p>
+<p>Sua definição, mostrada abaixo, está no pacote <em>std_logic_1164</em> da biblioteca <em>ieee</em>.</p>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl">    type std_logic_vector is array (natural range <span class="ot">&lt;&gt;</span>) of std_logic;</code></pre></div>
+<p>A declaração de um <em><code>array</code></em> pode ser feita de duas formas:</p>
+<ul>
+<li>Com uma faixa irrestrita de valores para o índice:
+<ul>
+<li>Como a definição, acima, do <em>std_logic_vector</em>;</li>
+<li>Nesse caso, na declaração de uso do <em><code>array</code></em> também deve ser declarada a restrição de faixa.</li>
+</ul></li>
+<li>Com uma faixa determinada de valores para o índice.</li>
+</ul>
+<p>Para uma faixa numérica determinada a declaração é esta:</p>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl">    type word is array (31 downto 0) of bit;</code></pre></div>
+<p>No caso das memórias precisamos de um <code>array</code> bidimensional. Ele pode ser descrito utilizando um tipo que é um <code>array</code> de um subtipo:</p>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl">    subtype word_t is std_logic_vector((DATA_WIDTH<span class="ot">-</span>1) downto 0);
+    type memory_t is array(2<span class="ot">**</span>ADDR_WIDTH<span class="ot">-</span>1 downto 0) of word_t;
+
+    signal ram <span class="ot">:</span> memory_t;</code></pre></div>
+<p>Como o índice do <code>array</code> é do tipo escalar:</p>
+<ul>
+<li>Se o endereço da memória estiver definido como <code>std_logic_vector</code>:
+<ul>
+<li>Deverá ser feita a conversão de tipos;</li>
+<li>Tanto na leitura quanto na escrita dos dados.</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl">    endereco    <span class="ot">:</span> in std_logic_vector((larguraEndBancoRegs<span class="ot">-</span>1) downto 0);
+    <span class="ot">...</span>
+    saida <span class="ot">&lt;=</span> ram(to_integer(unsigned(endereco)));
+    <span class="ot">...</span>
+    ram(to_integer(unsigned(endereco))) <span class="ot">&lt;=</span> dadoEntrada;</code></pre></div>
+<ul>
+<li>Se o endereço da memória estiver definido como natural:
+<ul>
+<li>A conversão de tipos é desnecessária.</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl">    endereco    <span class="ot">:</span> in natural range 0 to 2<span class="ot">**</span>larguraEndBancoRegs <span class="ot">-</span> 1;
+    <span class="ot">...</span>
+    ram(endereco) <span class="ot">&lt;=</span> dadoEntrada;
+    <span class="ot">...</span>
+    saida <span class="ot">&lt;=</span> ram(endereco);</code></pre></div>
+<p><br></p>
+<p>Em outras implementações, que não seja algum tipo de memória, a faixa do <code>array</code> pode ser um tipo enumerado:</p>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl">    type etapas is (inicial<span class="ot">,</span> primeira<span class="ot">,</span> segunda<span class="ot">,</span> terceira<span class="ot">,</span> final); <span class="co">-- enumeração</span>
+
+    type etapasConsideradas is array (primeira to terceira) of natural;</code></pre></div>
+<p>Além disso, o <em><code>array</code></em> em VHDL possui alguns atributos:</p>
+<ul>
+<li>ARRAY'left: limite esquerdo da faixa de índices de ARRAY;</li>
+<li>ARRAY'right: limite direito da faixa de índices de ARRAY;</li>
+<li>ARRAY'range: a faixa de índices de ARRAY;</li>
+<li>ARRAY'reverse_range: a faixa invertida de índices de ARRAY;</li>
+<li>ARRAY'length: o comprimento da faixa de índices de ARRAY.</li>
+</ul>
+<h4 id="memória-e-fpga">Memória e FPGA</h4>
+<p>A FPGA possui, além dos blocos lógicos, os blocos de DSP e os blocos dedicados de memória.</p>
+<p>Para pequenas quantidades de memória, pode-se implementar utilizando os registradores dos blocos lógicos. Porém, para tamanhos maiores de memória, pode-se economizar os blocos lógicos usando os blocos de memória.</p>
+<p>Para fazer com que a ferramenta de síntese mapeie o código VHDL para os blocos de memória, são necessários alguns cuidados:</p>
+<ul>
+<li>Usar memória síncrona;</li>
+<li>Evitar uso de <em>reset</em> no código da memória;</li>
+<li>Verificar se a leitura durante a escrita, se existir, é coerente com o modelo da FPGA;</li>
+<li>Entre outros.</li>
+</ul>
+<p>A Intel (Altera) indica, no manual de boas práticas de codificação, que sejam utilizados os modelos por ela fornecidos. Veja os modelos disponíveis nos <em>templates</em> do Quartus e no site da Altera:</p>
+<p><a href="https://www.altera.com/support/support-resources/design-examples/design-software/vhdl.html" class="uri">https://www.altera.com/support/support-resources/design-examples/design-software/vhdl.html</a></p>
+<hr />
+<h3 id="objetivo">Objetivo</h3>
+<p>Codificar um bloco de memória RAM com:</p>
+<ul>
+<li>Largura de 8 bits;</li>
+<li>1024 posições;</li>
+<li>Sinal de habilitado: <em>enable</em> ou <em>chip-enable</em> (CS);</li>
+<li>Síncrona.</li>
+</ul>
+<p>Crie o seu projeto e codifique a memória.</p>
+<p>Para a simulação, além da leitura e escrita, não se esqueça de testar todos os sinais de controle.</p>
+<p><br><br></p>
+<h2 id="referências">Referências</h2>
+<p><a href="./linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<hr />
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<!---
+######### (inicio dos links) ##########
+--->
+<hr />
+<hr />
+</body>
+</html>

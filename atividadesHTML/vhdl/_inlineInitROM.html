@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<h1 id="rom-com-a-inicialização-em-vhdl">ROM com a Inicialização em VHDL</h1>
+<p>O endereçamento da memória é feito com o tipo <em>integer</em> definido por uma determinada faixa de valores <em>natural</em>.</p>
+<p>Por sua vez, a interface dos módulos, em geral, é do tipo <em>std_logic</em>.</p>
+<p>Para criar um padrão de interface, temos duas possibilidades:</p>
+<ul>
+<li><p>Pode-se manter a interface dos endereços como <em>std_logic_vector</em>;</p></li>
+<li><p>Pode-se manter a interface dos endereços como <em>integer</em>.</p></li>
+</ul>
+<p>Para a simulação é mais interessante usar <em>std_logic_vector</em> que possui 9 estados.</p>
+<hr />
+<p><br></p>
+<h2 id="inicialização-de-rom-com-interface-usando-o-tipo-std_logic_vector">Inicialização de ROM com Interface usando o Tipo <em>std_logic_vector</em></h2>
+<p>Para manter a interface da sua memória em <strong>std_logic_vector</strong>:</p>
+<ul>
+<li><p>Na sua entidade, mantenha a entrada de endereçamento com o tipo std_logic_vector;</p></li>
+<li><p>Como a memória precisa que o endereçamento seja do tipo natural:</p>
+<ul>
+<li>Faça a conversão somente na momento da leitura.</li>
+</ul></li>
+</ul>
+<pre><code>    Dado &lt;= memROM (to_integer(unsigned(Endereco)));</code></pre>
+<p><br></p>
+<p>No caso da memória síncrona, é necessário manter o <em>process</em> com a lista de sensibilidade <strong>contendo somente o sinal do clock</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode vhdl"><code class="sourceCode vhdl">process(clk)
+begin
+  if(rising_edge(clk)) then
+    Dado <span class="ot">&lt;=</span> memROM (to_integer(unsigned(Endereco)));
+  end if;
+end process;</code></pre></div>
+<p><br></p>
+<p>Para a memória assíncrona, pode-se remover todo o <em>process</em> e manter somente a atribuição do conteúdo.</p>
+<pre><code>        Dado &lt;= memROM (to_integer(unsigned(Endereco)));</code></pre>
+<p><br></p>
+<h3 id="exemplo-de-memória-síncrona">Exemplo de Memória Síncrona</h3>
+<div class="sourceCode"><pre class="sourceCode vhdl"><code class="sourceCode vhdl"><span class="kw">library</span> IEEE;
+<span class="kw">use</span> IEEE<span class="ot">.</span>std_logic_1164<span class="ot">.</span>all;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">memoria</span> <span class="kw">IS</span>
+     <span class="kw">generic</span> (
+          dataWidth<span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">8</span>;
+          addrWidth<span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">3</span>
+     );
+    <span class="kw">port</span> (
+        clk <span class="ot">:</span> <span class="kw">IN</span> <span class="dt">STD_LOGIC</span>;
+            Endereco <span class="ot">:</span> <span class="kw">IN</span> <span class="dt">STD_LOGIC_VECTOR</span> (addrWidth<span class="ot">-</span><span class="dv">1</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>);
+        Dado <span class="ot">:</span> <span class="kw">OUT</span> <span class="dt">STD_LOGIC_VECTOR</span> (dataWidth<span class="ot">-</span><span class="dv">1</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>)
+    );
+<span class="kw">end entity;</span>
+
+<span class="kw">architecture</span> <span class="kw">sincrona</span> <span class="kw">OF</span> <span class="kw">memoria</span> <span class="kw">IS</span>
+   <span class="ot">type</span> blocoMemoria <span class="kw">IS</span> <span class="kw">ARRAY</span>(<span class="dv">0</span> <span class="ot">TO</span> <span class="dv">2</span><span class="ot">**</span>addrWidth <span class="ot">-</span> <span class="dv">1</span>) <span class="kw">OF</span> <span class="dt">std_logic_vector</span>(dataWidth<span class="ot">-</span><span class="dv">1</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>);
+
+    <span class="kw">function</span> initMemory
+        <span class="kw">return</span> blocoMemoria <span class="kw">is</span> <span class="ot">variable</span> tmp <span class="ot">:</span> blocoMemoria <span class="ot">:=</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span>));
+    <span class="kw">begin</span>
+            <span class="co">-- Inicializa os endereços:</span>
+        tmp(<span class="dv">0</span>) <span class="ot">:=</span> x<span class="st">&quot;AA&quot;</span>;
+        tmp(<span class="dv">1</span>) <span class="ot">:=</span> x<span class="st">&quot;42&quot;</span>;
+        tmp(<span class="dv">2</span>) <span class="ot">:=</span> x<span class="st">&quot;43&quot;</span>;
+        tmp(<span class="dv">3</span>) <span class="ot">:=</span> x<span class="st">&quot;44&quot;</span>;
+        tmp(<span class="dv">4</span>) <span class="ot">:=</span> x<span class="st">&quot;45&quot;</span>;
+        tmp(<span class="dv">5</span>) <span class="ot">:=</span> x<span class="st">&quot;46&quot;</span>;
+        tmp(<span class="dv">6</span>) <span class="ot">:=</span> x<span class="st">&quot;47&quot;</span>;
+        tmp(<span class="dv">7</span>) <span class="ot">:=</span> x<span class="st">&quot;55&quot;</span>;
+        <span class="kw">return</span> tmp;
+    <span class="kw">end </span>initMemory;
+
+    <span class="ot">signal</span> memROM <span class="ot">:</span> blocoMemoria <span class="ot">:=</span> initMemory;
+
+<span class="kw">begin</span>
+    <span class="kw">process</span>(clk)
+    <span class="kw">begin</span>
+    <span class="kw">if</span>(<span class="kw">rising_edge</span>(clk)) <span class="kw">then</span>
+          Dado <span class="ot">&lt;=</span> memROM (to_integer(<span class="dt">unsigned</span>(Endereco)));
+    <span class="kw">end if;</span>
+    <span class="kw">end process</span>;
+
+<span class="kw">end architecture;</span></code></pre></div>
+<p><br></p>
+<h3 id="exemplo-de-memória-assíncrona">Exemplo de Memória Assíncrona</h3>
+<div class="sourceCode"><pre class="sourceCode vhdl"><code class="sourceCode vhdl">
+<span class="kw">library</span> IEEE;
+<span class="kw">use</span> IEEE<span class="ot">.</span>std_logic_1164<span class="ot">.</span>all;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">memoria</span> <span class="kw">IS</span>
+   <span class="kw">generic</span> (
+          dataWidth<span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">8</span>;
+          addrWidth<span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">3</span> );
+   <span class="kw">port</span> (
+        clk <span class="ot">:</span> <span class="kw">IN</span> <span class="dt">STD_LOGIC</span>;
+            Endereco <span class="ot">:</span> <span class="kw">IN</span> <span class="dt">STD_LOGIC_VECTOR</span> (addrWidth<span class="ot">-</span><span class="dv">1</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>);
+        Dado <span class="ot">:</span> <span class="kw">OUT</span> <span class="dt">STD_LOGIC_VECTOR</span> (dataWidth<span class="ot">-</span><span class="dv">1</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>) );
+<span class="kw">end entity;</span>
+
+<span class="kw">architecture</span> <span class="kw">assincrona</span> <span class="kw">OF</span> <span class="kw">memoria</span> <span class="kw">IS</span>
+  <span class="ot">type</span> blocoMemoria <span class="kw">IS</span> <span class="kw">ARRAY</span>(<span class="dv">0</span> <span class="ot">TO</span> <span class="dv">2</span><span class="ot">**</span>addrWidth <span class="ot">-</span> <span class="dv">1</span>) <span class="kw">OF</span> <span class="dt">std_logic_vector</span>(dataWidth<span class="ot">-</span><span class="dv">1</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>);
+
+  <span class="kw">function</span> initMemory
+        <span class="kw">return</span> blocoMemoria <span class="kw">is</span> <span class="ot">variable</span> tmp <span class="ot">:</span> blocoMemoria <span class="ot">:=</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span>));
+  <span class="kw">begin</span>
+            <span class="co">-- Inicializa os endereços:</span>
+        tmp(<span class="dv">0</span>) <span class="ot">:=</span> x<span class="st">&quot;AA&quot;</span>;
+        tmp(<span class="dv">1</span>) <span class="ot">:=</span> x<span class="st">&quot;42&quot;</span>;
+        tmp(<span class="dv">2</span>) <span class="ot">:=</span> x<span class="st">&quot;43&quot;</span>;
+        tmp(<span class="dv">3</span>) <span class="ot">:=</span> x<span class="st">&quot;44&quot;</span>;
+        tmp(<span class="dv">4</span>) <span class="ot">:=</span> x<span class="st">&quot;45&quot;</span>;
+        tmp(<span class="dv">5</span>) <span class="ot">:=</span> x<span class="st">&quot;46&quot;</span>;
+        tmp(<span class="dv">6</span>) <span class="ot">:=</span> x<span class="st">&quot;47&quot;</span>;
+        tmp(<span class="dv">7</span>) <span class="ot">:=</span> x<span class="st">&quot;55&quot;</span>;
+        <span class="kw">return</span> tmp;
+    <span class="kw">end </span>initMemory;
+
+    <span class="ot">signal</span> memROM <span class="ot">:</span> blocoMemoria <span class="ot">:=</span> initMemory;
+
+<span class="kw">begin</span>
+  Dado <span class="ot">&lt;=</span> memROM (to_integer(<span class="dt">unsigned</span>(Endereco)));
+<span class="kw">end architecture;</span></code></pre></div>
+<p><br></p>
+<hr />
+<h2 id="inicialização-de-rom-com-interface-usando-o-tipo-integer">Inicialização de ROM com Interface Usando o Tipo <em>integer</em></h2>
+<h3 id="exemplo-de-memória-síncrona-1">Exemplo de Memória Síncrona</h3>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl"><span class="kw">library</span> ieee;
+<span class="kw">use</span> ieee<span class="ot">.</span>std_logic_1164<span class="ot">.</span>all;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">romMif</span> <span class="kw">is</span>
+
+    <span class="kw">generic</span>
+    (
+        DATA_WIDTH <span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">8</span>;
+        ADDR_WIDTH <span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">8</span>
+    );
+
+    <span class="kw">port</span> (
+        clk<span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic</span>;
+        addr<span class="ot">:</span> <span class="kw">in</span> <span class="dt">natural</span> <span class="kw">range</span> <span class="dv">0</span> <span class="ot">to</span> <span class="dv">2</span><span class="ot">**</span>ADDR_WIDTH<span class="ot">-</span><span class="dv">1</span>;
+        q<span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic_vector</span> (DATA_WIDTH<span class="ot">-</span><span class="dv">1</span> <span class="ot">downto</span> <span class="dv">0</span>)
+    );
+<span class="kw">end entity;</span>
+
+<span class="kw">architecture</span> <span class="kw">inLineInitROM</span> <span class="kw">of</span> <span class="kw">romMif</span> <span class="kw">is</span>
+
+<span class="ot">type</span> memory_t <span class="kw">is</span> <span class="kw">array</span> (<span class="dv">2</span><span class="ot">**</span>ADDR_WIDTH<span class="ot">-</span><span class="dv">1</span> <span class="ot">downto</span> <span class="dv">0</span>) <span class="kw">of</span> <span class="dt">std_logic_vector</span> (DATA_WIDTH<span class="ot">-</span><span class="dv">1</span> <span class="ot">downto</span> <span class="dv">0</span>);
+
+    <span class="kw">function</span> init_rom
+        <span class="kw">return</span> memory_t <span class="kw">is</span>
+        <span class="ot">variable</span> tmp <span class="ot">:</span> memory_t <span class="ot">:=</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span>));
+        <span class="kw">begin</span>
+        tmp(<span class="dv">0</span>) <span class="ot">:=</span> x<span class="st">&quot;49&quot;</span>;
+        tmp(<span class="dv">1</span>) <span class="ot">:=</span> x<span class="st">&quot;6e&quot;</span>;
+        tmp(<span class="dv">2</span>) <span class="ot">:=</span> x<span class="st">&quot;73&quot;</span>;
+        tmp(<span class="dv">3</span>) <span class="ot">:=</span> x<span class="st">&quot;70&quot;</span>;
+        tmp(<span class="dv">4</span>) <span class="ot">:=</span> x<span class="st">&quot;65&quot;</span>;
+        tmp(<span class="dv">5</span>) <span class="ot">:=</span> x<span class="st">&quot;72&quot;</span>;
+        tmp(<span class="dv">6</span>) <span class="ot">:=</span> x<span class="st">&quot;20&quot;</span>;
+        tmp(<span class="dv">7</span>) <span class="ot">:=</span> x<span class="st">&quot;21&quot;</span>;
+        <span class="kw">return</span> tmp;
+    <span class="kw">end </span>init_rom;
+
+<span class="ot">signal</span> content<span class="ot">:</span> memory_t <span class="ot">:=</span> init_rom;
+
+<span class="kw">begin</span>
+    <span class="kw">process</span>(clk)
+    <span class="kw">begin</span>
+        <span class="kw">if</span> (<span class="kw">RISING_EDGE</span>(clk)) <span class="kw">then</span>
+            q <span class="ot">&lt;=</span> content(addr);
+        <span class="kw">end if;</span>
+    <span class="kw">end process</span>;
+<span class="kw">end architecture;</span></code></pre></div>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+</body>
+</html>

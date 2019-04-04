@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  .bloco .title {
+      display: block;
+  }
+  
+  /*Bloco de solucao de exercicio*/
+  .bloco .label,
+  .bloco .separator {
+      font-weight: bold;
+  }
+  
+  .bloco .separator {
+      margin-right: .6em;
+  }
+  /* Solução */
+  div.solucao {
+    border-left: .3em solid #dd4444;   /*#dc3c01; */
+    margin-left: -.8em;
+    padding-left: .4em;
+    position: relative;
+    font-size: 90%;
+  }
+  
+  div.solucao .conteudo {
+    display: none;
+    padding-top: 1px;
+  }
+  
+  div.solucao button {
+    color: #0000AF;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  div.solucao button.viewed {
+    color: #FF2020;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(0,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  /*Tamanho absoluto das imagens definidas em markdown*/
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  /*Tamanho relativo das imagens definidas em markdown*/
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+  <script type="text/javascript">
+      function exibe(e)
+      {
+          var div = e.parentNode.firstElementChild;
+          var nome = e.parentNode.id;
+          var tipo=nome.substring(0, 3).toUpperCase()
+          if ( tipo == "SOL"){
+              nome = "Solução";
+          }
+          if (div.style.display == "" || div.style.display == "none") {
+              div.style.display = "block";
+              e.setAttribute("class", "viewed");
+              e.innerHTML = "Esconder ";
+          } else {
+              div.style.display = "none";
+              e.innerHTML = "Ver "+nome;
+          }
+      }
+      function validaBinario(nome) {
+          var valor, tamanho, i;
+          document.getElementById(nome).style.color = "black";
+          valor = document.getElementById(nome).value;
+          tamanho=valor.length;
+          for (i=0;i<tamanho; i=i+1){
+              if ( valor[i] != 1 && valor[i] != 0 ){
+                  document.getElementById(nome).style.color = "red";
+              }
+          }
+      }
+  </script>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#aula-13-revisão">Aula 13: Revisão</a><ul>
+<li><a href="#instrução-jal">Instrução JAL</a></li>
+<li><a href="#instrução-addi">Instrução ADDI</a></li>
+<li><a href="#endereçamento">Endereçamento</a></li>
+<li><a href="#vhdl">VHDL</a></li>
+<li><a href="#referências">Referências</a></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="aula-13-revisão">Aula 13: Revisão</h1>
+<h3 id="instrução-jal">Instrução JAL</h3>
+<p>Implemente, no fluxo de dados, a instrução jal (Jump And Link) conforme o funcionamento descrito abaixo:</p>
+<blockquote>
+<p>R[31]=PC+4;PC=JumpAddr</p>
+</blockquote>
+<p><strong>Esta é uma instrução do tipo J</strong></p>
+<div class="figure">
+<img src="imagensMIPS/fluxoDadosCompleto-1ciclo-Final.svg" alt="Fluxo de Dados do DLX" width="800" />
+<p class="caption"><strong>Fluxo de Dados do DLX</strong></p>
+</div>
+<div id="sol-ExJAL" class="bloco solucao">
+<div class="conteudo">
+<p style="color:red">
+Solução:
+</p>
+<p>Como esse fluxo de dados já atende a instrução jump, todo o circuito de montagem do endereço destino está pronto.</p>
+<blockquote>
+<p>endereço=(PC+4)[31..28],imediato&lt;25..0&gt;,0,0);</p>
+</blockquote>
+<p>O que falta é o armazenamento de PC+4 no registrador 31 do banco.</p>
+<div class="figure">
+<img src="imagensMIPS/fluxoDadosCompleto-1ciclo-Final+JAL.svg" alt="Fluxo de Dados do DLX + JAL" width="800" />
+<p class="caption"><strong>Fluxo de Dados do DLX + JAL</strong></p>
+</div>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<p><br></p>
+<hr />
+<h3 id="instrução-addi">Instrução ADDI</h3>
+<p>No fluxo de dados abaixo, quais as alterações necessárias para executar a instrução addi?</p>
+<blockquote>
+<p>R[rt] = R[rs] + SignExtImm</p>
+</blockquote>
+<p>Além disso, como ficaria a palavra de controle para essa instrução?</p>
+<p><strong>Esta é uma instrução do tipo I</strong></p>
+<div class="figure">
+<img src="imagensMIPS/fluxoDadosCompleto-1ciclo-Final.svg" alt="Fluxo de Dados do DLX" width="800" />
+<p class="caption"><strong>Fluxo de Dados do DLX</strong></p>
+</div>
+<div id="sol-ExADDI" class="bloco solucao">
+<div class="conteudo">
+<p style="color:red">
+Solução:
+</p>
+<p>Não é necessário nenhuma alteração no fluxo de dados.</p>
+<p>Porém, a unidade de controle deverá decodificar essa instrução e ativar os pontos como mostrado abaixo:</p>
+<table style="width:75%;">
+<colgroup>
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">mux([PC+4, BEQ]/Jmp)</th>
+<th align="center">mux(Rt/Rd)</th>
+<th align="center">habEscritaReg</th>
+<th align="center">mux(Rt/Imediato)</th>
+<th align="center">ULA</th>
+<th align="center">mux(ULA/mem)</th>
+<th align="center">BEQ</th>
+<th align="center">habLeituraMEM</th>
+<th align="center">habEscritaMEM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">soma</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<p><br></p>
+<hr />
+<h3 id="endereçamento">Endereçamento</h3>
+<p>Para o mapa de memória abaixo, projete o decodificador de endereços para as memórias externas.</p>
+<div class="figure">
+<img src="imagensComponentes/mapaMemoria-386.svg" alt="Mapa de Memória do i386 (parcial)" width="400" />
+<p class="caption"><strong>Mapa de Memória do i386 (parcial)</strong></p>
+</div>
+<p><br></p>
+<hr />
+<h3 id="vhdl">VHDL</h3>
+<p>Faça a codificação em VHDL para o circuito mostrado abaixo.</p>
+<p>Considere que o sinal de <em>clock</em> está distribuido adequadamente e os componentes já estão implementados em seus devidos arquivos.</p>
+<p>Faça a instanciação e o mapeamento de portas.</p>
+<div class="figure">
+<img src="imagensComponentes/implementarVHDL-1.svg" alt="Program Counter" width="600" />
+<p class="caption"><strong>Program Counter</strong></p>
+</div>
+<p><br></p>
+<hr />
+<p><br></p>
+<h2 id="referências">Referências</h2>
+<p><a href="./linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+<!---
+######### (inicio dos links) ##########
+#######################################
+########### Links Internos ############
+--->
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<p><a name="inicio"></a></p>
+<h2 id="para-simular-o-circuito-crie-uma-nova-simulação">Para simular o circuito, crie uma nova simulação:</h2>
+<ul>
+<li>Menu File:
+<ul>
+<li>New:
+<ul>
+<li>Verification/Debug Files:
+<ul>
+<li>University Program VWF;</li>
+<li>OK.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="../imagensQuartus/TelaNovaSimulacao-1.png" />
+
+</div>
+<ul>
+<li>Abrirá uma nova tela com o simulador:
+<ul>
+<li>Simulation Waveform Editor.</li>
+</ul></li>
+</ul>
+<h2 id="a-tela-simulation-waveform-editor">A tela 'Simulation Waveform Editor':</h2>
+<div class="figure">
+<img src="../imagensQuartus/TelaSimuladorVazia-1.png" />
+
+</div>
+<h2 id="selecione-os-sinais-do-circuito-que-deseja-ver-na-simulação">Selecione os sinais do circuito que deseja ver na simulação:</h2>
+<ul>
+<li>Menu Edit:
+<ul>
+<li>Insert:
+<ul>
+<li>'Insert Node or Bus'.</li>
+</ul></li>
+</ul></li>
+<li>Na tela de 'Insert Node or Bus':
+<ul>
+<li>Clique em 'Node Finder'.</li>
+</ul></li>
+<li>Na tela de 'Node Finder':
+<ul>
+<li>Clique em List:
+<ul>
+<li>Escolha os sinais para simular;</li>
+<li>OK.</li>
+</ul></li>
+<li>OK.</li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="../imagensQuartus/TelaNodeFinder-1.png" />
+
+</div>
+<h2 id="crie-os-estímulos-sinais-de-entrada-para-a-simulação">Crie os estímulos (sinais) de entrada para a simulação:</h2>
+<ul>
+<li>Selecione a primeira entrada no seu ícone 'In':
+<ul>
+<li>Selecione o ícone de 'Count Value':
+<ul>
+<li>Em 'Transitions occour', digite 10 e escolha a unidade de “ns” (nanosegundos).</li>
+<li>OK. <br></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="../imagensQuartus/TelaEstimulosSimulacao-2.png" />
+
+</div>
+<ul>
+<li>Faça o mesmo para a segunda entrada e escolha 20 ns.</li>
+<li>Note que foi criada a sequência binária da tabela da verdade.</li>
+<li>Salve a sua simulação.</li>
+</ul>
+<h2 id="ajuste-a-janela-de-tempo-para-simulação">Ajuste a janela de tempo para simulação:</h2>
+<ul>
+<li>Caso queira diminuir a janela de tempo mostrada:
+<ul>
+<li>Edit:
+<ul>
+<li>Set End Time...
+<ul>
+<li>Digite 40 (ns).</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="../imagensQuartus/TelaSimulacaoSetEndTime.png" />
+
+</div>
+<h2 id="execute-a-simulação-funcional">Execute a simulação funcional:</h2>
+<ul>
+<li>Clique no ícone:
+<ul>
+<li>Run Functional Simulation.</li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="../imagensQuartus/TelaRunFunctionalSimulation.png" />
+
+</div>
+<ul>
+<li>Caso não haja erros, deverá aparecer uma <strong>nova tela</strong> com a simulação.</li>
+</ul>
+<div class="figure">
+<img src="../imagensQuartus/TelaResultadoSimulacao-1.png" />
+
+</div>
+<ul>
+<li>Verifique se o resultado é coerente com a tabela da verdade dessa porta.</li>
+</ul>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+</body>
+</html>

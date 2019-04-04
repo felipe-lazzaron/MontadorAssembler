@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#aula-1-quartus-e-circuitos-combinacionais">Aula 1: Quartus e Circuitos Combinacionais</a><ul>
+<li><a href="#objetivos">Objetivos</a></li>
+<li><a href="#pré-requisitos">Pré-requisitos</a></li>
+<li><a href="#atividade-uso-do-quartus">Atividade: Uso do Quartus</a><ul>
+<li><a href="#criar-projeto-no-quartus-prime-lite">Criar projeto no Quartus Prime Lite</a></li>
+<li><a href="#compilar-o-projeto">Compilar o Projeto</a></li>
+<li><a href="#simular-o-circuito">Simular o Circuito</a></li>
+<li><a href="#uso-dos-templates-do-quartus">Uso dos Templates do Quartus</a></li>
+<li><a href="#visualizar-o-diagrama-lógico-do-circuito-rtl">Visualizar o Diagrama Lógico do Circuito (RTL)</a></li>
+</ul></li>
+<li><a href="#atividade-blocos-construtivos-combinacionais">Atividade: Blocos Construtivos Combinacionais</a><ul>
+<li><a href="#principais-circuitos-combinacionais">Principais Circuitos Combinacionais</a></li>
+</ul></li>
+<li><a href="#multiplex-2x1-em-vhdl-usando-generics.">1) Multiplex 2x1 em VHDL (usando <em>generics</em>).</a><ul>
+<li><a href="#contextualização">Contextualização</a></li>
+<li><a href="#objetivo">Objetivo</a></li>
+</ul></li>
+<li><a href="#circuitos-aritméticos-em-vhdl.">2) Circuitos aritméticos em VHDL.</a><ul>
+<li><a href="#contextualização-1">Contextualização</a></li>
+<li><a href="#objetivo-1">Objetivo</a></li>
+</ul></li>
+<li><a href="#referências">Referências</a></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="aula-1-quartus-e-circuitos-combinacionais">Aula 1: Quartus e Circuitos Combinacionais</h1>
+<h2 id="objetivos">Objetivos</h2>
+<ol style="list-style-type: decimal">
+<li>Rever o uso do Quartus.</li>
+<li>Usar Template do Quartus.</li>
+<li>Visualização RTL.</li>
+<li>Rever blocos construtivos combinacionais.</li>
+</ol>
+<h2 id="pré-requisitos">Pré-requisitos</h2>
+<p>Ter o Quartus Prime instalado e funcional. Ele está disponível no site da Intel:</p>
+<p><a href="http://fpgasoftware.intel.com/?edition=lite" title="Baixar Quartus Lite">Download Center for FPGAs</a></p>
+<hr />
+<h2 id="atividade-uso-do-quartus">Atividade: Uso do Quartus</h2>
+<h3 id="criar-projeto-no-quartus-prime-lite">Criar projeto no Quartus Prime Lite</h3>
+<p>Crie um projeto no Quartus com o nome Aula1. Caso precise de auxílio, acesse a página:</p>
+<p><a href="./quartus/_criarProjetoQuartus.html">Criar Projeto no Quartus</a></p>
+<h3 id="compilar-o-projeto">Compilar o Projeto</h3>
+<p>Uma vez criado o circuito, deve-se testar o seu funcionamento através de simulação. Porém, para simular é preciso compilar o circuito. Existem três formas diferentes de fazer a compilação, veja no link abaixo:</p>
+<p><a href="./quartus/_compilarProjetoQuartus.html">Compilar Projeto no Quartus</a>.</p>
+<h3 id="simular-o-circuito">Simular o Circuito</h3>
+<p>Para verificar o funcionamento do circuito criado, utilize uma simulação:</p>
+<p><a href="./quartus/_simulacao.html">Simular Circuito no Quartus</a>.</p>
+<h3 id="uso-dos-templates-do-quartus">Uso dos Templates do Quartus</h3>
+<p>Para os circuitos básicos, o Quartus provê um conjunto de modelos que obterão a melhor implementação para o circuito. Além disso, a <em>Intel</em> indica como boa prática de projeto a utilização desses modelos.</p>
+<p><a href="./quartus/_recursosQuartus.html#acessar-a-biblioteca-de-modelos-templates">Acessar os templates</a>.</p>
+<h3 id="visualizar-o-diagrama-lógico-do-circuito-rtl">Visualizar o Diagrama Lógico do Circuito (RTL)</h3>
+<p>Para verificar se o código criado é realmente o circuito desejado, utiliza-se:</p>
+<p><a href="./quartus/_rtlViewerQuartus.html">Visualização RTL</a>.</p>
+<hr />
+<h2 id="atividade-blocos-construtivos-combinacionais">Atividade: Blocos Construtivos Combinacionais</h2>
+<p><strong>Para auxiliar, utilize:</strong></p>
+<ul>
+<li><p>Os <a href="./quartus/_recursosQuartus.html#acessar-a-biblioteca-de-modelos-templates">templates do Quartus</a>;</p></li>
+<li><p>A <a href="./vhdl/_vhdlBasico.html">ajuda interna</a>;</p></li>
+<li><p>O livro sobre lógica digital (free pdf) Digital McLogic Design de Mealy &amp; Mealy no fim da página dos <a href="./linksUteis.html">links úteis</a>;</p></li>
+</ul>
+<p><strong>Dicas:</strong></p>
+<ul>
+<li><p>Antes de codificar, pense qual resultado que deseja obter;</p>
+<ul>
+<li><p>Esboce no papel um diagrama representando esse objetivo;</p></li>
+<li><p>Ou uma tabela da verdade. Ou o que for mais adequado.</p></li>
+</ul></li>
+<li><p>Monte a estrutura básica do VHDL no seu arquivo de trabalho:</p>
+<ul>
+<li><p>Utilize um componente por arquivo;</p></li>
+<li><p>O nome do arquivo deve ser o nome da entidade desse componente;</p></li>
+<li><p>Assim é mais fácil de reutilizá-lo no futuro.</p></li>
+</ul></li>
+<li><p>Para alguns casos, o uso da configuração com <em>generics</em> permite:</p>
+<ul>
+<li><p>Criar componentes mais versáteis, com largura de entrada/saída configuráveis.</p></li>
+<li><p>Aumentando a possibilidade de reutilização desse código.</p></li>
+</ul></li>
+<li><p>Verifique se o esquema RTL é funcionalmente similar ao seu objetivo de implementação.</p></li>
+<li><p>Simule o funcionamento do seu circuito. Se houver uma tabela da verdade:</p>
+<ul>
+<li><p>Ela já indica os vetores de entrada e os resultados na saída.</p></li>
+<li><p>Caso não exista ou a quantidade de possibilidades é muito grande:</p>
+<ul>
+<li>Fique atento para os casos nos extremos da sua faixa de valores de entrada.</li>
+</ul></li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="principais-circuitos-combinacionais">Principais Circuitos Combinacionais</h3>
+<p>A lógica combinacional permite criar uma variedade de circuitos. Porém, em termos de blocos funcionais, os principais são:</p>
+<ul>
+<li><p>Multiplex;</p></li>
+<li><p>Decodificador;</p></li>
+<li><p>Somador;</p></li>
+<li><p>Comparador;</p></li>
+<li><p>A Unidade Lógica e Aritmética (ULA ou ALU).</p></li>
+</ul>
+<p>A conexão adequada desses circuitos, e a adição de registradores, permite a criação de um caminho de dados (ou fluxo de dados).</p>
+<p>O projeto de um processador, ou qualquer circuito mais complicado, pode ser dividido em:</p>
+<ul>
+<li><p>Fluxo de dados;</p></li>
+<li><p>Unidade de controle.</p></li>
+</ul>
+<p>A seguir, iremos implementar alguns desses circuitos combinacionais.</p>
+<hr />
+<p><a name="mux"></a></p>
+<h2 id="multiplex-2x1-em-vhdl-usando-generics.">1) Multiplex 2x1 em VHDL (usando <em>generics</em>).</h2>
+<h3 id="contextualização">Contextualização</h3>
+<p>O multiplex, também chamado de MUX, é um componente combinacional muito utilizado em circuitos digitais. Ele permite a seleção de uma entrada, dentre as suas <em>&quot;n&quot;</em> entradas, que será direcionada para a saída.</p>
+<p>Abaixo, temos o símbolo, circuito e tabela da verdade de um Mux 2x1 (2 entradas e 1 saída).</p>
+<table style="width:39%;">
+<colgroup>
+<col width="38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><img src="imagensComponentes/circuitoSimboloMultiplex_2-to-1-svg.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Acima temos o símbolo e o circuito interno de um MUX com 1 bit do tipo 2x1.</td>
+</tr>
+<tr class="even">
+<td align="center">Abaixo está a sua tabela da verdade.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Sel</th>
+<th align="center">Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">A</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">B</td>
+</tr>
+</tbody>
+</table>
+<p>Pode-se pensar no Mux como sendo um componente com:</p>
+<ul>
+<li><p>2^N portas de entrada;</p></li>
+<li><p>Uma porta de saída;</p></li>
+<li><p>Onde, a cada instante, a seletividade entre uma dada entrada &quot;X&quot; e a saída:</p>
+<ul>
+<li><p>Seja definida por um decodificador binário para decimal de N para 2^N;</p></li>
+<li><p>Que possui na sua entrada o valor binário do &quot;endereço&quot; da porta X.</p></li>
+</ul></li>
+<li><p>Permitindo que o sinal da entrada X alcance a saída.</p></li>
+</ul>
+<h3 id="objetivo">Objetivo</h3>
+<p>A ideia é implementar um Mux 2x1 que possua dois vetores (de bits) de entrada e um vetor de saída. O que permitirá a reutilização do componente é a possibilidade de configurar a largura (total de bits) desses vetores para o valor desejado, de forma simples.</p>
+<p>Uma forma prática de reutilizar os circuitos criados é através do uso:</p>
+<ul>
+<li><p>Da declaração <em><code>generic</code></em>:</p>
+<ul>
+<li><p>Uma forma de parametrizar o código, sendo possível alterar o parâmetro:</p>
+<ul>
+<li><p>A cada instanciação do componente;</p></li>
+<li><p>Ela é avaliada em tempo de compilação, pesquise a sua sintaxe e funcionamento;</p></li>
+</ul></li>
+</ul></li>
+<li><p>E do tipo de dados <strong><em>std_logic_vector</em></strong>:</p>
+<ul>
+<li><p>Veja a sua declaração e a forma de usar o parâmetro definido na <em><code>generic</code></em>;</p></li>
+<li><p>Em algum dos links fornecidos.</p></li>
+</ul></li>
+</ul>
+<p>Serão feitas duas implementações, ambas com comandos VHDL combinacionais:</p>
+<ul>
+<li><p>A construção <strong>WHEN ELSE</strong>;</p></li>
+<li><p>E a construção <strong>WITH SELECT</strong>.</p></li>
+</ul>
+<p><a name="criaprojeto"></a></p>
+<p>Antes de começar a descrever o circuito:</p>
+<ul>
+<li><p>Crie um <a href="./quartus/_criarProjetoQuartus.html">novo projeto</a>;</p></li>
+<li><p>Crie o <a href="./quartus/_recursosQuartus.html">arquivo inicial</a> com o mesmo nome que irá utilizar na entidade;</p></li>
+<li><p>Adicione esse <a href="./quartus/_recursosQuartus.html#adicionar-um-arquivo-ao-projeto">arquivo ao projeto</a>;</p></li>
+<li><p>Abra o arquivo e, utilizando o <a href="./quartus/_recursosQuartus.html#acessar-a-biblioteca-de-modelos-templates"><em>template</em></a>, adicione as bibliotecas que serão utilizadas:</p>
+<ul>
+<li><p><a href="./quartus/_recursosQuartus.html#acessar-a-biblioteca-de-modelos-templates"><em>Library Clause</em></a>: <em><code>IEEE</code></em>;</p></li>
+<li><p><a href="./quartus/_recursosQuartus.html#escolher-os-templates-de-interesse"><em>Use Clause</em></a>: <em><code>ieee.std_logic_1164.all</code></em></p></li>
+</ul></li>
+<li><p>Ainda com o <a href="./quartus/_recursosQuartus.html#acessar-a-biblioteca-de-modelos-templates"><em>template</em></a>, crie a estrutura de trabalho:</p>
+<ul>
+<li><p><a href="./quartus/_recursosQuartus.html#escolher-os-templates-de-interesse"><em>Entity</em></a>. Se preferir, no fim da entidade, omitir o nome dela:</p>
+<ul>
+<li>Modifique a cláusula <em><code>end</code></em> para <em><code>end entity</code></em>.</li>
+</ul></li>
+<li><p><a href="./quartus/_recursosQuartus.html#escolher-os-templates-de-interesse"><em>Architecture</em></a>. Se preferir, no fim da arquitetura, omitir o nome dela:</p>
+<ul>
+<li>Modifique a cláusula <em><code>end</code></em> para <em><code>end architecture</code></em></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Para descrever o Mux, use o <a href="./quartus/_recursosQuartus.html#acessar-a-biblioteca-de-modelos-templates"><em>template</em></a> do Quartus de cada construção (como ponto de partida). Lembre-se das dicas acima.</p>
+<p><a href="./quartus/_compilarProjetoQuartus.html">Compile o projeto</a> e verifique a implementação através do <a href="./quartus/_rtlViewerQuartus.html">RTL Viewer</a>.</p>
+<p>No início, é um pouco complicado entender o diagrama RTL, não se assuste :-) .</p>
+<p>Caso tenha algum problema na compilação, verifique que a entidade do arquivo atual é a <a href="./quartus/_recursosQuartus.html#configurar-a-top-level-entity">Top-Level Entity</a>.</p>
+<p>Para testar o funcionamento utilize a <a href="./quartus/_simulacao.html">simulação</a>. Um ponto importante na simulação é saber quais os vetores de entrada que são significativos e qual a saída relativa a cada um deles.</p>
+<hr />
+<p><a name="ula"></a></p>
+<h2 id="circuitos-aritméticos-em-vhdl.">2) Circuitos aritméticos em VHDL.</h2>
+<h3 id="contextualização-1">Contextualização</h3>
+<p>Para realizar operações aritméticas, como a soma e subtração, utiliza-se o somador completo de <strong>1 bit</strong>, mostrado abaixo:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><img src="imagensComponentes/somadorCompleto.png" alt="Somador Completo" /></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"><img src="imagensComponentes/FullAdderWikimedia-A.svg" alt="Diagrama Somador Completo" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Tabela da Verdade</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><strong>Diagrama</strong></td>
+</tr>
+</tbody>
+</table>
+<p>A conexão de vários desses somadores nos permite criar a parte aritmética da Unidade Lógica e Aritmética (ULA).</p>
+<p>A ULA é composta de:</p>
+<ul>
+<li><p>Duas entradas para os operandos em uso;</p></li>
+<li><p>Uma unidade funcional para cada operação executada;</p></li>
+<li><p>Um seletor entre os resultados das operações executadas.</p></li>
+</ul>
+<p>O símbolo da ULA está mostrado abaixo, onde:</p>
+<ul>
+<li><p>N: é a largura do vetor de bits para as entradas (A e B) e saída (Y).</p></li>
+<li><p>m: é o seletor de função e depende da quantidade funções implementadas (#func):</p>
+<ul>
+<li>Sendo que a quantidade #func deve ser menor ou igual a 2^m.</li>
+</ul></li>
+<li><p>Z: é o <em>flag</em> indicador de resultado igual a ZERO.</p></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><img src="imagensComponentes/aluAula2.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Símbolo de uma ULA com N bits</td>
+</tr>
+</tbody>
+</table>
+<h3 id="objetivo-1">Objetivo</h3>
+<p>Criar um segundo componente, utilizando um arquivo próprio, e implementar uma ULA com as seguintes características:</p>
+<ul>
+<li><p>Dados com largura de 4 bits;</p></li>
+<li><p>Utilizando 4 somadores completos interligados;</p></li>
+<li><p>Execute a soma (A + B) (tipo <em>unsigned</em>);</p></li>
+<li><p><em>Flag</em> detector de resultado igual a zero.</p></li>
+</ul>
+<p>Se sobrar tempo, adicione estas funções:</p>
+<ul>
+<li><p>Subtração (A - B) (tipo <em>unsigned</em>);</p></li>
+<li><p>Rodar 1 bit para a esquerda (dica: pesquise sobre <em>barrel-shifter</em>).</p></li>
+<li><p>Comparação entre as duas entradas, indicando somente quando forem iguais:</p>
+<ul>
+<li>Adicione um <em>flag</em> para indicar valores iguais.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>Crie um novo projeto, como <a href="#criaprojeto">descrito acima</a>, e inicie a sua codificação.</p>
+<p><a href="./quartus/_compilarProjetoQuartus.html">Compile o seu projeto</a> e verifique a implementação através do <a href="./quartus/_rtlViewerQuartus.html">RTL Viewer</a>. Para testar, use a <a href="./quartus/_simulacao.html">simulação</a>. Não esqueça de definir vetores de teste significativos e as saídas correspondentes.</p>
+<p><br></p>
+<hr />
+<p><br><br></p>
+<h2 id="referências">Referências</h2>
+<p><a href="./linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<hr />
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+<!---
+######### (inicio dos links) ##########
+--->
+<!--
+[IntelHierarchicalDesign]: https://www.altera.com/support/support-resources/design-examples/design-software/vhdl/v_hier.html
+-->
+<!---
+fim
+--->
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<p><a name="inicio"></a></p>
+<h1 id="mips-dlx">MIPS DLX</h1>
+<p><strong>(baseado no capítulo 4 do livro texto)</strong></p>
+<p>A arquitetura do MIPS DLX é uma simplificação e atualização da arquitetura original do MIPS. Ela é, principalmente, utilizada para fins didáticos e existem implementações <em>opensource</em>.</p>
+<p>Suas características principais são:</p>
+<ul>
+<li><p>Processador RISC de 32 bits;</p></li>
+<li><p>Arquitetura do tipo <em>Load/Store</em>;</p></li>
+<li><p>Possui 32 registradores de uso geral (alguns possuem uso bem definido);</p></li>
+<li><p>Endereçamento de 2^30 palavras de memória (2^32 bytes = 4GBytes);</p></li>
+<li><p>O endereço da memória tem granularidade de um byte (endereços de 32 bits).</p></li>
+<li><p>O acesso à memória é feito com endereços que diferem de 4 bytes (uma <em>word</em>):</p>
+<ul>
+<li>Esse alinhamento é obrigatório.</li>
+</ul></li>
+<li><p>Formato regular para as instruções;</p></li>
+<li><p>Conjunto de instruções dividido em 6 classes;</p></li>
+<li><p>Não possui <em>flags</em> de estado;</p></li>
+<li><p><em>Big Endian</em>;</p></li>
+<li><p>Não possui suporte de <em>hardware</em> para gerenciar pilhas;</p></li>
+<li><p>Pipeline de 5 estágios;</p></li>
+<li><p>Interrupção.</p></li>
+</ul>
+<hr />
+<p>Filosofias do projeto MIPS:</p>
+<ul>
+<li><p>Simplicidade favorece a regularidade;</p></li>
+<li><p>Um bom projeto exige um bom compromisso;</p></li>
+<li><p>Menor é mais rápido;</p></li>
+<li><p>Faça as tarefas comuns serem as mais rápidas.</p></li>
+</ul>
+<hr />
+<h2 id="processador-de-32-bits">Processador de 32 bits</h2>
+<p>Todas as instruções MIPS possuem 32 bits de comprimento e o acesso à memória é feito com granularidade de 32 bits.</p>
+<p>O endereço de memória também é de 32 bits. Isso simplifica o <em>hardware</em> de carga e decodificação de instruções.</p>
+<p>Como o MIPS não possui instruções que utilizam mais do que uma palavra (mais de um acesso à memória para obter a instrução completa), existe um número finito de instruções.</p>
+<p>Apesar do acesso à memória ser de 4 bytes (32 bits), o endereçamento de memória é orientado a byte. Dessa forma, cada endereço se refere a uma posição de memória contendo apenas 1 byte (8 bits).</p>
+<p>Isso implica que uma palavra do processador, quando armazenada na memória, ocupará 4 posições de memória (quatro endereços consecutivos) e deve iniciar em endereços que são múltiplos de 4. Este requisito é chamado de restrição de alinhamento.</p>
+<hr />
+<h2 id="arquitetura-do-tipo-loadstore">Arquitetura do tipo <em>Load/Store</em></h2>
+<p>O MIPS só pode fazer operações lógicas e aritméticas entre registradores ou entre registradores e constantes imediatas.</p>
+<p>Um registrador recebe (<em>load</em>) um valor armazenado na memória através de uma instrução que só faz a carga. Por outro lado, o conteúdo de um registrador pode ser armazenado (<em>store</em>) na memória através de uma instrução específica para isso.</p>
+<hr />
+<h2 id="banco-de-registradores">Banco de Registradores</h2>
+<p>O MIPS possui 32 registradores de uso geral e outros 32 registradores de ponto flutuante (que não serão abordados).</p>
+<p>O hardware MIPS não impõe um uso específico para os registradores de uso geral (exceto r0). Ou seja, onde um registrador é necessário, qualquer registrador funcionará.</p>
+<p>No entanto, a seguinte convenção para o uso dos registradores evoluiu como padrão para a programação MIPS. Ela é usada pela maioria das ferramentas, compiladores e sistemas operacionais:</p>
+<table style="width:51%;">
+<colgroup>
+<col width="5%" />
+<col width="4%" />
+<col width="41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Registradores</th>
+<th align="left">Nome</th>
+<th align="left">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="left">$zero</td>
+<td align="left">Sempre retorna 0, não é modificável. A escrita é ignorada.</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="left">$at</td>
+<td align="left">Reservado para uso do montador (<em>assembler temporary</em>).</td>
+</tr>
+<tr class="odd">
+<td align="center">2-3</td>
+<td align="left">$v0, $v1</td>
+<td align="left">Valores retornados pela sub-rotina.</td>
+</tr>
+<tr class="even">
+<td align="center">4-7</td>
+<td align="left">$a0-$a3</td>
+<td align="left">(argumentos) Quatro primeiros parâmetros para a sub-rotina.</td>
+</tr>
+<tr class="odd">
+<td align="center">8-15</td>
+<td align="left">$t0-$t7</td>
+<td align="left">(temporários) Sub-rotinas pode usar sem salvar.</td>
+</tr>
+<tr class="even">
+<td align="center">16-23</td>
+<td align="left">$s0-$s7</td>
+<td align="left">Para variáveis da sub-rotina, precisa restaurar antes de retornar.</td>
+</tr>
+<tr class="odd">
+<td align="center">24-25</td>
+<td align="left">$t8, $t9</td>
+<td align="left">(temporários) As sub-rotinas podem usar sem salvar.</td>
+</tr>
+<tr class="even">
+<td align="center">26-27</td>
+<td align="left">$k0, $k1</td>
+<td align="left">Reservado para uso do manipulador da interrupção/trap.</td>
+</tr>
+<tr class="odd">
+<td align="center">28</td>
+<td align="left">$gp</td>
+<td align="left">Ponteiro Global; usado para acessar variáveis &quot;<em>static</em>&quot; ou &quot;<em>extern</em>&quot;.</td>
+</tr>
+<tr class="even">
+<td align="center">29</td>
+<td align="left">$sp</td>
+<td align="left">Ponteiro da pilha (<em>stack pointer</em>).</td>
+</tr>
+<tr class="odd">
+<td align="center">30</td>
+<td align="left">$s8/$fp</td>
+<td align="left">Ponteiro da estrutura (<em>frame pointer</em>) ou nona variável da sub-rotina.</td>
+</tr>
+<tr class="even">
+<td align="center">31</td>
+<td align="left">$ra</td>
+<td align="left">Endereço de retorno para chamada de sub-rotina (JAL &amp; JALR).</td>
+</tr>
+</tbody>
+</table>
+<p>Existem outros registradores de uso específico:</p>
+<ul>
+<li><p>PC, contador de programa, que armazena o endereço da instrução em execução.</p></li>
+<li><p>EPC, registrador com o endereço da instrução em que ocorreu a interrupção. Esse é o endereço de retorno da interrupção;</p></li>
+<li><p>Cause, registrador com o código da causa da exceção ocorrida.</p></li>
+</ul>
+<!--- -   FPSR, registrador de estado de ponto flutuante, utilizado para desvio condicional com base no resultado de operações de FP (1 bit). -->
+<!--
+-   "hi" e "lo", que são usados na multiplicação (quando ocorre um resultado superior a 32 bits) e na divisão (para resultados com quociente e resto). O acesso a esses registradores é feito com instruções especiais.
+
+-->
+<p>A identificação dos registradores começam com um cifrão ($). Em seguida, eles podem ter nomes ($zero a $ra) ou números ($0 a $31). Ao programar <em>assembly</em> para o MIPS, geralmente é melhor usar os nomes dos registradores.</p>
+<p>O registrador $zero, sempre possui o valor 0 e é somente para leitura. A escrita é ignorada. A pseudoinstrução <em>nop</em> é traduzida para uma escrita nesse registrador.</p>
+<p>O registrador $at (<em>Assembler Temporary</em>) é usado para valores temporários dentro de pseudoinstruções (<em>move, li, la, etc...</em>). Ele não é preservado através de chamadas de função.</p>
+<p>Os registradores $v armazenam valores de retorno das funções. Não são preservados através de chamadas de função.</p>
+<p>Os registradores $a0 até $a3 são usados para passar argumentos para funções. Eles não são preservados através de chamadas de função. Se houver mais argumentos, eles serão passados através da pilha.</p>
+<p>Os registradores temporários ($t0 a $t9) são de uso geral. Não são preservados através de chamadas de função.</p>
+<p>Os registradores &quot;S&quot; ($s0 a $s7) são de uso geral. Eles devem ser salvos na entrada de uma rotina e restaurados na saída dela.</p>
+<p>Os registradores $k são reservados para uso do <em>kernel</em> do sistema operacional.</p>
+<p>O registrador $gp é usado como ponteiro para a área que armazena as variáveis globais ou estáticas (<em>Global Pointer</em>). Esse ponto é a fronteira entre essas variáveis e a região que armazena as variáveis alocadas dinamicamente (<em>Heap</em>). Por isso, ele também serve de ponteiro base para essas variáveis.</p>
+<p>O registrador $sp é usado como ponteiro para a pilha (<em>Stack Pointer</em>).</p>
+<p>O registrador $fp é usado como ponteiro para a estrutura de pilha usada na chamada de uma sub-rotina (<em>Frame Pointer</em>). Caso não seja utilizada essa estrutura, ele pode ser usado como $s8.</p>
+<p>O registrador $ra é usado como ponteiro para o endereço de retorno na chamada de sub-rotinas.</p>
+<p>No caso dos registradores que não são preservados através da chamada de uma função, caso possuam dados importantes, é responsabilidade do programador preservar seus valores.</p>
+<p>A convenção, no caso do MIPS, é que a responsabilidade por preservar os registradores seja dividida entre a rotina chamante e a rotina chamada.</p>
+<p>A rotina que chama a função, é responsável por salvar e recuperar os registradores (caso utilize):</p>
+<ul>
+<li><p>Temporários: $t0-$t9;</p></li>
+<li><p>Argumentos: $a0-$a3;</p></li>
+<li><p>Valores de retorno: $v0-$v1.</p></li>
+</ul>
+<p>Dessa forma, a rotina chamada possui liberdade para alterar os valores desses registradores sem se preocupar se eles são utilizados na rotina chamante.</p>
+<p>A rotina que é chamada (a própria função), é responsável por salvar e recuperar os registradores:</p>
+<ul>
+<li><p>Os registradores de uso geral: $s0-$s7;</p></li>
+<li><p>O ponteiro para o endereço de retorno: $ra (usado pela instrução: jal).</p></li>
+</ul>
+<p>Ou seja, a rotina chamante pode considerar que esses registradores não foram alterados pela rotina chamada.</p>
+<p>Um registrador pode ser carregado com um byte (8 bits); com meia palavra (<em>halfword</em>: 16 bits) ou uma palavra inteira (32 bits).</p>
+<hr />
+<h2 id="endereçamento">Endereçamento</h2>
+<!--Fazer desenho para cada tipo de endereçamento. -->
+<p>No caso do MIPS, ele se restringe às instruções de leitura e escrita na memória. O endereçamento pode ser:</p>
+<ul>
+<li><p>Direto Imediato:</p>
+<ul>
+<li>Usa como destino um ponto definido no programa (<em>label</em>). O deslocamento é dado pelo valor imediato (16 bits com sinal) dentro da instrução;</li>
+</ul></li>
+<li><p>Indireto:</p>
+<ul>
+<li>Usa o valor de um registrador como endereço.</li>
+</ul></li>
+<li><p>Indexado:</p>
+<ul>
+<li><p>Utiliza um endereço base, dado pelo conteúdo de um registrador;</p></li>
+<li><p>Somado a um deslocamento (índice ou <em>offset</em>) definido na instrução;</p></li>
+<li><p>O deslocamento pode ser negativo.</p></li>
+</ul></li>
+</ul>
+<p>O endereçamento indexado é útil no acesso de vetores (<em>arrays</em>) e pilhas. É utilizado com o <em>stack pointer</em> e com o <em>frame pointer</em>.</p>
+<hr />
+<h2 id="instruções">Instruções</h2>
+<h3 id="classes-das-instruções">Classes das instruções</h3>
+<p>As instruções do MIPS podem ser divididas em 6 classes.</p>
+<p>As 3 classes abordadas aqui:</p>
+<ul>
+<li><p>Referência à memória (<em>load &amp; store</em>);</p></li>
+<li><p>Lógicas e Aritméticas;</p></li>
+<li><p>Salto e desvio (<em>jump &amp; branch</em>);</p></li>
+</ul>
+<p>E as 3 que não abordaremos:</p>
+<ul>
+<li><p>Ponto Flutuante;</p></li>
+<li><p>Movimentação (<em>Move</em>);</p></li>
+<li><p>Especiais.</p></li>
+</ul>
+<p>A filosofia de projeto do MIPS considera que:</p>
+<ul>
+<li><p>Implementar apenas um pequeno núcleo com as instruções mais comuns:</p>
+<ul>
+<li>Algumas dezenas e não centenas.</li>
+</ul></li>
+<li><p>Simplifica o projeto:</p>
+<ul>
+<li>Aumentando o desempenho dessas instruções.</li>
+</ul></li>
+</ul>
+<p>As instruções ficam armazenadas na mesma memória que o programa (arquitetura von Neumann) e possuem 4 bytes (32 bits), sempre com alinhamento de 4 bytes. Elas operam na memória e nos registradores.</p>
+<p>Para facilitar o projeto, os 32 bits das instruções foram agrupados em campos e nomeados:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Opcode</th>
+<th align="left">Rs</th>
+<th align="left">Rt</th>
+<th align="left">Rd</th>
+<th align="left">shamt</th>
+<th align="left">funct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6 bits</td>
+<td align="left">5 bits</td>
+<td align="left">5 bits</td>
+<td align="left">5 bits</td>
+<td align="left">5 bits</td>
+<td align="left">6 bits</td>
+</tr>
+</tbody>
+</table>
+<p>O significado dos nomes dos campos:</p>
+<ul>
+<li><p><strong>Opcode</strong>: É o código da instrução a ser executada;</p></li>
+<li><p><strong>Rs</strong>: O número do registrador com o primeiro operando da instrução definida em <em>opcode</em>;</p></li>
+<li><p><strong>Rt</strong>: O número do registrador com o segundo operando da instrução definida em <em>opcode</em>;</p></li>
+<li><p><strong>Rd</strong>: O número do registrador de destino do resultado da instrução definida em <em>opcode</em>;</p></li>
+<li><p><strong>shamt</strong>: Total de deslocamento (<em>shift amount</em>).</p></li>
+<li><p><strong>funct</strong>: Seleciona uma variação específica da operação definida em <em>opcode</em>.</p></li>
+</ul>
+<p>Essa uniformidade na localização do <em>opcode</em> e dos endereços dos registradores facilita o projeto do hardware.</p>
+<h3 id="formato-dos-tipos-de-instruções">Formato dos tipos de instruções</h3>
+<p>O processador MIPS DLX possui 3 tipos distintos de formatos para as instruções: tipo R, I e J. Cada uma delas, utiliza de forma distinta os campos, podendo agrupá-los.</p>
+<p>As instruções do tipo R (<em>register</em>) tem <em>opcode</em> 0x0 e trabalham com 3 registradores:</p>
+<ul>
+<li><p>Rs e Rt são os registradores fonte (contém os argumentos);</p></li>
+<li><p>Rd é o registrador de destino do resultado da operação;</p></li>
+<li><p>O campo “<em>funct</em>”, define a função a ser realizada.</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Formato</th>
+<th align="center">Bits:</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">31 ~ 26</td>
+<td align="center">25 ~ 21</td>
+<td align="center">20 ~ 16</td>
+<td align="center">15 ~ 11</td>
+<td align="center">10 ~ 6</td>
+<td align="center">5 ~ 0</td>
+</tr>
+<tr class="even">
+<td align="center">tipo R</td>
+<td align="center">0x0</td>
+<td align="center">Rs</td>
+<td align="center">Rt</td>
+<td align="center">Rd</td>
+<td align="center">sem uso</td>
+<td align="center">funct</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>As instruções do tipo I (<em>immediate</em>) trabalham com 2 registradores e um valor imediato:</p>
+<ul>
+<li><p>Rs é o registrador fonte e Rd é o registrador de destino do resultado da operação.</p></li>
+<li><p>O valor imediato possui 16 bits e terá seu bit de sinal estendido, para 32 bits, antes do uso.</p></li>
+<li><p>A instrução é definida pelo <em>opcode</em> e inclui:</p>
+<ul>
+<li><p>As instruções de carga e armazenamento;</p></li>
+<li><p>As instruções que operam com valores imediatos;</p></li>
+<li><p>As instruções de desvios condicionais (<em>branchs</em>) e desvios com ligação (<em>link</em>).</p></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Formato</th>
+<th align="center">Bits:</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">31 ~ 26</td>
+<td align="center">25 ~ 21</td>
+<td align="center">20 ~ 16</td>
+<td align="center">15 ~ 0</td>
+</tr>
+<tr class="even">
+<td align="center">tipo I</td>
+<td align="center">opcode</td>
+<td align="center">Rs</td>
+<td align="center">Rd</td>
+<td align="center">valor imediato (16 bits)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>As instruções do tipo J (<em>jump</em>) trabalham com um operando:</p>
+<ul>
+<li>Esse operando possui 26 bits e é usado para calcular o endereço de destino do salto.</li>
+</ul>
+<p>São instruções de salto incondicional.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Formato</th>
+<th align="center">Bits:</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">31 ~ 26</td>
+<td align="center">25 ~ 0</td>
+</tr>
+<tr class="even">
+<td align="center">tipo J</td>
+<td align="center">opcode</td>
+<td align="center">valor imediato (26 bits)</td>
+</tr>
+</tbody>
+</table>
+<p>Dependendo do destino desejado para o salto, os 26 bits do valor imediato podem não ser suficientes. Como todas palavras, na memória, são alinhadas a cada 4 bytes:</p>
+<ul>
+<li><p>Os dois bits menos significativos, de qualquer endereço de memória, serão sempre zero:</p>
+<ul>
+<li>Por imposição do <em>hardware</em>.</li>
+</ul></li>
+<li><p>Consegue-se assim, que o endereço definido pelo valor imediato seja, virtualmente, de 28 bits (endereçando 256MB de memória).</p></li>
+</ul>
+<p>Ainda faltam 4 bits para especificar o destino do salto:</p>
+<ul>
+<li><p>Eles são definidos pelos 4 bits mais significativos do endereço da instrução atual;</p></li>
+<li><p>Como o valor imediato possui sinal:</p>
+<ul>
+<li><p>Pode-se acessar, até 128MB, para a frente do endereço atual;</p></li>
+<li><p>Ou, até 128MB, para trás do endereço atual.</p></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="flags-endianess-e-pilhas">Flags, endianess e pilhas</h2>
+<p>A arquitetura MIPS não possui registradores (ou <em>Flags</em>) específicos para indicar se o resultado de uma operação possui qualificadores (se o resultado da operação é zero; se houve transbordo (<em>overflow</em>); se houve geração de vai um (<em>carry</em>); etc...).</p>
+<p>A detecção dessas condições deve ser feita pelo programador, utilizando as instruções com prefixo SLT (<em>set less than</em>). Elas são avaliadas através do conteúdo dos registradores.</p>
+<p>O MIPS não possui instruções específicas para trabalhar com pilhas (<em>push</em> e <em>pop</em>). É trabalho do programador, conforme o uso, administrar o valor do ponteiro da pilha.</p>
+<p>O MIPS original podia utilizar a disposição de bytes, na memória e registradores, do tipo <em>little endian</em> ou <em>big endian</em>.</p>
+<p>No caso do <strong>DLX</strong>, a disposição dos bytes é feita na forma <strong><em>big endian</em></strong>.</p>
+<div class="figure">
+<img src="../imagensMIPS/registerMemoryBigEndianMediaPCFS.svg" />
+
+</div>
+<hr />
+<h2 id="execução-das-instruções">Execução das Instruções</h2>
+<p>Todas instruções do MIPS podem ser encaixadas na seguinte sequência de eventos:</p>
+<ul>
+<li><p>Busca da instrução na memória (<em>Instruction Fetch</em>: IF);</p></li>
+<li><p>Decodificação da instrução e leitura dos registradores durante a decodificação (<em>Instruction Decode</em>: ID);</p></li>
+<li><p>Execução da operação ou cálculo de um endereço (<em>Execute</em>: EX);</p></li>
+<li><p>Acesso à memória (<em>Memory Access</em>: MEM);</p></li>
+<li><p>Escrita do resultado em um registrador (<em>Write Back</em>: WB).</p></li>
+</ul>
+<p>As duas primeiras etapas são comuns a todas as instruções, indistintamente.</p>
+<h3 id="etapa-if">Etapa IF</h3>
+<p>Busca a próxima instrução na memória, utilizando o endereço no registrador PC (<em>Program Counter</em>), e armazena esta instrução no IR (<em>Instruction Register</em>).</p>
+<h3 id="etapa-id">Etapa ID</h3>
+<p>A etapa ID executa duas tarefas:</p>
+<ul>
+<li><p>Calcular o próximo valor do PC;</p></li>
+<li><p>Buscar os operandos (endereçar os registradores) para a instrução atual.</p></li>
+</ul>
+<p>Existem três possibilidades para o próximo valor do PC:</p>
+<ul>
+<li><p>Para as instruções que não fazem desvios: o endereço da próxima instrução é a soma do valor 4 ao valor atual do PC (PC = PC + 4).</p></li>
+<li><p>Para os saltos e desvios (<em>jump</em> e <em>branch</em>): pode ser necessário adicionar um valor imediato (o deslocamento do <em>branch</em>) ao PC. Esse valor imediato está codificado na própria instrução.</p></li>
+<li><p>Na instrução de salto indexado por registrador (jr): é usado o conteúdo de um registrador com o endereço de destino. A instrução que faz ligação (jal), salva o endereço de retorno (<strong>PC+4</strong>) no registrador <strong>$ra</strong>.</p></li>
+</ul>
+<h3 id="etapa-ex">Etapa EX</h3>
+<p>Utiliza a ALU para fazer os cálculos necessários com os operandos endereçados na etapa ID. Esses operandos podem vir de dois registradores ou um registrador e um valor imediato (codificado na instrução).</p>
+<h3 id="etapa-mem">Etapa MEM</h3>
+<p>Faz a leitura e escrita de operandos na memória. Para isso, o resultado da ALU, com o endereço a ser acessado, é utilizado no acesso. No caso de uma escrita também deve estar disponível o valor a ser escrito na memória.</p>
+<p>Como as instruções operam na memória ou em registradores, mas nunca em ambos, as instruções que não acessam a memória, transferem o valor da ALU diretamente para a próxima etapa (WB). Nesse caso, o resultado da ALU deve ser armazenado no registrador definido na instrução.</p>
+<h3 id="etapa-wb">Etapa WB</h3>
+<p>Essa etapa escreve o valor recebido da etapa MEM no registrador definido na instrução. Para as instruções de escrita na memória, a etapa WB não é utilizada.</p>
+<hr />
+<h2 id="pipeline">Pipeline</h2>
+<p>O pipeline é uma técnica que explora o paralelismo entre as instruções de um fluxo sequencial. Isso permite que, em um mesmo ciclo de <em>clock</em>, sejam executadas diferentes fases de diferentes instruções. Ele tem a vantagem de ser transparente ao programador.</p>
+<p>O nome MIPS é a abreviação de Microprocessor without Interlocked Pipeline Stages. Isso, porque a versão original possuia um pipeline de 5 estágios sem intertravamento entre esses estágios.</p>
+<p>Isso diz muito sobre o projeto original:</p>
+<ul>
+<li><p>Se uma instrução durar mais do que um ciclo de <em>clock</em> para executar;</p></li>
+<li><p>Ela não tem como pausar os estágios anteriores do <em>pipeline</em>;</p></li>
+<li><p>Para poder terminar a sua execução.</p></li>
+</ul>
+<p>Para trabalhar com essas limitações, no projeto original, foi feito o seguinte:</p>
+<ul>
+<li><p>Foram retiradas as instruções mais complexas (como divisão e multiplicação);</p></li>
+<li><p>Foi ajustada cada etapa do pipeline:</p>
+<ul>
+<li>Para que as instruções executassem em um único ciclo de <em>clock</em>.</li>
+</ul></li>
+</ul>
+<p>Para resolver os outros problemas que poderiam ocorrer, como por exemplo:</p>
+<ul>
+<li><p>A leitura de um dado da memória ou acesso de E/S, não é possível executar em um ciclo de <em>clock</em>;</p></li>
+<li><p>A dependência de dados na sequência de instruções atravessando o pipeline;</p></li>
+</ul>
+<p>O trabalho foi passado para o tempo de compilação (ou montagem), onde é feita a análise do fluxo de instruções e são inseridos <em>NOPs</em> para evitar essas ocorrências.</p>
+<p>Assim, os programas para o MIPS original eram forçados a ter uma quantidade significativa de instruções <em>NOP</em>.</p>
+<p>No DLX foi utilizada outra abordagem:</p>
+<ul>
+<li><p>O encaminhamento de dados dentro do pipeline;</p></li>
+<li><p>Reordenamento de instruções na fase de compilação do programa.</p></li>
+</ul>
+<p>Além disso, as instruções mais longas podem pausar (intertravar) a atividade do pipeline (chamado de <em>stall</em> ou criação de bolha) até que essas instruções possam ser concluídas.</p>
+<div class="figure">
+<img src="../imagensMIPS/5_Stage_PipelineGrandePCFS.svg" />
+
+</div>
+<hr />
+<h2 id="interrupção">Interrupção</h2>
+<p>Uma interrupção é a alteração na sequência de execução do programa. Ela pode ser assíncrona, como uma interrupção de <em>hardware</em>, ou síncrona, como uma interrupção de <em>software</em> (<em>syscall</em> e <em>break</em>), também conhecida como <em>trap</em>.</p>
+<p>O funcionamento é da seguinte forma:</p>
+<ul>
+<li><p>No ponto do programa em que a interrupção acontece:</p>
+<ul>
+<li>Contador de programa (PC) é salvo no registrador especial <em>EPC</em>.</li>
+</ul></li>
+<li><p>Ocorre um desvio para a rotina de tratamento de interrupção, cujo endereço é 0x80000180, independente da causa da interrupção. Nessa rotina:</p>
+<ul>
+<li><p>É salvo o estado atual da CPU, ou seja, o banco de registradores;</p></li>
+<li><p>E, de acordo com a causa da interrupção, lida no registrador especial <em>Cause</em>, ela executa ações diferentes.</p></li>
+</ul></li>
+<li><p>No fim dessa rotina, ocorre a restituição do estado anterior da CPU (o banco de registradores) e um salto para o conteúdo do registrador <em>EPC</em>;</p></li>
+<li><p>E o programa continua executando no mesmo ponto em que tinha parado, como se não tivesse sido interrompido.</p></li>
+</ul>
+<p>Os registradores <em>EPC</em> e <em>Cause</em>, não fazem parte do banco de registradores do MIPS. Para verificar o seu conteúdo, deve-se usar a instrução de movimento: <em>mfc0</em> (<em>move from coprocessor 0</em>).</p>
+<p>O coprocessador 0, no MIPS, é chamado de <em>MIPS processor control</em> e é o responsável pela interrupção e diagnósticos do processador.</p>
+<p>Para transferir o registrador <em>Cause</em> para o registrador <em>$t0</em> utiliza-se:</p>
+<pre><code>   mfc0   $t0,   Cause;</code></pre>
+<p>Para transferir o registrador <em>EPC</em> para o registrador <em>$k0</em> utiliza-se:</p>
+<pre><code>   mfc0   $k0,   EPC;</code></pre>
+<p>E para retornar ao ponto do programa onde ele foi interrompido:</p>
+<pre><code>   jr     $k0;</code></pre>
+<hr />
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<p><br></p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+</body>
+</html>

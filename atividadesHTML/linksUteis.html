@@ -1,0 +1,338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  .bloco .title {
+      display: block;
+  }
+  
+  /*Bloco de solucao de exercicio*/
+  .bloco .label,
+  .bloco .separator {
+      font-weight: bold;
+  }
+  
+  .bloco .separator {
+      margin-right: .6em;
+  }
+  /* Solução */
+  div.solucao {
+    border-left: .3em solid #dd4444;   /*#dc3c01; */
+    margin-left: -.8em;
+    padding-left: .4em;
+    position: relative;
+    font-size: 90%;
+  }
+  
+  div.solucao .conteudo {
+    display: none;
+    padding-top: 1px;
+  }
+  
+  div.solucao button {
+    color: #0000AF;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  div.solucao button.viewed {
+    color: #FF2020;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(0,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  /*Tamanho absoluto das imagens definidas em markdown*/
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  /*Tamanho relativo das imagens definidas em markdown*/
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+  <script type="text/javascript">
+      function exibe(e)
+      {
+          var div = e.parentNode.firstElementChild;
+  
+          if (div.style.display == "" || div.style.display == "none") {
+              div.style.display = "block";
+              e.setAttribute("class", "viewed");
+              e.innerHTML = "Esconder Solução";
+          } else {
+              div.style.display = "none";
+              e.innerHTML = "Ver Solução";
+          }
+      }
+  </script>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#links-úteis">Links Úteis</a><ul>
+<li><a href="#orientações-sobre-a-entrega-de-atividade">Orientações sobre a entrega de atividade</a></li>
+<li><a href="#referências-para-exemplos-de-código-em-vhdl">Referências para exemplos de código em VHDL</a></li>
+<li><a href="#referências-para-sintaxe-do-vhdl">Referências para sintaxe do VHDL</a></li>
+<li><a href="#referências-para-uso-do-quartus">Referências para uso do Quartus:</a></li>
+<li><a href="#referências-sobre-lógica-digital">Referências sobre Lógica Digital</a></li>
+<li><a href="#referências-sobre-mips-e-dlx">Referências sobre MIPS e DLX</a></li>
+<li><a href="#extras-do-livro-texto">Extras do Livro Texto</a></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="links-úteis">Links Úteis</h1>
+<p><a href="#fimDocumento">Ir para o fim do documento</a>.</p>
+<hr />
+<h2 id="orientações-sobre-a-entrega-de-atividade">Orientações sobre a entrega de atividade</h2>
+<p><a href="./entregaAtividades.html">Entrega de atividades</a>.</p>
+<hr />
+<p><a name="refCodigo"></a></p>
+<h2 id="referências-para-exemplos-de-código-em-vhdl">Referências para exemplos de código em VHDL</h2>
+<p><a href="https://www.altera.com/support/support-resources/design-examples/design-software/vhdl.html">Exemplos da Intel (Altera) em VHDL</a>.</p>
+<p><a href="https://www.altera.com/support/support-resources/design-examples.html">Intel Design Examples</a>.</p>
+<p><a href="./vhdl/_componentesVHDL.html">Página interna com modelos em VHDL</a>.</p>
+<p><br></p>
+<hr />
+<p><a name="refVHDL"></a></p>
+<h2 id="referências-para-sintaxe-do-vhdl">Referências para sintaxe do VHDL</h2>
+<p><a href="http://vhdl.renerta.com">VHDL Language Reference Guide (Renerta)</a>.</p>
+<p><a href="http://esd.cs.ucr.edu/labs/tutorial/">VHDL Tutorial: Learn by Example</a>.</p>
+<p><a href="http://www.vhdl-online.de">VHDL on Line</a>.</p>
+<p><a href="http://booksite.elsevier.com/9780124077263/downloads/VHDL_Tutorials/vhdl-tutorial.pdf">VHDL Tutorial (apostila no site da Elsevier)</a>.</p>
+<p><a href="http://github.com/fabriziotappero/Free-Range-VHDL-book">Livro, Free-Range-VHDL-book (open source), sobre VHDL</a>.</p>
+<p><a href="./vhdl/_vhdlBasico.html">Referência Rápida VHDL</a> (página interna: em construção).</p>
+<p><a href="http://faculty.lasierra.edu/~ehwang/digitaldesign/contents/vhdl.pdf">Resumo de VHDL em PDF.</a></p>
+<p><a href="http://www.synthworks.com/downloads/vhdl_quickref.pdf">VHDL Quick Reference Card da Synthworks.</a></p>
+<p><a href="http://www.synthworks.com/downloads/type_pkg_quickref.pdf">VHDL Types &amp; Package Quick Reference Card da Synthworks.</a></p>
+<p><br></p>
+<hr />
+<p><a name="refQuartus"></a></p>
+<h2 id="referências-para-uso-do-quartus">Referências para uso do Quartus:</h2>
+<p>Quartus Prime Standard Edition <a href="https://www.altera.com/documentation/mwh1409960181641.html">Handbook Volume 1</a>: Design and Synthesis.</p>
+<p>Quartus Prime Standard Edition <a href="https://www.altera.com/documentation/mwh1410471376527.html">Handbook Volume 2</a>: Design Implementation and Optimization.</p>
+<p>Quartus Prime Standard Edition <a href="https://www.altera.com/documentation/mwh1410385117325.html">Handbook Volume 3</a>: Verification.</p>
+<p>Página das opções de literatura da <a href="https://www.altera.com/documentation/lit-index.html">Intel</a>.</p>
+<p><a href="./quartus/_referenciaQuartus.html">Referência rápida</a> (página interna: em construção).</p>
+<p><br></p>
+<hr />
+<p><a name="refDigital"></a></p>
+<h2 id="referências-sobre-lógica-digital">Referências sobre Lógica Digital</h2>
+<p>Livro (free) <a href="http://freerangefactory.org/books_tuts.html">Digital McLogic Design</a> da Free-Range.</p>
+<p>Simplilficação de circuitos lógicos <a href="http://www.32x8.com/">Mapa de Karnaugh</a>.</p>
+<p>Editor de <a href="http://madebyevan.com/fsm/">diagrama de estados</a> para máquinas de estados finitos.</p>
+<p>Editor de lógica booleana, <a href="http://sontrak.com/index.html">Logic Friday</a>, que otimiza, analisa e faz a síntese do circuito. A entrada pode ser a equação, a tabela da verdade ou o circuito. É para Windows. Instalei no Ubuntu usando o Wine.</p>
+<p><br></p>
+<hr />
+<h2 id="referências-sobre-mips-e-dlx">Referências sobre MIPS e DLX</h2>
+<ul>
+<li><p><a href="https://en.wikipedia.org/wiki/MIPS_architecture">Arquitetura do MIPS na wikipedia (nosso interesse: MIPS I).</a></p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/DLX">A página do DLX na wikipedia.</a></p></li>
+<li><p>Um resumo de <a href="https://booksite.elsevier.com/9780124077263/downloads/COD_5e_Greencard.pdf">referência sobre o MIPS</a> (todas instruções e outros detalhes - download gratuito no site da editora).</p></li>
+<li><p>Resumo (interno) da <a href="./MIPS/_arquitetura.html">arquitetura do MIPS</a>.</p></li>
+<li><p><a href="./MIPS/_instrucoesDLX.html">Instruções</a> que serão implementadas.</p></li>
+<li><p><a href="https://booksite.elsevier.com/9780124077263/downloads/advance_contents_and_appendices/appendix_D.pdf">Apêndice D</a> do livro texto, no site da editora. Trata de unidade de controle, MEF combinacional e MEF com ROM.</p></li>
+<li><p>Livro gratuito sobre o <a href="http://www.egr.unlv.edu/~ed/mips.html">QtSpim</a>.</p></li>
+</ul>
+<hr />
+<p><a name="refCOD"></a></p>
+<h2 id="extras-do-livro-texto">Extras do Livro Texto</h2>
+<p><a href="https://booksite.elsevier.com/9780123747501/downloads/Resources.zip">Todo material</a> em um arquivo compactado (site da editora).</p>
+<p><br></p>
+<hr />
+<p><br></p>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<!---
+######### (inicio dos links) ##########
+--->
+<!-- [MSQRCSynthworks]: http://www.synthworks.com/downloads/modelsim_quickref.pdf
+
+[MSTSynthworks]: http://www.synthworks.com/downloads/modelsim_tutorial.pdf -->
+</body>
+</html>

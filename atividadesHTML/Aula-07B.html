@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  .bloco .title {
+      display: block;
+  }
+  
+  /*Bloco de solucao de exercicio*/
+  .bloco .label,
+  .bloco .separator {
+      font-weight: bold;
+  }
+  
+  .bloco .separator {
+      margin-right: .6em;
+  }
+  /* Solução */
+  div.solucao {
+    border-left: .3em solid #dd4444;   /*#dc3c01; */
+    margin-left: -.8em;
+    padding-left: .4em;
+    position: relative;
+    font-size: 90%;
+  }
+  
+  div.solucao .conteudo {
+    display: none;
+    padding-top: 1px;
+  }
+  
+  div.solucao button {
+    color: #0000AF;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  div.solucao button.viewed {
+    color: #FF2020;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(0,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  /*Tamanho absoluto das imagens definidas em markdown*/
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  /*Tamanho relativo das imagens definidas em markdown*/
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+  <script type="text/javascript">
+      function exibe(e)
+      {
+          var div = e.parentNode.firstElementChild;
+  
+          if (div.style.display == "" || div.style.display == "none") {
+              div.style.display = "block";
+              e.setAttribute("class", "viewed");
+              e.innerHTML = "Esconder Solução";
+          } else {
+              div.style.display = "none";
+              e.innerHTML = "Ver Solução";
+          }
+      }
+  </script>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#aula-7-temporização-em-circuitos-digitais---continuação">Aula 7: Temporização em Circuitos Digitais - Continuação</a><ul>
+<li><a href="#temporização-na-lógica-sequencial">Temporização na Lógica Sequencial</a><ul>
+<li><a href="#contextualização">Contextualização</a><ul>
+<li><a href="#disciplina-dinâmica">Disciplina Dinâmica</a></li>
+<li><a href="#metaestabilidade">Metaestabilidade</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#atividades-sobre-temporização-na-lógica-sequencial">Atividades sobre Temporização na Lógica Sequencial</a><ul>
+<li><a href="#exercício-a">Exercício A</a></li>
+<li><a href="#exercício-b">Exercício B</a></li>
+<li><a href="#exercício-c">Exercício C</a></li>
+<li><a href="#exercício-d">Exercício D</a></li>
+</ul></li>
+<li><a href="#referências">Referências</a></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="aula-7-temporização-em-circuitos-digitais---continuação">Aula 7: Temporização em Circuitos Digitais - Continuação</h1>
+<h2 id="temporização-na-lógica-sequencial">Temporização na Lógica Sequencial</h2>
+<h3 id="contextualização">Contextualização</h3>
+<p>Os circuitos lógicos sequenciais são caracterizados pela presença de um sinal de <em>clock</em>, que determina o momento em que as transições devem ocorrer.</p>
+<p>Vamos nos limitar ao circuito do registrador, que é composto de um ou mais <em>flip-flops</em> do tipo <em>D</em> - como mostrado abaixo.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Flip Flop</th>
+<th align="center">Registrador de 8 bits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><img src="imagensComponentes/FF_D.svg" alt="Flip-Flop do tipo D" /></td>
+<td align="center"><img src="imagensComponentes/registrador_8bits_PCFS-1.svg" alt="Registrador de 8 bits" style="width:40.0%" /></td>
+</tr>
+</tbody>
+</table>
+<p>Nesse tipo de circuito, a transição do <em>clock</em> determina o momento da transferência do sinal de entrada (<strong><em>D</em></strong>) para a saída (<strong><em>Q</em></strong>). Apesar de existirem flip-flops sensíveis à transição de subida (ou borda de subida) e à transição de descida (ou borda de descida), trataremos somente do primeiro caso. O segundo caso funciona de forma similar.</p>
+<p>O funcionamento do <em>flip-flop</em> tipo D segue as condições mostradas na tabela abaixo:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">CLK</th>
+<th>D</th>
+<th>Q</th>
+<th></th>
+<th>Comentário</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td>X</td>
+<td>Q</td>
+<td></td>
+<td>Mantém o estado anterior</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td>X</td>
+<td>Q</td>
+<td></td>
+<td>Mantém o estado anterior</td>
+</tr>
+<tr class="odd">
+<td align="center">↑</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td>O valor de D atinge a saída Q após o tempo de propagação</td>
+</tr>
+<tr class="even">
+<td align="center">↑</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td>O valor de D atinge a saída Q após o tempo de propagação</td>
+</tr>
+</tbody>
+</table>
+<h4 id="disciplina-dinâmica">Disciplina Dinâmica</h4>
+<p>São as regras de temporização que garantem que o circuito sequencial funcione corretamente. Elas estabelecem os tempos, em relação ao <em>clock</em>, necessários para os sinais de entrada e saída se mantenham estáveis.</p>
+<p>Com relação aos sinais de entrada, temos:</p>
+<ul>
+<li><p>O <em>setup time</em> (<em>tsetup</em>), que é o tempo mínimo que o sinal <em>D</em> deve estar <strong>estável antes</strong> da borda do <em>clock</em>;</p></li>
+<li><p>O <em>hold time</em> (<em>thold</em>), que é o tempo mínimo que o sinal <em>D</em> deve continuar <strong>estável após</strong> a borda do <em>clock</em>.</p></li>
+</ul>
+<div class="figure">
+<img src="imagensComponentes/generalSequentialTimingEntrada-1.svg#p30" alt="Temporização em Relação ao Sinal de Saída e o Clock" />
+<p class="caption"><strong>Temporização em Relação ao Sinal de Saída e o Clock</strong></p>
+</div>
+<p><br></p>
+<p>Com relação aos sinais de saída, temos:</p>
+<ul>
+<li><p>O tempo de contaminação do <em>clock</em> até a saída <em>Q</em> (<em>tccq</em>), que é o tempo mínimo que o sinal <em>Q</em> inicia a sua alteração <strong>após</strong> a borda do <em>clock</em>;</p></li>
+<li><p>O tempo de propagação do <em>clock</em> até a saída <em>Q</em> (<em>tpcq</em>), que é o tempo máximo que o sinal <em>Q</em> demorará para ficar <strong>estável após</strong> a borda do <em>clock</em>.</p></li>
+</ul>
+<div class="figure">
+<img src="imagensComponentes/generalSequentialTimingSaida-1.svg#p30" alt="Temporização em Relação ao Sinal de Saída e o Clock" />
+<p class="caption"><strong>Temporização em Relação ao Sinal de Saída e o Clock</strong></p>
+</div>
+<p><br></p>
+<p>A figura abaixo, mostra os sinais com relação às duas referências, entrada e saída.</p>
+<div class="figure">
+<img src="imagensComponentes/generalSequentialTiming-1A.svg#p30" alt="Temporização em Relação ao Sinal de Saída e o Clock" />
+<p class="caption"><strong>Temporização em Relação ao Sinal de Saída e o Clock</strong></p>
+</div>
+<p><br></p>
+<p>Para que o circuito do <em>flip-flop</em> funcione adequadamente, o sinal de entrada deverá ficar estável no período entre o início de <em>tsetup</em> e o término de <em>thold</em> (ambos em relação ao momento do <em>clock</em>). Podemos chamar esse período de janela de estabilidade da entrada.</p>
+<p>Porém, o que acontece se ocorrer uma transição do sinal <em>D</em> dentro da janela de estabilidade da entrada?</p>
+<ul>
+<li>A disciplina dinâmica seria desrespeitada.</li>
+</ul>
+<h4 id="metaestabilidade">Metaestabilidade</h4>
+<p>A consequência da quebra, ou desrespeito, da disciplina dinâmica é a ocorrência de um sinal metaestável.</p>
+<p>Esse sinal se caracteriza pela indefinição do seu nível lógico por um período de tempo indeterminado. Isso é um problema para os circuitos que recebem um sinal externo assíncrono, como o apertar de um botão. Não é possível garantir que o botão não será apertado e ficará estável durante a janela de estabilidade da entrada.</p>
+<div class="figure">
+<img src="imagensComponentes/Metaestabilidade-1.svg#p30" alt="Violação da Disciplina Dinâmica na Entrada" />
+<p class="caption"><strong>Violação da Disciplina Dinâmica na Entrada</strong></p>
+</div>
+<p>O resultado dessa violação da disciplina dinâmica é a metaestabilidade na saída do <em>flip-flop</em>. A saída fica em um estado indefinido por um tempo que é uma variável aleatória, ou seja, indeterminado. Porém, a saída, em algum momento, alcançará um nível estável. O tempo decorrido entre a borda ativa do <em>clock</em> e a estabilidade do sinal de saída é chamado de tempo de resolução (<em>t_res</em>). A figura abaixo mostra a característica geral da violação da disciplina dinâmica.</p>
+<div class="figure">
+<img src="imagensComponentes/MetaestabilidadeSaida-1.svg#p30" alt="Consequência, na Saída, da Violação da Disciplina Dinâmica" />
+<p class="caption"><strong>Consequência, na Saída, da Violação da Disciplina Dinâmica</strong></p>
+</div>
+<p>Uma conclusão interessante é que se a disciplina dinâmica for respeitada podemos considerar que <em>t_res</em> = <em>tpcq</em>.</p>
+<hr />
+<h2 id="atividades-sobre-temporização-na-lógica-sequencial">Atividades sobre Temporização na Lógica Sequencial</h2>
+<h3 id="exercício-a">Exercício A</h3>
+<p>O <em>pipeline</em> é uma técnica de projeto digital muito utilizada. Praticamente todos os processadores atuais utilizam um <em>pipeline</em>. De uma maneira simples, ele consiste em isolar blocos de lógica combinacional entre registradores de fronteira (R1 e R2), como mostrado abaixo.</p>
+<div class="figure">
+<img src="imagensComponentes/pipeline-3.svg#p30" alt="Pipeline" />
+<p class="caption"><strong>Pipeline</strong></p>
+</div>
+<p>O funcionamento do circuito pode ser entendido se considerarmos que a cada <em>clock</em>, os sinais de entrada, tanto de R1 quanto R2, são transferidos para as respectivas saídas.</p>
+<p>Durante o período entre as bordas ativas de dois <em>clocks</em> (clk_t1 e clk_t2) consecutivos, os sinais que chegaram à saída de R1 (após o <em>tpcq</em> de clk_1) devem &quot;atravessar&quot; a lógica combinacional e estarem estáveis na entrada de R2 para serem amostrados pelo <em>clock</em> clk_2.</p>
+<p>Para essa situação, qual seria a frequência máxima do <em>clock</em> para que não ocorra a violação da disciplina dinâmica e, consequentemente, o aparecimento de metaestabilidade?</p>
+<p>Para os registradores, considere as seguintes características:</p>
+<ul>
+<li><p>R1 = R2;</p></li>
+<li><p>O <em>setup time</em> é igual a <em>tsetup</em>;</p></li>
+<li><p>O <em>hold time</em> é igual a <em>thold</em>;</p></li>
+<li><p>O tempo de contaminação do <em>clock</em> até a saída <em>Q</em> é igual a <em>tccq</em>;</p></li>
+<li><p>O tempo de propagação do <em>clock</em> até a saída <em>Q</em> é igual a <em>tpcq</em>;</p></li>
+</ul>
+<p>Para o bloco combinacional, considere:</p>
+<ul>
+<li><p>O tempo de contaminação é igual a <em>tcd</em>;</p></li>
+<li><p>O tempo de propagação é igual a <em>tpd</em>.</p></li>
+</ul>
+<hr />
+<div id="sol-0" class="bloco solucao">
+<div class="conteudo">
+<p style="color:red">
+Solução:
+</p>
+<p>Como condição inicial, consideraremos que os sinais, na entrada de R1, estão estáveis na ocorrência do primeiro <em>clock</em>.</p>
+<p>Para chegar à frequência máxima, teremos que calcular o período mínimo de <em>clock</em> (Tc) que respeite a disciplina dinâmica. Assim, o sinal na entrada de R1, após o primeiro <em>clock</em>, deve atravessar o próprio R1 e a etapa combinacional para chegar à entrada de R2 pelo menos <em>tsetup</em> antes do segundo <em>clock</em>.</p>
+<p>Podemos dizer que Tc deve ser maior ou igual a soma de <em>tsetup(R2)</em> com os tempos de propagação dos outros componentes existentes no caminho dos dados.</p>
+<p>Como já sabemos o momento de chegada, vamos considerar o que existe no caminho.</p>
+<p>Após o primeiro <em>clock</em>, os sinais na entrada de R1 chegarão à sua saída (Q1) após o tempo de propagação de R1, ou seja, <em>tpcq(R1)</em>.</p>
+<p>Desconsiderando qualquer atraso na interligação dos componentes (trilhas do circuito impresso), podemos dizer que o sinal de Q1 está estável na entrada do circuito combinacional em <em>tpcq(R1)</em>. E o mesmo sinal, estará estável na saída do circuito combinacional após um intervalo de <em>tpd(CL)</em>.</p>
+<p>Assim, considerando a ordem em que os sinais fluem, teremos:</p>
+<p><strong>Tc ≥ <em>tpcq(R1)</em> + <em>tpd(CL)</em> + <em>tsetup(R2)</em></strong></p>
+<p>Lembrando que R1 = R2, então seus tempos característicos serão os mesmos.</p>
+<div class="figure">
+<img src="imagensComponentes/pipelineTimingBeetwenRegisters-1a.svg#p40" alt="Frequência Máxima do Clock" />
+<p class="caption">Frequência Máxima do <em>Clock</em></p>
+</div>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<hr />
+<p><br></p>
+<h3 id="exercício-b">Exercício B</h3>
+<p>Considerando o circuito anterior, como poderíamos, sem causar problemas de funcionamento, aumentar a frequência de funcionamento do <em>pipeline</em>?</p>
+<div class="figure">
+<img src="imagensComponentes/pipeline-3.svg#p40" alt="Frequência Máxima do Clock" />
+<p class="caption"><strong>Frequência Máxima do <em>Clock</em></strong></p>
+</div>
+<div id="sol-1" class="bloco solucao">
+<div class="conteudo">
+<p style="color:red">
+Solução:
+</p>
+<p>Como as características dos registradores não podem ser modificadas, temos que trabalhar com o tempo de propagação do circuito lógico combinacional.</p>
+<p>Para tanto, podemos verificar se é possível separar a lógica combinacional em duas etapas e adicionar mais um registrador entre elas.</p>
+<p>Para obter o máximo desempenho, o tempo de propagação de cada etapa deve ser o mesmo. Além disso, essa divisão em etapas não pode alterar o resultado da lógica combinacional.</p>
+<div class="figure">
+<img src="imagensComponentes/pipeline-4.svg#p40" alt="Aumentando a Frequência Máxima do Clock" />
+<p class="caption">Aumentando a Frequência Máxima do <em>Clock</em></p>
+</div>
+<p>Caso se consiga balancear os tempos de propagação das etapas, o <em>clock</em> poderá ter a sua frequência praticamente dobrada.</p>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<hr />
+<p><br></p>
+<h3 id="exercício-c">Exercício C</h3>
+<p>Em muitos casos, não é possível desprezar os tempos de propagação na interligação entre o <em>clock</em> de cada registrador, como fizemos anteriormente. Nesses casos, o <em>clock</em> chega em momentos diferentes para cada registrador do circuito.</p>
+<p>A variação máxima entre o tempo de chegada da mesma borda ativa do <em>clock</em>, entre os registradores, é chamada de <em>clock skew</em>. Abaixo temos uma figura explicativa desse fenômeno:</p>
+<div class="figure">
+<img src="imagensComponentes/pipelineClockSkew-1.svg#p30" alt="Clock Skew" />
+<p class="caption"><em><strong>Clock Skew</strong></em></p>
+</div>
+<p>Levando em consideração o <em>clock skew</em>, qual seria a equação para a frequência máxima do <em>clock</em> para o circuito mostrado acima?</p>
+<p>Considere que o valor do <em>clock skew</em> seja igual a <em>tskew</em>.</p>
+<hr />
+<div id="sol-2" class="bloco solucao">
+<div class="conteudo">
+<p style="color:red">
+Solução:
+</p>
+<p>O sentido do fluxo de dados é de R1 para R2. A borda ativa do <em>clock</em> acontece primeiro em R2 (esse momento será TckR2), e depois de um intervalo de <em>clock skew</em>, acontece em R1 (TckR1).</p>
+<p>Utilizando uma notação indicadora de <em>clocks</em> consecutivos como: TckRx(1), TckRx(2), TckRx(3), ... , TckRx(i), TckRx(i+1), onde Rx indica o registrador em uso.</p>
+<p>E usando como referência o momento de um <em>clock</em> qualquer em R2, chamado de TckR2(i), e o mesmo <em>clock</em> em R1, chamado de TckR1(i), podemos definir uma relação entre o momento do <em>clock</em> nesses registradores:</p>
+<p>TckR1(i) = TckR2(i) + <em>tskew</em></p>
+<p>Considerando o período mínimo de <em>clock</em> para que o circuito funcione sem problemas, chamado de Tc, teremos o intervalo entre duas bordas ativas consecutivas dado por:</p>
+<p>TckR2(i) + Tc = TckR2(i+1)</p>
+<p>Consequentemente, o período mínimo do <em>clock</em> será dado por:</p>
+<p>Tc = TckR2(i+1) - TckR2(i)</p>
+<p>Considerando que:</p>
+<ul>
+<li><p>Existe uma defasagem de tempo entre o <em>clock</em> em R1 e em R2;</p></li>
+<li><p>O sinal parte de R1 no momento TckR1(i) e será utilizado em R2 em TckR2(i+1).</p></li>
+</ul>
+<p>O tempo disponível, ou útil (Tu), para o sinal atravessar o circuito será:</p>
+<p>Tu = TckR2(i+1) - TckR1(i)</p>
+<p>Tu = TckR2(i+1) - ( TckR2(i) + <em>tskew</em> )</p>
+<p>Tu = TckR2(i+1) - TckR2(i) - <em>tskew</em></p>
+<p>Como Tc = TckR2(i+1) - TckR2(i), teremos:</p>
+<p>Tu = Tc - <em>tskew</em></p>
+<p>Ou seja, o tempo útil para o sinal sair de R1 e chegar a R2 é menor que o Tc. Dessa forma, o <em>tsetup</em> de R2 fica comprometido, causando problemas no circuito.</p>
+<div class="figure">
+<img src="imagensComponentes/pipelineClockSkew-3a.svg#p30" alt="Clock Skew e a Violação de tsetup" />
+<p class="caption"><strong><em>Clock Skew</em> e a Violação de <em>tsetup</em></strong></p>
+</div>
+<p>Uma solução é adicionar o tempo <em>tskew</em> ao período do <em>clock</em>, diminuindo a frequência máxima.</p>
+<p>Dessa forma, teríamos:</p>
+<p>novoTc = Tc + <em>tskew</em></p>
+<p>E o tempo útil seria dado por:</p>
+<p>Tu = novoTc - <em>tskew</em></p>
+<p>Tu = Tc + <em>tskew</em> - <em>tskew</em></p>
+<p>Tu = Tc</p>
+<p>Nesse caso, o <em>tsetup</em> de R2 não ficaria comprometido.</p>
+<p>A ocorrência de <em>clock skew</em> pode ser compensada com uma diminuição da frequência do <em>clock</em>.</p>
+<div class="figure">
+<img src="imagensComponentes/pipelineClockSkew-3b.svg#p30" alt="Solução: Tu = Tc + Clock Skew" />
+<p class="caption"><strong>Solução: Tu = Tc + <em>Clock Skew</em></strong></p>
+</div>
+<p><br></p>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<hr />
+<h3 id="exercício-d">Exercício D</h3>
+<p>Levando em consideração o <em>clock skew</em>, qual seria a equação, para a frequência máxima do <em>clock</em>, para o circuito mostrado abaixo?</p>
+<div class="figure">
+<img src="imagensComponentes/pipelineClockSkew-2.svg#p30" alt="Clock Skew" />
+<p class="caption"><em><strong>Clock Skew</strong></em></p>
+</div>
+<p>Considere que o valor do <em>clock skew</em> seja igual a <em>tskew</em>.</p>
+<hr />
+<div id="sol-3" class="bloco solucao">
+<div class="conteudo">
+<p style="color:red">
+Solução:
+</p>
+<p>Neste caso, temos a condição inversa à do exercício anterior.</p>
+<p>O sentido do fluxo de dados é de R1 para R2. A borda ativa do clock acontece primeiro em R1 (esse momento será TckR1), e depois de um intervalo de <em>clock skew</em>, acontece em R2 (TckR2).</p>
+<p>Utilizando uma notação indicadora de clocks consecutivos como: TckRx(1), TckRx(2), TckRx(3), ... , TckRx(i), TckRx(i+1), onde Rx indica o registrador em uso.</p>
+<p>E usando como referência o momento de um clock qualquer em R1, chamado de TckR1(i), e o mesmo clock em R2, chamado de TckR2(i), podemos definir uma relação entre o momento do clock nesses registradores:</p>
+<p>TckR2(i) = TckR1(i) + <em>tskew</em></p>
+<p style="color:red">
+Continuar!!!!!!!
+</p>
+<div class="figure">
+<img src="imagensComponentes/pipelineClockSkew-2a.svg#p30" alt="Clock Skew" />
+<p class="caption"><em><strong>Clock Skew</strong></em></p>
+</div>
+<p><br></p>
+<div class="figure">
+<img src="imagensComponentes/pipelineClockSkew-2aa.svg#p30" alt="Clock Skew" />
+<p class="caption"><em><strong>Clock Skew</strong></em></p>
+</div>
+<p><br></p>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<hr />
+<h2 id="referências">Referências</h2>
+<p><a href="./linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+<!---
+######### (inicio dos links) ##########
+#######################################
+########### Links Internos ############
+--->
+</body>
+</html>

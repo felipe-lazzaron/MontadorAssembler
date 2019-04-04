@@ -1,0 +1,934 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  .bloco .title {
+      display: block;
+  }
+  
+  /*Bloco de solucao de exercicio*/
+  .bloco .label,
+  .bloco .separator {
+      font-weight: bold;
+  }
+  
+  .bloco .separator {
+      margin-right: .6em;
+  }
+  /* Solução */
+  div.solucao {
+    border-left: .3em solid #dd4444;   /*#dc3c01; */
+    margin-left: -.8em;
+    padding-left: .4em;
+    position: relative;
+    font-size: 90%;
+  }
+  
+  div.solucao .conteudo {
+    display: none;
+    padding-top: 1px;
+  }
+  
+  div.solucao button {
+    color: #0000AF;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  div.solucao button.viewed {
+    color: #FF2020;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(0,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  /*Tamanho absoluto das imagens definidas em markdown*/
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  /*Tamanho relativo das imagens definidas em markdown*/
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+  <script type="text/javascript">
+      function exibe(e)
+      {
+          var div = e.parentNode.firstElementChild;
+          var nome = e.parentNode.id;
+          var tipo=nome.substring(0, 3).toUpperCase()
+          if ( tipo == "SOL"){
+              nome = "Solução";
+          }
+          if (div.style.display == "" || div.style.display == "none") {
+              div.style.display = "block";
+              e.setAttribute("class", "viewed");
+              e.innerHTML = "Esconder ";
+          } else {
+              div.style.display = "none";
+              e.innerHTML = "Ver "+nome;
+          }
+      }
+      function validaBinario(nome) {
+          var valor, tamanho, i;
+          document.getElementById(nome).style.color = "black";
+          valor = document.getElementById(nome).value;
+          tamanho=valor.length;
+          for (i=0;i<tamanho; i=i+1){
+              if ( valor[i] != 1 && valor[i] != 0 ){
+                  document.getElementById(nome).style.color = "red";
+              }
+          }
+      }
+  </script>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#aula-10-decomposição-de-instruções-do-tipo-r">Aula 10: Decomposição de Instruções do Tipo R</a><ul>
+<li><a href="#contextualização">Contextualização</a><ul>
+<li><a href="#formato-das-instruções-do-tipo-r">Formato das instruções do tipo R</a></li>
+<li><a href="#blocos-construtivos-úteis-para-este-fluxo-de-dados">Blocos Construtivos Úteis para este Fluxo de Dados</a></li>
+<li><a href="#rtn">RTN</a></li>
+<li><a href="#exemplo-de-tabela">Exemplo de tabela</a></li>
+<li><a href="#agora-que-o-fd-atende-as-instruções-r">Agora que o FD atende as instruções R</a></li>
+</ul></li>
+<li><a href="#atividade">Atividade</a><ul>
+<li><a href="#exercício-a">Exercício A</a></li>
+</ul></li>
+<li><a href="#exercício-c">Exercício C</a></li>
+<li><a href="#referências">Referências</a></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="aula-10-decomposição-de-instruções-do-tipo-r">Aula 10: Decomposição de Instruções do Tipo R</h1>
+<h2 id="contextualização">Contextualização</h2>
+<p>Como visto anteriormente, o MIPS possui:</p>
+<ul>
+<li><p>3 formatos básicos de instruções:</p>
+<ul>
+<li><p>Tipo R (registro);</p></li>
+<li><p>Tipo I (imediato);</p></li>
+<li><p>Tipo J (salto).</p></li>
+</ul></li>
+</ul>
+<p>Além disso, a codificação dessas instruções:</p>
+<ul>
+<li><p>Utiliza uma palavra de 32 bits;</p></li>
+<li><p>Que foi dividida em campos bem definidos.</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">opcode</th>
+<th align="center">Rs</th>
+<th align="center">Rt</th>
+<th align="center">Rd</th>
+<th align="center">shamt</th>
+<th align="center">funct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">6 bits</td>
+<td align="center">5 bits</td>
+<td align="center">5 bits</td>
+<td align="center">5 bits</td>
+<td align="center">5 bits</td>
+<td align="center">6 bits</td>
+</tr>
+<tr class="even">
+<td align="center">MSB (b31)</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">LSB (b0)</td>
+</tr>
+</tbody>
+</table>
+<p>Esses campos são agrupados:</p>
+<ul>
+<li>Dependendo do tipo de instrução.</li>
+</ul>
+<hr />
+<p>O significado dos nomes dos campos:</p>
+<ul>
+<li><p>Opcode: Contém o código da instrução a ser executada;</p></li>
+<li><p>Rs: O número do registrador com o primeiro operando da instrução definida em op;</p></li>
+<li><p>Rt: O número do registrador com o segundo operando da instrução definida em op;</p></li>
+<li><p>Rd: O número do registrador de destino do resultado da instrução definida em op;</p></li>
+<li><p>shamt: Total de deslocamento (shift amount).</p></li>
+<li><p>funct: Seleciona uma variação específica da operação definida em opcode.</p></li>
+</ul>
+<p><br></p>
+<h3 id="formato-das-instruções-do-tipo-r">Formato das instruções do tipo R</h3>
+<p>Analisaremos o formato das instruções do tipo R:</p>
+<ul>
+<li>Para determinar a estrutura de hardware necessária para implementar esse tipo de instrução.</li>
+</ul>
+<p>Todas instruções do tipo R:</p>
+<ul>
+<li><p>Utilizam 3 registradores;</p></li>
+<li><p>O campo opcode é sempre igual a zero;</p></li>
+<li><p>O campo “funct” define a função a ser realizada.</p></li>
+</ul>
+<p>A função dos registradores:</p>
+<ul>
+<li><p>Rs e Rt contém os argumentos da operação;</p></li>
+<li><p>Rd é o destino do resultado da operação.</p></li>
+</ul>
+<p>Qual a codificação para a soma mostrada abaixo:</p>
+<div class="sourceCode"><pre class="sourceCode asm"><code class="sourceCode fasm">       <span class="bu">add</span> <span class="dv">$</span>t0, <span class="dv">$</span>s1, <span class="dv">$</span>s2</code></pre></div>
+<p>Dica:</p>
+<blockquote>
+<p>Consulte valor de “funct” e o endereço dos registradores no greencard.</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>opcode</th>
+<th>Rs</th>
+<th>Rt</th>
+<th>Rd</th>
+<th>shamt</th>
+<th>funct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6 bits</td>
+<td>5 bits</td>
+<td>5 bits</td>
+<td>5 bits</td>
+<td>5 bits</td>
+<td>6 bits</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>31~26</td>
+<td>25 ~21</td>
+<td>20 ~16</td>
+<td>15 ~11</td>
+<td>10 ~6</td>
+<td>5 ~0</td>
+</tr>
+</tbody>
+</table>
+<p>Agora que a codificação das instruções do tipo R, já é conhecida:</p>
+<ul>
+<li>Vamos analisar o seu funcionamento.</li>
+</ul>
+<hr />
+<h3 id="blocos-construtivos-úteis-para-este-fluxo-de-dados">Blocos Construtivos Úteis para este Fluxo de Dados</h3>
+<p>Registrador de uso geral (n bits, configurável);</p>
+<div class="figure">
+<img src="imagensComponentes/registradorGenerico&amp;EnablePCFS.svg" width="200" />
+
+</div>
+<p>Memória (RAM e ROM);</p>
+<div class="figure">
+<img src="imagensComponentes/MemoriaRAM(dados).svg" width="400" />
+
+</div>
+<p>Banco de Registradores;</p>
+<div class="figure">
+<img src="imagensComponentes/arquivoRegistradores-1.svg" width="400" />
+
+</div>
+<p>ULA:</p>
+<ul>
+<li><p>Considere que a ULA executa qualquer operação lógica ou aritmética;</p></li>
+<li><p>Quando acabar a analise de todas instruções, saberemos quais operações a ULA necessitará;</p></li>
+</ul>
+<div class="figure">
+<img src="imagensComponentes/ULA.svg" width="400" />
+
+</div>
+<p>MUX.</p>
+<div class="figure">
+<img src="imagensComponentes/Multiplexer_N-2N.svg" width="300" />
+
+</div>
+<p><br></p>
+<h3 id="rtn">RTN</h3>
+<p>Básico sobre RTN (register transfer notation):</p>
+<p>Formaliza a descrição:</p>
+<pre><code>Do funcionamento. RTN abstrata: usa a arquitetura;
+
+Da estrutura. RTN concreta: usa a organização:
+
+    Cada passo é um pulso de clock.</code></pre>
+<p>Misto de linguagem natural e expressões matemáticas:</p>
+<pre><code>Estabelece a relação entre o que está do lado esquerdo do símbolo com o que está do lado direito.</code></pre>
+<p>As transferências só acontecem no pulso de clock;</p>
+<p>Considera que os sinais estão estáveis no momento do clock;</p>
+<p>Considera que a lógica combinacional tem resposta instantânea</p>
+<table style="width:53%;">
+<colgroup>
+<col width="9%" />
+<col width="43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Símbolo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">&lt;-</td>
+<td>Transferência entre registradores: Regesquerda recebe o valor do Regdireita .</td>
+</tr>
+<tr class="even">
+<td align="center">[ ]</td>
+<td>Índice de Word: seleciona uma palavra, ou a faixa de palavras, da memória indicada.</td>
+</tr>
+<tr class="odd">
+<td align="center">&lt; &gt;</td>
+<td>Índice de Bit: seleciona a faixa de bits ou um bit da memória indicada.</td>
+</tr>
+<tr class="even">
+<td align="center">n...m</td>
+<td>Índice de Faixa: indica a faixa da esquerda para a direita (pode ser decrescente).</td>
+</tr>
+<tr class="odd">
+<td align="center">-&gt;</td>
+<td>If-then: verdadeiro na esquerda implica receber valor ou aplicar ação na direita.</td>
+</tr>
+<tr class="even">
+<td align="center">:=</td>
+<td>Definição: ajuda a documentar. ld(opcode:=3) → R[ra] ← M[MA]</td>
+</tr>
+<tr class="odd">
+<td align="center">#</td>
+<td>Concatenação de bits.</td>
+</tr>
+<tr class="even">
+<td align="center">:</td>
+<td>Separador de ações que acontecem em paralelo.</td>
+</tr>
+<tr class="odd">
+<td align="center">;</td>
+<td>Separador de ações que acontecem em sequência: da esquerda para direita.</td>
+</tr>
+<tr class="even">
+<td align="center">@</td>
+<td>Repete o número de vezes, da direita, o que está na esquerda (concatena).</td>
+</tr>
+<tr class="odd">
+<td align="center">{ }</td>
+<td>Modificador de operação.</td>
+</tr>
+<tr class="even">
+<td align="center">( )</td>
+<td>Agrupamento de operações ou valores.</td>
+</tr>
+<tr class="odd">
+<td align="center">= ≠ &lt; ≤ ≥ &gt;</td>
+<td>Operadores de comparação, retorna valores binários (≠ pode ser: !=).</td>
+</tr>
+<tr class="even">
+<td align="center">+ - * /</td>
+<td>Operadores aritméticos.</td>
+</tr>
+<tr class="odd">
+<td align="center">^v¬⊕≡</td>
+<td>Operadores lógicos: and, or, not, xor, equivalência. Pode usar: &amp; | !</td>
+</tr>
+</tbody>
+</table>
+<p>Exemplos:</p>
+<pre><code>    Flip-flop: A ← B
+
+    Registrador: A&lt;m..1&gt; ← B&lt;m..1&gt;
+
+    Incremento do PC: PC ← PC + 4
+
+    Carrega instrução da memória:
+
+        RTN abstrata: IR ← M[PC]
+        RTN concreta:
+
+    Extensão de sinal de 16 para 32 bits, do Reg1:
+        (16@Reg1&lt;15&gt;#Reg1&lt;15..0&gt;)
+
+    Seleção de registrador (rn) no banco de regs.:
+        A ← (rn = 0 → 0 : rn != 0 → R[rn] )</code></pre>
+<p>MAd ← PC : C ← PC + 4</p>
+<p>MD ← M[MAd] : PC ← C</p>
+<p>IR ← MD Memória Memória</p>
+<pre><code>Em relação ao modelo de memória que utilizaremos:
+    As instruções estão na memória do computador:
+        No segmento “text”.
+    Dentro do processador existe uma memória específica para instruções;
+    Que é separada da memória do computador:
+        E alimentada através de um cache.</code></pre>
+<p>Análise Análise</p>
+<pre><code>Utilizando a definição da instrução “add”*:
+    Defina os blocos construtivos necessários para executá-la;
+    Descreva, em RTN, o fluxo entre esses blocos;
+    Para cada comando RTN:
+        Conecte os blocos construtivos necessários;
+        Para que a instrução execute;
+        E anote os pontos de controle utilizados.
+    Faça um rascunho do fluxo de dados;
+    Simule manualmente (papel e caneta).
+    *A definição das instruções pode ser encontrada:
+    No greencard;
+    Na página de atividades (links úteis).</code></pre>
+<p>Quando o FD estiver pronto:</p>
+<pre><code>Quando o FD estiver pronto:
+    Verifique se atende o funcionamento de todas as outras instruções, do tipo R, que implementaremos:
+        Subtração (sub);
+        E lógico (and);
+        OU lógico (or);
+        Comparação Menor Que (set if less than: slt).
+Crie uma tabela com as instruções e os pontos de controle:
+    Descrevendo o estado de cada ponto de controle;
+    Para cada instrução implementada.</code></pre>
+<h3 id="exemplo-de-tabela">Exemplo de tabela</h3>
+<pre><code>Exemplo de tabela:
+
+    Com os sinais de controle;
+
+    E as instruções.</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Instrução</th>
+<th align="center">CtrlR1</th>
+<th align="center">CtrlR2</th>
+<th align="center">OpALU</th>
+<th align="center">RegWr</th>
+<th align="center">MemRd</th>
+<th align="center">MemWr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">add</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">001</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">sub</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">010</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">…</td>
+<td align="center">...</td>
+<td align="center">...</td>
+<td align="center">…</td>
+<td align="center">...</td>
+<td align="center">...</td>
+<td align="center">...</td>
+</tr>
+<tr class="even">
+<td align="center">slt</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">100</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="agora-que-o-fd-atende-as-instruções-r">Agora que o FD atende as instruções R</h3>
+<p>Implemente em VHDL;</p>
+<pre><code>Verifique o funcionamento usando simulação:
+
+    Use a tabela com os pontos de controle.</code></pre>
+<p>Implemente no kit de desenvolvimento:</p>
+<pre><code>E faça os testes necessários.</code></pre>
+<h2 id="atividade">Atividade</h2>
+<h3 id="exercício-a">Exercício A</h3>
+<hr />
+<div id="sol-R" class="bloco solucao">
+<div class="conteudo">
+<p style="color:red">
+Solução:
+</p>
+<p>Análise das Instruções tipo R</p>
+<p>Como vimos, essas instruções possuem a seguinte expressão geral:</p>
+<p>R[rd] ← R[s] operação R[t];</p>
+<p>Utilizando a RTN abstrata, poderíamos decompor em:</p>
+<p>IR ← M[PC] : PC ← PC + 4;</p>
+<p>Inst(opc:=xx) → R[rd] ← R[rs] operação R[rt]</p>
+<p>Onde: inst = instrução executada; opc= opcode; operação = função definida no campo funct.</p>
+<p>Considerando a RTN concreta e todas as etapas da execução:</p>
+<p>Fetch: MEND ← PC : IR ← M[PC];</p>
+<p>Decode:</p>
+<p>UC ← IR&lt;31..26&gt; : CTRULA ← IR&lt;5..0&gt; :</p>
+<p>RSEND ← IR&lt;25..21&gt; : RTEND ← IR&lt;20..16&gt; :</p>
+<p>RDEND ← IR&lt;15..11&gt;; C ← PC + 4;</p>
+<p>Execute: ULAA ← R[rs] : ULAB ← R[rt]</p>
+<p>MemoryAccess: nada</p>
+<p>WriteBack: RDWR ← True : R[rd] ← ULAOUT : PC ← C</p>
+<p>Olhando apenas a etapa de “fetch”:</p>
+<ul>
+<li>MEND ← PC : IR ← M[PC];</li>
+</ul>
+<p>Podemos definir as unidades funcionais:</p>
+<p>Memória;</p>
+<div class="figure">
+<img src="imagensComponentes/MemoriaRAM(dados).svg" width="200" />
+
+</div>
+<p>Registrador PC;</p>
+<div class="figure">
+<img src="imagensComponentes/programCounter.svg" width="200" />
+
+</div>
+<p>Registrador de Instruções (IR).</p>
+<div class="figure">
+<img src="imagensComponentes/registradorGenerico&amp;EnablePCFS.svg" width="200" />
+
+</div>
+<p>memoriaROM(Instrucoes).svg</p>
+<p>Multiplexer_N-2N.svg</p>
+<p>Olhando apenas a etapa de “decode”:</p>
+<p>UC ← IR&lt;31..26&gt; : CTRULA ← IR&lt;5..0&gt; :</p>
+<p>RSEND ← IR&lt;25..21&gt; : RTEND ← IR&lt;20..16&gt; :</p>
+<p>RDEND ← IR&lt;15..11&gt;; C ← PC + 4;</p>
+<p>Podemos definir as unidades funcionais:</p>
+<p>Unidade de controle:</p>
+<div class="figure">
+<img src="imagensComponentes/UC.svg" width="400" />
+
+</div>
+<p><br></p>
+<p>Banco de registradores:</p>
+<div class="figure">
+<img src="imagensComponentes/arquivoRegistradores-1.svg" width="400" />
+
+</div>
+<p><br></p>
+<p>ULA:</p>
+<div class="figure">
+<img src="imagensComponentes/ULA.svg" width="400" />
+
+</div>
+<p><br></p>
+<p>Somador para o PC:</p>
+<div class="figure">
+<img src="imagensComponentes/somandorConstante.svg" width="400" />
+
+</div>
+<p><br></p>
+<p>Como estamos trabalhando com:</p>
+<p>Memórias separadas para instruções e dados;</p>
+<p>Podemos retirar o IR e interligar direto no Banco de Registradores.</p>
+<p>A etapa de “execute”:</p>
+<p>ULAA ← R[rs] : ULAB ← R[rt]</p>
+<p>Não adiciona nenhum componente novo.</p>
+<p>A etapa de “memory access”:</p>
+<p>Fica sem uso nesse tipo de instrução.</p>
+<p>A etapa de “write back”:</p>
+<p>RDWR ← True : R[rd] ← ULAOUT : PC ← C</p>
+<p>Só mostra as transferências:</p>
+<p>Como o PC já é um registrador;</p>
+<p>Não é necessário o registrador intermediário: C.</p>
+<p>A interligação final:</p>
+<div class="figure">
+<img src="imagensMIPS/fluxoInstrucoesAritmeticasComentado-a.svg" alt="Fluxo de Dados para Instruções do Tipo R" width="800" />
+<p class="caption"><strong>Fluxo de Dados para Instruções do Tipo R</strong></p>
+</div>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<hr />
+<h2 id="exercício-c">Exercício C</h2>
+<p>Para a instrução:</p>
+<div class="sourceCode"><pre class="sourceCode asm"><code class="sourceCode fasm">    sw  <span class="dv">$</span>t1,  <span class="dv">4</span>(<span class="dv">$</span>sp):</code></pre></div>
+<p>Qual seria a sua codificação?</p>
+<table>
+<thead>
+<tr class="header">
+<th>opcode</th>
+<th align="center">Rs</th>
+<th align="center">Rt</th>
+<th align="center">Rd</th>
+<th align="center">shamt</th>
+<th align="center">funct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6 bits</td>
+<td align="center">5 bits</td>
+<td align="center">5 bits</td>
+<td align="center">5 bits</td>
+<td align="center">5 bits</td>
+<td align="center">6 bits</td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td><input type="text" id="C1" value="" maxlength="6" size="6" onkeyup="validaBinario(id)" onchange="validaBinario(id)"></td>
+<td align="center"><input type="text" id="C2" value="" maxlength="5" size="5" onkeyup="validaBinario(id)" onchange="validaBinario(id)"></td>
+<td align="center"><input type="text" id="C3" value="" maxlength="5" size="5" onkeyup="validaBinario(id)" onchange="validaBinario(id)"></td>
+<td align="center"><input type="text" id="C4" value="" maxlength="5" size="5" onkeyup="validaBinario(id)" onchange="validaBinario(id)"></td>
+<td align="center"><input type="text" id="C5" value="" maxlength="5" size="5" onkeyup="validaBinario(id)" onchange="validaBinario(id)"></td>
+<td align="center"><input type="text" id="C6" value="" maxlength="6" size="6" onkeyup="validaBinario(id)" onchange="validaBinario(id)"></td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td>31~26</td>
+<td align="center">25~ 21</td>
+<td align="center">20~16</td>
+<td align="center">15~11</td>
+<td align="center">10~6</td>
+<td align="center">5~0</td>
+</tr>
+</tbody>
+</table>
+<div id="sol-ExC" class="bloco solucao">
+<div class="conteudo">
+<p style="color:red">
+Solução:
+</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">opcode</th>
+<th align="center">Rs</th>
+<th align="center">Rt</th>
+<th align="center">Rd</th>
+<th align="center">shamt</th>
+<th align="center">funct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">6 bits</td>
+<td align="center">5 bits</td>
+<td align="center">5 bits</td>
+<td align="center">5 bits</td>
+<td align="center">5 bits</td>
+<td align="center">6 bits</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">101011</td>
+<td align="center">11101</td>
+<td align="center">01001</td>
+<td align="center">00000</td>
+<td align="center">00000</td>
+<td align="center">000100</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">31~26</td>
+<td align="center">25~ 21</td>
+<td align="center">20~16</td>
+<td align="center">15~11</td>
+<td align="center">10~6</td>
+<td align="center">5~0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<hr />
+<h2 id="referências">Referências</h2>
+<p><a href="./linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+<!---
+######### (inicio dos links) ##########
+#######################################
+########### Links Internos ############
+--->
+</body>
+</html>

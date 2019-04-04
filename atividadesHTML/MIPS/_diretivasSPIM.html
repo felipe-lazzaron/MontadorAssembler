@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<h1 id="diretivas-do-assembler">Diretivas do Assembler</h1>
+<p><br></p>
+<hr />
+<p><code>.align n</code> : Align the next datum on a 2^n byte boundary.</p>
+<ul>
+<li>For example:
+<ul>
+<li><code>.align 2</code> aligns the next value on a word boundary.</li>
+<li><code>.align 0</code> turns off automatic alignment of the directives:
+<ul>
+<li><code>.half</code>;</li>
+<li><code>.word</code>;</li>
+<li><code>.float</code>;</li>
+<li><code>.double</code></li>
+</ul></li>
+<li>Until the next <code>.data</code> or <code>.kdata</code> directive.</li>
+</ul></li>
+</ul>
+<hr />
+<p><code>.ascii str</code> : Store the string in memory, but do not null-terminate it.</p>
+<hr />
+<p><code>.asciiz str</code> : Store the string in memory and null-terminate it.</p>
+<hr />
+<p><code>.byte b1, ..., bn</code> : Store the <em>n</em> values in successive bytes of memory.</p>
+<hr />
+<p><code>.data</code> : The following data items should be stored in the data segment.</p>
+<ul>
+<li>If the optional argument <em>addr</em> is present, the items are stored beginning at address <em>addr</em>.</li>
+</ul>
+<hr />
+<p><code>.double d1, ..., dn</code> : Store the <em>n</em> floating point double precision numbers in successive memory locations.</p>
+<hr />
+<p><code>.extern sym size</code> : Declare that the datum stored at <code>sym</code> is <code>size</code> bytes large and is a global symbol.</p>
+<ul>
+<li>This directive enables the assembler to store the datum in a portion of the data segment that is efficiently accessed via register <code>$gp</code>.</li>
+</ul>
+<hr />
+<p><code>.float f1, ..., fn</code> : Store the <em>n</em> floating point single precision numbers in successive memory locations.</p>
+<hr />
+<p><code>.globl sym</code> : Declare that symbol <code>sym</code> is global and can be referenced from other files.</p>
+<hr />
+<p><code>.half h1, ..., hn</code> : Store the <em>n</em> 16-bit quantities in successive memory halfwords.</p>
+<hr />
+<p><code>.kdata</code> : The following data items should be stored in the kernel data segment.</p>
+<ul>
+<li>If the optional argument <em>addr</em> is present, the items are stored beginning at address <em>addr</em>.</li>
+</ul>
+<hr />
+<p><code>.ktext</code> : The next items are put in the kernel text segment.</p>
+<ul>
+<li>In SPIM, these items may only be instructions or words (see the <code>.word</code> directive below).</li>
+<li>If the optional argument <em>addr</em> is present, the items are stored beginning at address <em>addr</em>.</li>
+</ul>
+<hr />
+<p><code>.space n</code> : Allocate <em>n</em> bytes of space in the current segment (which must be the data segment in SPIM).</p>
+<hr />
+<p><code>.text</code> : The next items are put in the user text segment.</p>
+<ul>
+<li>In SPIM, these items may only be instructions or words (see the <code>.word</code> directive below).</li>
+<li>If the optional argument <em>addr</em> is present, the items are stored beginning at address <em>addr</em>.</li>
+</ul>
+<hr />
+<p><code>.word w1, ..., wn</code> : Store the <em>n</em> 32-bit quantities in successive memory words.</p>
+<hr />
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<p><a name="inicio"></a></p>
+<h2 id="código-vhdl-para-o-circuito-do-relógio.">Código VHDL para o circuito do relógio.</h2>
+<h2 id="código-do-divisor">Código do Divisor:</h2>
+<p>Para obter a referência de tempo para o relógio, é necessário dividir o clock de entrada por um valor X (inteiro).</p>
+<p>Para tanto, pode-se utilizar o código do divisorGenerico, mostrado abaixo. Em seguida temos um <a href="#topLevel">exemplo de uso (instanciação)</a>.</p>
+<p>Nome do arquivo: divisorGenerico.vhd</p>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl"><span class="kw">LIBRARY</span> ieee;
+<span class="kw">USE</span> ieee<span class="ot">.</span>std_logic_1164<span class="ot">.</span>ALL;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">divisorGenerico</span> <span class="kw">is</span>
+    <span class="kw">generic</span>
+    (divisor <span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">8</span>);
+    <span class="kw">port</span>(
+        clk         <span class="ot">:</span>   <span class="kw">in</span> <span class="dt">std_logic</span>;
+        saida_clk <span class="ot">:</span>   <span class="kw">out</span> <span class="dt">std_logic</span>
+        );
+<span class="er">end entity;</span>
+
+<span class="co">-- Nao usa o valor do divisor. So divide por 2.</span>
+<span class="kw">architecture</span> <span class="kw">divPor2</span> <span class="kw">of</span> <span class="kw">divisorGenerico</span> <span class="kw">is</span>
+    <span class="ot">signal</span> tick <span class="ot">:</span> <span class="dt">std_logic</span>;
+<span class="kw">begin</span>
+    <span class="kw">process</span>(clk)
+    <span class="kw">begin</span>
+        <span class="kw">if</span> <span class="kw">rising_edge</span>(clk) <span class="kw">then</span>
+            tick <span class="ot">&lt;=</span> <span class="kw">not</span> tick;
+        <span class="kw">end if;</span>
+    <span class="kw">end process</span>;
+    saida_clk <span class="ot">&lt;=</span> tick;
+<span class="er">end divPor2;</span>
+
+<span class="co">-- O valor &quot;n&quot; do divisor, define a divisao por 2^(n+1).</span>
+<span class="co">-- Ou seja, 2^n é metade do período da frequência de saída.</span>
+<span class="kw">architecture</span> <span class="kw">divPotenciaDe2</span> <span class="kw">of</span> <span class="kw">divisorGenerico</span> <span class="kw">is</span>
+    <span class="ot">signal</span> contador <span class="ot">:</span> <span class="dt">std_logic_vector</span>(divisor <span class="ot">downto</span> <span class="dv">0</span>);
+<span class="kw">begin</span>
+    <span class="kw">process</span>(clk)
+        <span class="kw">begin</span>
+            <span class="kw">if</span> <span class="kw">rising_edge</span>(clk) <span class="kw">then</span>
+                contador <span class="ot">&lt;=</span> <span class="dt">std_logic_vector</span>(<span class="dt">unsigned</span>(contador) <span class="ot">+</span> <span class="dv">1</span>);
+            <span class="kw">end if;</span>
+    <span class="kw">end process</span>;
+    saida_clk <span class="ot">&lt;=</span> contador(divisor);
+<span class="er">end divPotenciaDe2;</span>
+
+
+<span class="co">-- O valor &quot;n&quot; do divisor, define a divisao por &quot;2n&quot;.</span>
+<span class="co">-- Ou seja, n é metade do período da frequência de saída.</span>
+<span class="kw">architecture</span> <span class="kw">divInteiro</span> <span class="kw">of</span> <span class="kw">divisorGenerico</span> <span class="kw">is</span>
+   <span class="ot">signal</span> tick <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+    <span class="ot">signal</span> contador <span class="ot">:</span> <span class="dt">integer</span> <span class="kw">range</span> <span class="dv">0</span> <span class="ot">to</span> divisor<span class="ot">+</span><span class="dv">1</span> <span class="ot">:=</span> <span class="dv">0</span>;
+<span class="kw">begin</span>
+    <span class="kw">process</span>(clk)
+    <span class="kw">begin</span>
+        <span class="kw">if</span> <span class="kw">rising_edge</span>(clk) <span class="kw">then</span>
+            <span class="kw">if</span> contador <span class="ot">=</span> divisor <span class="kw">then</span>
+                contador <span class="ot">&lt;=</span> <span class="dv">0</span>;
+                tick <span class="ot">&lt;=</span> <span class="kw">not</span> tick;
+            <span class="kw">else</span>
+                contador <span class="ot">&lt;=</span> contador <span class="ot">+</span> <span class="dv">1</span>;
+            <span class="kw">end if;</span>
+        <span class="kw">end if;</span>
+    <span class="kw">end process</span>;
+    saida_clk <span class="ot">&lt;=</span> tick;
+<span class="er">end divInteiro;</span></code></pre></div>
+<hr />
+<p><a name="topLevel"></a> ## Exemplo de uso:</p>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl"><span class="kw">LIBRARY</span> ieee;
+<span class="kw">USE</span> ieee<span class="ot">.</span>std_logic_1164<span class="ot">.</span>ALL;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">top_level</span> <span class="kw">is</span>
+   <span class="kw">port</span>(
+      clk        <span class="ot">:</span>   <span class="kw">in</span> <span class="dt">std_logic</span>;
+      saida_clk <span class="ot">:</span>   <span class="kw">out</span> <span class="dt">std_logic</span>
+   );
+<span class="er">end entity;</span>
+
+<span class="kw">architecture</span> <span class="kw">teste</span> <span class="kw">of</span> <span class="kw">top_level</span> <span class="kw">is</span>
+
+<span class="kw">begin</span>
+<span class="kw">fazDivisaoPot2</span><span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">divisorGenerico(divPotenciaDe2)</span>
+            <span class="kw">generic map (</span>divisor <span class="ot">=&gt;</span> <span class="dv">5</span>)   <span class="co">-- divide por 2^6.</span>
+            <span class="kw">port map (</span>clk <span class="ot">=&gt;</span> clk<span class="ot">,</span> saida_clk <span class="ot">=&gt;</span> saida_clk);
+
+<span class="kw">fazDivisaoInteiro</span><span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">divisorGenerico(divInteiro)</span>
+            <span class="kw">generic map (</span>divisor <span class="ot">=&gt;</span> <span class="dv">5</span>)   <span class="co">-- divide por 10.</span>
+            <span class="kw">port map (</span>clk <span class="ot">=&gt;</span> clk<span class="ot">,</span> saida_clk <span class="ot">=&gt;</span> saida_clk);
+
+<span class="kw">end architecture;</span></code></pre></div>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+</body>
+</html>

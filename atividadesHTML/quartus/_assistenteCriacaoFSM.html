@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<h2 id="assistente-de-criação-de-máquinas-de-estados-finitos">Assistente de Criação de Máquinas de Estados Finitos</h2>
+<p>A criação de uma máquina de estado segue os passos:</p>
+<ul>
+<li>Criar um novo arquivo do tipo <em>State Machine</em></li>
+<li>Vá em Menu File:
+<ul>
+<li>Escolha: <em>State Machine File</em>.</li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="../imagensQuartus/novaMaquinaEstado.png" />
+
+</div>
+<p><br></p>
+<p>Deverá abrir a seguinte tela:</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-1.png" />
+
+</div>
+<hr />
+<p><br></p>
+<p>Para criar as entradas e saídas da FSM, utilize as tabelas <em>Input Table</em> e <em>Output Table</em>. Clique com o botão direito do mouse na região não utilizada da tabela desejada:</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-InputOutputTable-2A1.png" />
+
+</div>
+<p><br></p>
+<p>Podem ser criadas entradas/saídas individuais ou vetores. Note que a representação de vetor utiliza a sintaxe: nome[inicio:fim] ou nome[fim:inicio].</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-InputOutputTable-2B.png" />
+
+</div>
+<p><br></p>
+<p>Note que os nomes e tipos utilizados para os sinais de entrada e saída devem ser os mesmos utilizados na instanciação do componente.</p>
+<hr />
+<p><br></p>
+<p>Para criar os estados da FSM, utilize a ferramenta <em>State Tool</em>:</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-DetalhePainel-1A.png" />
+
+</div>
+<hr />
+<p><br></p>
+<p>Para criar as transições entre os estados da FSM, utilize a ferramenta <em>State Tool</em>:</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-DetalhePainel-1B.png" />
+
+</div>
+<hr />
+<p><br></p>
+<p>A edição das características da FSM é feita através do <em>State Machine Wizard</em>:</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-StateMachineWizard-1.png" />
+
+</div>
+<hr />
+<p><br></p>
+<p>As características da FSM são configuradas através das abas do assistente e com o botão direito do mouse. As características gerais são mostradas abaixo:</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-StateMachineWizard-2.png" />
+
+</div>
+<p><br></p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-StateMachineWizard-3.png" />
+
+</div>
+<p><br></p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-StateMachineWizard-4.png" />
+
+</div>
+<p><br></p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-StateMachineWizard-5.png" />
+
+</div>
+<p><br></p>
+<p>Para definir as transições, temos os valores de entrada e as seguintes operações:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Símbolo</th>
+<th>Comparação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&quot;==&quot;</td>
+<td>EQUAL</td>
+</tr>
+<tr class="even">
+<td>&quot;!=&quot;</td>
+<td>INEQUAL</td>
+</tr>
+<tr class="odd">
+<td>&quot;&lt;=&quot;</td>
+<td>LESSER THAN</td>
+</tr>
+<tr class="even">
+<td>&quot;&lt;&quot;</td>
+<td>LESSER</td>
+</tr>
+<tr class="odd">
+<td>&quot;&gt;=&quot;</td>
+<td>GREATER THAN</td>
+</tr>
+<tr class="even">
+<td>&quot;&gt;&quot;</td>
+<td>GREATER</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th>Símbolo</th>
+<th>Operação Lógica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&quot;&amp;&quot;</td>
+<td>AND</td>
+</tr>
+<tr class="even">
+<td>&quot;|&quot;</td>
+<td>OR</td>
+</tr>
+<tr class="odd">
+<td>&quot;^&quot;</td>
+<td>XOR</td>
+</tr>
+<tr class="even">
+<td>&quot;~&amp;&quot;</td>
+<td>NAND</td>
+</tr>
+<tr class="odd">
+<td>&quot;~|&quot;</td>
+<td>NOR</td>
+</tr>
+<tr class="even">
+<td>&quot;~^&quot;</td>
+<td>XNOR</td>
+</tr>
+<tr class="odd">
+<td>&quot;~&quot;</td>
+<td>NOT</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-StateMachineWizard-6.png" />
+
+</div>
+<p><br></p>
+<p>O valor de saída aceita números decimais inteiros.</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-StateMachineWizard-7.png" />
+
+</div>
+<hr />
+<p><br></p>
+<p>O resultado da edição é atualizado para o grafo da máquina de estados:</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-grafo-1.png" />
+
+</div>
+<hr />
+<p><br></p>
+<p>Para gerar o código HDL referente a essa FSM, utiliza-se o botão <em>Generate HDL File</em>:</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-GerarHDL-1.png" />
+
+</div>
+<p><br></p>
+<p>E deve-se escolher a linguagem desejada. No nosso caso: VHDL.</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-GerarHDL-2.png" />
+
+</div>
+<p><br></p>
+<p>Será criado um arquivo com o código VHDL referente à FSM definida anteriormente. Esse arquivo deve ser adicionado ao projeto.</p>
+<div class="figure">
+<img src="../imagensQuartus/telaCriarFSM-GerarHDL-3.png" />
+
+</div>
+<p><br></p>
+<hr />
+<p><br></p>
+<p>Para verificar os detalhes da implementação, como a tabela de transição gerada ou a codificação dos estado, utilize o <em>State Machine Viewer</em>.</p>
+<p>Ele está no menu: Tools &gt; Net List Viewers &gt; State Machine Viewer.</p>
+<p>Transições: <img src="../imagensQuartus/telaStateMachineViewer-1.png" /></p>
+<p>Codificação: <img src="../imagensQuartus/telaStateMachineViewer-2.png" /></p>
+<p><br></p>
+<p>Note que os estados são representados de duas formas:</p>
+<ul>
+<li>Com um círculo simples: significa que eles não possuem conexão com a lógica externa;</li>
+<li>Com um círculo duplo: são os estados que possuem conexão com a lógica externa à FSM.</li>
+</ul>
+</body>
+</html>

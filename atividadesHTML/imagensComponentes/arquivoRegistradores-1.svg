@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="309.07196"
+   height="165.8058"
+   id="svg5785"
+   sodipodi:version="0.32"
+   inkscape:version="0.91 r13725"
+   version="1.0"
+   sodipodi:docname="arquivoRegistradores-1.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/paulo/imagensPCFS/componentes/componentes/arquivoRegistros-1.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs5787" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10000"
+     objecttolerance="10000"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.5316055"
+     inkscape:cx="149.79594"
+     inkscape:cy="82.902898"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:object-bbox="true"
+     inkscape:object-points="true"
+     inkscape:grid-points="true"
+     inkscape:guide-points="true"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="1985"
+     inkscape:window-y="24"
+     showborder="true"
+     inkscape:window-maximized="1"
+     fit-margin-top="5"
+     fit-margin-right="5"
+     fit-margin-left="5"
+     fit-margin-bottom="5"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata5790">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-153.91374,-431.95929)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5793"
+       width="103.17414"
+       height="154.8058"
+       x="255.09708"
+       y="437.45929" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'Bitstream Vera Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="308.9946"
+       y="502.75543"
+       id="text5795"><tspan
+         sodipodi:role="line"
+         id="tspan5797"
+         x="308.9946"
+         y="502.75543"
+         style="text-align:center;text-anchor:middle">Arquivo de</tspan><tspan
+         sodipodi:role="line"
+         x="308.9946"
+         y="517.75543"
+         id="tspan4191"
+         style="text-align:center;text-anchor:middle">Registradores</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 172.11287,452.3616 82.95002,-0.0306"
+       id="path5838"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 172.11287,477.39244 82.95002,-0.0306"
+       id="path5840"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 172.54945,527.8623 82.95002,-0.0306"
+       id="path5842"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 172.54945,552.86253 82.95002,-0.0306"
+       id="path5844"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 172.54945,577.36276 82.95002,-0.0306"
+       id="path5846"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 357.984,473.0397 100,-0.67752 0,0 0,0"
+       id="path5848"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 357.984,542.23515 100,0.12703"
+       id="path5850"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 254.99464,573.99105 10.84269,2.96356 -10.84269,3.29284"
+       id="path5852"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 171.67629,503.39268 82.95002,-0.0306"
+       id="path5854"
+       inkscape:connector-curvature="0" />
+    <text
+       id="text4193"
+       y="448.1322"
+       x="199.94322"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'Bitstream Vera Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         id="tspan4197"
+         y="448.1322"
+         x="199.94322"
+         sodipodi:role="line">End. Leitura 1</tspan><tspan
+         style="text-align:center;text-anchor:middle"
+         y="463.1322"
+         x="199.94322"
+         sodipodi:role="line"
+         id="tspan4201" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'Bitstream Vera Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="175.07585"
+       y="576.1322"
+       id="text4209"><tspan
+         sodipodi:role="line"
+         x="175.07585"
+         y="576.1322"
+         id="tspan4211"
+         style="text-align:center;text-anchor:middle">Clock</tspan><tspan
+         id="tspan4213"
+         sodipodi:role="line"
+         x="175.07585"
+         y="591.1322"
+         style="text-align:center;text-anchor:middle" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'Bitstream Vera Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="199.94322"
+       y="474.1322"
+       id="text4215"><tspan
+         sodipodi:role="line"
+         x="199.94322"
+         y="474.1322"
+         id="tspan4217"
+         style="text-align:center;text-anchor:middle">End. Leitura 2</tspan><tspan
+         id="tspan4219"
+         sodipodi:role="line"
+         x="199.94322"
+         y="489.1322"
+         style="text-align:center;text-anchor:middle" /></text>
+    <text
+       id="text4221"
+       y="500.1322"
+       x="193.73166"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'Bitstream Vera Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         id="tspan4223"
+         y="500.1322"
+         x="193.73166"
+         sodipodi:role="line">End. Escrita</tspan><tspan
+         style="text-align:center;text-anchor:middle"
+         y="515.1322"
+         x="193.73166"
+         sodipodi:role="line"
+         id="tspan4225" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'Bitstream Vera Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="203.92532"
+       y="525.28278"
+       id="text4227"><tspan
+         sodipodi:role="line"
+         x="203.92532"
+         y="525.28278"
+         id="tspan4229"
+         style="text-align:center;text-anchor:middle">Dado p/ Escrita</tspan><tspan
+         id="tspan4231"
+         sodipodi:role="line"
+         x="203.92532"
+         y="540.28278"
+         style="text-align:center;text-anchor:middle" /></text>
+    <text
+       id="text4233"
+       y="549.28278"
+       x="203.07585"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'Bitstream Vera Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         id="tspan4235"
+         y="549.28278"
+         x="203.07585"
+         sodipodi:role="line">Habilita Escrita</tspan><tspan
+         style="text-align:center;text-anchor:middle"
+         y="564.28278"
+         x="203.07585"
+         sodipodi:role="line"
+         id="tspan4237" /></text>
+    <text
+       id="text4241"
+       y="538.99963"
+       x="415.92532"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'Bitstream Vera Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         id="tspan4243"
+         y="538.99963"
+         x="415.92532"
+         sodipodi:role="line">Saída Dado 2</tspan><tspan
+         style="text-align:center;text-anchor:middle"
+         y="553.99963"
+         x="415.92532"
+         sodipodi:role="line"
+         id="tspan4245" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'Bitstream Vera Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="415.92532"
+       y="469.28278"
+       id="text4247"><tspan
+         sodipodi:role="line"
+         x="415.92532"
+         y="469.28278"
+         id="tspan4249"
+         style="text-align:center;text-anchor:middle">Saída Dado 1</tspan><tspan
+         id="tspan4251"
+         sodipodi:role="line"
+         x="415.92532"
+         y="484.28278"
+         style="text-align:center;text-anchor:middle" /></text>
+  </g>
+</svg>

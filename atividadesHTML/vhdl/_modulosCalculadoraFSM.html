@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<p><a name="inicio"></a></p>
+<h1 id="código-vhdl-para-o-circuito-da-calculadora">Código VHDL para o circuito da calculadora</h1>
+<p>O circuito é composto pelos arquivos:</p>
+<ul>
+<li><p>O top level;</p></li>
+<li><p>O fluxo de dados;</p></li>
+<li><p>A ULA;</p></li>
+<li><p>O decodificador de hexadecimal para sete segmentos;</p></li>
+<li><p>O registrador genérico;</p></li>
+<li><p>O divisor genérico.</p></li>
+</ul>
+<p>E a máquina de estados (SM1.vhd), que será criada para controlar o funcionamento do circuito.</p>
+<h2 id="código-do-top-level">Código do Top Level</h2>
+<p>Nome do arquivo: calculadora.vhd.</p>
+<div class="sourceCode"><pre class="sourceCode vhdl"><code class="sourceCode vhdl"><span class="kw">library</span> IEEE;
+<span class="kw">use</span> ieee<span class="ot">.</span>std_logic_1164<span class="ot">.</span>all;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">calculadora</span> <span class="kw">is</span>
+  <span class="kw">port</span> (
+    <span class="co">-- Entradas (placa)</span>
+    CLOCK_<span class="dv">50</span> <span class="ot">:</span> <span class="kw">in</span> <span class="dt">STD_LOGIC</span>;
+    KEY<span class="ot">:</span> <span class="kw">in</span> <span class="dt">STD_LOGIC_VECTOR</span>(<span class="dv">3</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>);
+    SW<span class="ot">:</span> <span class="kw">in</span> <span class="dt">STD_LOGIC_VECTOR</span>(<span class="dv">17</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>);
+
+    <span class="co">-- Saidas (placa)</span>
+    LEDR  <span class="ot">:</span> <span class="kw">out</span> <span class="dt">STD_LOGIC_VECTOR</span>(<span class="dv">17</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>) <span class="ot">:=</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span>);
+    LEDG  <span class="ot">:</span> <span class="kw">out</span> <span class="dt">STD_LOGIC_VECTOR</span>(<span class="dv">8</span> <span class="ot">DOWNTO</span> <span class="dv">0</span>) <span class="ot">:=</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span>);
+    HEX0<span class="ot">,</span> HEX1<span class="ot">,</span> HEX2<span class="ot">,</span> HEX3<span class="ot">,</span> HEX4<span class="ot">,</span> HEX5<span class="ot">,</span> HEX6<span class="ot">,</span> HEX7 <span class="ot">:</span> <span class="kw">OUT</span> <span class="dt">STD_LOGIC_VECTOR</span>(<span class="dv">6</span> <span class="ot">downto</span> <span class="dv">0</span>)
+  );
+<span class="kw">end entity;</span>
+
+
+<span class="kw">architecture</span> <span class="kw">comportamento</span> <span class="kw">of</span> <span class="kw">calculadora</span> <span class="kw">is</span>
+  <span class="ot">signal</span> auxSaida <span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+  <span class="ot">signal</span> loNibble <span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">3</span> <span class="ot">downto</span> <span class="dv">0</span>);
+  <span class="ot">signal</span> hiNibble <span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">4</span>);
+  <span class="ot">signal</span> auxFuncaoULA <span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">1</span> <span class="ot">downto</span> <span class="dv">0</span>);
+  <span class="ot">signal</span> auxOverFlow <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> auxApaga <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;1&#39;</span>;
+  <span class="ot">signal</span> auxNegativo <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> auxCarregaA <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> auxCarregaB <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> auxCarregaSaida <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> auxReset <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> auxClock <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> pisca <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> auxLeituraA <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> auxLeituraB <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> ativaPisca <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+  <span class="ot">signal</span> controle <span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">15</span> <span class="ot">downto</span> <span class="dv">0</span>);
+  <span class="co">--</span>
+  <span class="ot">signal</span> auxPasso <span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">3</span> <span class="ot">downto</span> <span class="dv">0</span>);
+  <span class="ot">signal</span> auxReiniciaFSM <span class="ot">:</span> <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+<span class="kw">begin</span>
+
+  <span class="co">-- Instancia o fluxo de dados mais simples:</span>
+  <span class="kw">FD</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">fluxoDados</span> <span class="er">(simples)</span> <span class="co">--(complexo)</span>
+    <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(</span>
+      <span class="er">entrada(</span><span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span><span class="er">)</span> <span class="ot">=&gt;</span> <span class="er">hiNibble</span> <span class="ot">&amp;</span> <span class="er">loNibble</span><span class="ot">,</span> <span class="er">funcaoULA</span> <span class="ot">=&gt;</span> <span class="er">auxFuncaoULA</span><span class="ot">,</span>
+       <span class="er">clk</span> <span class="ot">=&gt;</span> <span class="er">auxClock</span><span class="ot">,</span> <span class="er">rst</span> <span class="ot">=&gt;</span> <span class="er">auxReset</span><span class="ot">,</span> <span class="er">overflow</span> <span class="ot">=&gt;</span> <span class="er">auxOverFlow</span><span class="ot">,</span>
+      <span class="er">carregaA</span> <span class="ot">=&gt;</span> <span class="er">auxCarregaA</span><span class="ot">,</span> <span class="er">carregaB</span> <span class="ot">=&gt;</span> <span class="er">auxCarregaB</span><span class="ot">,</span>
+      <span class="er">carregaSaida</span> <span class="ot">=&gt;</span> <span class="er">auxCarregaSaida</span><span class="ot">,</span> <span class="er">saida</span> <span class="ot">=&gt;</span> <span class="er">auxSaida</span>
+    <span class="er">)</span>;
+
+  <span class="co">-- Displays e Leds:</span>
+  <span class="kw">freqPisca</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">divisorGenerico</span> <span class="er">(divisaoGenerica)</span>  <span class="kw">generic map (</span>divisor <span class="ot">=&gt;</span> <span class="dv">25</span>) <span class="co">--(divisaoGenerica) := 2^divisor</span>
+    <span class="kw">port map (</span>clk <span class="ot">=&gt;</span>  auxClock<span class="ot">,</span> saida_clk <span class="ot">=&gt;</span> pisca);
+
+  <span class="co">-- Resultado da operacao executada:</span>
+  <span class="kw">display0</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">conversorHex7seg</span>
+    <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(saida7seg</span> <span class="ot">=&gt;</span> <span class="er">HEX0</span><span class="ot">,</span> <span class="er">dadoHex</span> <span class="ot">=&gt;</span> <span class="er">auxSaida(</span><span class="dv">3</span> <span class="ot">downto</span> <span class="dv">0</span><span class="er">)</span><span class="ot">,</span> <span class="er">apaga</span> <span class="ot">=&gt;</span> <span class="er">auxOverFlow)</span>;
+  <span class="kw">display1</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">conversorHex7seg</span>
+    <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(saida7seg</span> <span class="ot">=&gt;</span> <span class="er">HEX1</span><span class="ot">,</span> <span class="er">dadoHex</span> <span class="ot">=&gt;</span> <span class="er">auxSaida(</span><span class="dv">7</span> <span class="ot">downto</span> <span class="dv">4</span><span class="er">)</span><span class="ot">,</span> <span class="er">apaga</span> <span class="ot">=&gt;</span> <span class="er">auxOverFlow)</span>;
+
+  <span class="co">-- Indicador de sinal e overflow:</span>
+  <span class="kw">display2</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">conversorHex7seg</span>
+    <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(saida7seg</span> <span class="ot">=&gt;</span> <span class="er">HEX2</span><span class="ot">,</span> <span class="er">dadoHex</span> <span class="ot">=&gt;</span> <span class="er">(</span><span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;1&#39;</span><span class="er">)</span><span class="ot">,</span> <span class="er">apaga</span> <span class="ot">=&gt;</span> <span class="er">(</span><span class="kw">not</span><span class="er">(auxNegativo)</span> <span class="kw">or</span> <span class="er">auxOverFlow)</span><span class="ot">,</span> <span class="er">negativo</span> <span class="ot">=&gt;</span> <span class="er">auxNegativo)</span>;
+  <span class="kw">display3</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">conversorHex7seg</span>
+    <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(saida7seg</span> <span class="ot">=&gt;</span> <span class="er">HEX3</span><span class="ot">,</span> <span class="er">dadoHex</span> <span class="ot">=&gt;</span> <span class="er">(</span><span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;1&#39;</span><span class="er">)</span><span class="ot">,</span> <span class="er">apaga</span> <span class="ot">=&gt;</span> <span class="kw">not</span><span class="er">(auxOverFlow)</span><span class="ot">,</span> <span class="er">overFlow</span> <span class="ot">=&gt;</span> <span class="er">auxOverFlow)</span>;
+
+  <span class="co">-- Mostra os valores sendo escolhidos nas chaves:</span>
+  <span class="kw">display4</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">conversorHex7seg</span>
+    <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(saida7seg</span> <span class="ot">=&gt;</span> <span class="er">HEX4</span><span class="ot">,</span> <span class="er">dadoHex</span> <span class="ot">=&gt;</span> <span class="er">loNibble)</span>;
+  <span class="kw">display5</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">conversorHex7seg</span>
+    <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(saida7seg</span> <span class="ot">=&gt;</span> <span class="er">HEX5</span><span class="ot">,</span> <span class="er">dadoHex</span> <span class="ot">=&gt;</span> <span class="er">hiNibble)</span>;
+
+  <span class="co">--Indica a operacao escolhida:</span>
+  <span class="co">--  0 = Soma</span>
+  <span class="co">--  1 = Subtrai</span>
+  <span class="co">--  2 = XOR</span>
+  <span class="co">--  3 = AND</span>
+  <span class="kw">display6</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">conversorHex7seg</span>
+    <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(saida7seg</span> <span class="ot">=&gt;</span> <span class="er">HEX6</span><span class="ot">,</span> <span class="er">dadoHex</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span> <span class="ot">&amp;</span> <span class="bn">&#39;0&#39;</span> <span class="ot">&amp;</span> <span class="er">auxFuncaoULA)</span>;
+
+  <span class="co">-- Indica o estado atual da maquina de estado, em decimal:</span>
+  <span class="kw">display7</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">conversorHex7seg</span>
+    <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(saida7seg</span> <span class="ot">=&gt;</span> <span class="er">HEX7</span><span class="ot">,</span> <span class="er">dadoHex</span> <span class="ot">=&gt;</span> <span class="er">auxPasso</span><span class="ot">,</span> <span class="er">apaga</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span><span class="ot">,</span> <span class="er">overFlow</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span><span class="ot">,</span> <span class="er">negativo</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span><span class="er">)</span>;
+
+  <span class="co">-- Instacia a maquina de estados:</span>
+  <span class="kw">sequenciador</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">SM1</span>
+    <span class="kw">port map(</span> reset <span class="ot">=&gt;</span> auxReset<span class="ot">,</span> clock <span class="ot">=&gt;</span> auxClock<span class="ot">,</span>
+    leituraA <span class="ot">=&gt;</span> auxLeituraA<span class="ot">,</span> leituraB <span class="ot">=&gt;</span> auxLeituraB<span class="ot">,</span>
+    controle <span class="ot">=&gt;</span> controle<span class="ot">,</span> passo <span class="ot">=&gt;</span> auxPasso<span class="ot">,</span>
+    auxReset <span class="ot">=&gt;</span> auxReset<span class="ot">,</span> reiniciaFSM <span class="ot">=&gt;</span> auxReiniciaFSM);
+
+  <span class="co">-- conexoes da placa:</span>
+  <span class="co">-- Os 8 primeiros LEDS VERMELHOS indicam o valor definido nas chaves.</span>
+  LEDR(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>) <span class="ot">&lt;=</span> SW(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+
+  LEDR(<span class="dv">17</span> <span class="ot">downto</span> <span class="dv">16</span>) <span class="ot">&lt;=</span> auxFuncaoULA;            <span class="co">-- indica a funçao da ULA nos dois ultimos LEDS VERMELHOS.</span>
+   LEDG(<span class="dv">3</span> <span class="ot">downto</span> <span class="dv">0</span>) <span class="ot">&lt;=</span> <span class="kw">not</span>(KEY(<span class="dv">3</span> <span class="ot">downto</span> <span class="dv">0</span>));      <span class="co">-- Cada LED VERDE, de 0 a 3, indica se o botao correspondente foi pressionado.</span>
+  LEDG(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">4</span>) <span class="ot">&lt;=</span> ( <span class="ot">others</span> <span class="ot">=&gt;</span> auxOverFlow);  <span class="co">-- Todos LEDs VERDEs, de 4 a 7, indicam se ocorreu OVERFLOW.</span>
+  LEDG(<span class="dv">8</span>) <span class="ot">&lt;=</span> pisca <span class="kw">and</span> ativaPisca;               <span class="co">-- O LED VERDE entre os displays pisca no ESTADO 1.</span>
+  <span class="co">--</span>
+  auxFuncaoULA <span class="ot">&lt;=</span> SW(<span class="dv">17</span> <span class="ot">downto</span> <span class="dv">16</span>);
+<span class="co">--  00 = Soma</span>
+<span class="co">--  01 = Subtrai</span>
+<span class="co">--  10 = XOR</span>
+<span class="co">--  11 = AND</span>
+
+  loNibble <span class="ot">&lt;=</span> SW(<span class="dv">3</span> <span class="ot">downto</span> <span class="dv">0</span>);
+  hiNibble <span class="ot">&lt;=</span> SW(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">4</span>);
+
+  <span class="co">-- Indicador de valor negativo na operaçao:</span>
+  auxNegativo <span class="ot">&lt;=</span>  auxSaida(<span class="dv">7</span>);
+
+  <span class="co">-- conexoes do controleenviado para a FSM</span>
+  auxLeituraA <span class="ot">&lt;=</span> <span class="kw">not</span>(KEY(<span class="dv">3</span>));
+  auxLeituraB <span class="ot">&lt;=</span> <span class="kw">not</span>(KEY(<span class="dv">2</span>));
+  auxReiniciaFSM <span class="ot">&lt;=</span> <span class="kw">not</span>(KEY(<span class="dv">1</span>));
+  auxReset <span class="ot">&lt;=</span> <span class="kw">not</span>(KEY(<span class="dv">0</span>));
+<span class="co">--  Pressionando a tecla 3, carrega o valor definido nas chaves para a entrada A da ULA;</span>
+<span class="co">--  Pressionando a tecla 2, carrega o valor definido nas chaves para a entrada B da ULA;</span>
+<span class="co">--  Pressionando a tecla 1, reinicia a maquina de estados para o estado 1;</span>
+<span class="co">--  Pressionando a tecla 0, faz um hard reset em todos os registradores.</span>
+
+  <span class="co">-- conexoes do controle enviado pela FSM</span>
+  ativaPisca  <span class="ot">&lt;=</span> controle(<span class="dv">0</span>);
+  auxCarregaA  <span class="ot">&lt;=</span> controle(<span class="dv">2</span>);
+  auxCarregaB  <span class="ot">&lt;=</span> controle(<span class="dv">4</span>);
+<span class="co">-- Extras, para usar com o fluxo de dados mais complexo.</span>
+<span class="co">--      &lt;= controle(5);</span>
+<span class="co">--      &lt;= controle(6);</span>
+<span class="co">--      &lt;= controle(7);</span>
+<span class="co">--      &lt;= controle(8);</span>
+<span class="co">--      &lt;= controle(9);</span>
+<span class="co">--      &lt;= controle(10);</span>
+<span class="co">--      &lt;= controle(11);</span>
+<span class="co">--      &lt;= controle(12);</span>
+<span class="co">--      &lt;= controle(13);</span>
+<span class="co">--      &lt;= controle(14);</span>
+  auxCarregaSaida <span class="ot">&lt;=</span> controle(<span class="dv">15</span>);
+
+<span class="co">--Estado 1: controle(0)  = 1 (valor decimal = 1) = ativaPisca;</span>
+<span class="co">--Estado 2: controle(2)  = 1 (valor decimal = 4) = auxCarregaA;</span>
+<span class="co">--Estado 3: controle(4)  = 1 (valor decimal = 16) = auxCarregaB;</span>
+<span class="co">--Estado 4: controle(15) = 1 (valor decimal = 32768) = auxCarregaSaida;</span>
+
+   auxClock <span class="ot">&lt;=</span> CLOCK_<span class="dv">50</span>;
+
+<span class="er">end architecture;</span></code></pre></div>
+<hr />
+<h2 id="código-do-fluxo-de-dados">Código do Fluxo de Dados</h2>
+<p>Nome do arquivo: fluxoDados.vhd</p>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl"><span class="kw">library</span> IEEE;
+<span class="kw">use</span> ieee<span class="ot">.</span>std_logic_1164<span class="ot">.</span>all;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">fluxoDados</span> <span class="kw">is</span>
+    <span class="kw">Port</span> ( entrada <span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+        funcaoULA<span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic_vector</span>(<span class="dv">1</span> <span class="ot">downto</span> <span class="dv">0</span>);
+        clk<span class="ot">,</span> rst<span class="ot">:</span>  <span class="kw">in</span> <span class="dt">std_logic</span>;
+        carregaA<span class="ot">:</span>  <span class="kw">in</span> <span class="dt">std_logic</span>;
+        carregaB<span class="ot">:</span>  <span class="kw">in</span> <span class="dt">std_logic</span>;
+        carregaSaida<span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic</span>;
+
+        entradaA_ULA<span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+        entradaB_ULA<span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+        saida <span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+        overflow<span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic</span>
+   );
+<span class="kw">end entity;</span>
+
+<span class="kw">architecture</span> <span class="kw">simples</span> <span class="kw">of</span> <span class="kw">fluxoDados</span> <span class="kw">is</span>
+  <span class="ot">signal</span> ULA_IN_A<span class="ot">,</span> ULA_IN_B<span class="ot">,</span> ULA_OUT<span class="ot">,</span> REG_ULA  <span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+  <span class="ot">signal</span> overflowLocal <span class="ot">:</span> <span class="dt">std_logic</span>;
+<span class="kw">begin</span>
+    <span class="kw">ULA</span>         <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">ULA</span> <span class="kw">Port</span> <span class="kw">map</span> <span class="er">(A</span> <span class="ot">=&gt;</span> <span class="er">ULA_IN_A</span><span class="ot">,</span> <span class="er">B</span> <span class="ot">=&gt;</span> <span class="er">ULA_IN_B</span><span class="ot">,</span> <span class="er">C</span> <span class="ot">=&gt;</span> <span class="er">ULA_OUT</span><span class="ot">,</span> <span class="er">Sel</span> <span class="ot">=&gt;</span> <span class="er">funcaoULA</span><span class="ot">,</span> <span class="er">overflow</span> <span class="ot">=&gt;</span> <span class="er">overflowLocal)</span>;
+    <span class="kw">regEntradaA</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">registradorGenerico</span> <span class="kw">port map (</span>DIN <span class="ot">=&gt;</span> entrada<span class="ot">,</span> DOUT <span class="ot">=&gt;</span> ULA_IN_A<span class="ot">,</span> CLK <span class="ot">=&gt;</span> clk<span class="ot">,</span> RST <span class="ot">=&gt;</span> rst<span class="ot">,</span> ENABLE <span class="ot">=&gt;</span> carregaA);
+    <span class="kw">regEntradaB</span> <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">registradorGenerico</span> <span class="kw">port map (</span>DIN <span class="ot">=&gt;</span> entrada<span class="ot">,</span> DOUT <span class="ot">=&gt;</span> ULA_IN_B<span class="ot">,</span> CLK <span class="ot">=&gt;</span> clk<span class="ot">,</span> RST <span class="ot">=&gt;</span> rst<span class="ot">,</span> ENABLE <span class="ot">=&gt;</span> carregaB);
+    <span class="kw">regSaida</span>    <span class="ot">:</span> <span class="er">entity</span> <span class="er">work</span><span class="ot">.</span><span class="er">registradorGenerico</span> <span class="kw">generic map (</span>larguraDados <span class="ot">=&gt;</span> <span class="dv">9</span>) <span class="kw">port map (</span>DIN <span class="ot">=&gt;</span> overflowLocal <span class="ot">&amp;</span> ULA_OUT<span class="ot">,</span> DOUT(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>) <span class="ot">=&gt;</span> saida<span class="ot">,</span> DOUT(<span class="dv">8</span>) <span class="ot">=&gt;</span> overflow<span class="ot">,</span> CLK <span class="ot">=&gt;</span> clk<span class="ot">,</span> RST <span class="ot">=&gt;</span> rst<span class="ot">,</span> ENABLE <span class="ot">=&gt;</span> carregaSaida);
+    entradaA_ULA <span class="ot">&lt;=</span> ULA_IN_A;
+    entradaB_ULA <span class="ot">&lt;=</span> ULA_IN_B;
+<span class="er">end architecture;</span></code></pre></div>
+<hr />
+<h2 id="código-da-ula">Código da ULA</h2>
+<p>Nome do arquivo: ULA.vhd</p>
+<div class="sourceCode"><pre class="sourceCode vhdl"><code class="sourceCode vhdl"><span class="kw">library</span> IEEE;
+<span class="kw">use</span> ieee<span class="ot">.</span>std_logic_1164<span class="ot">.</span>all;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">ULA</span> <span class="kw">is</span>
+    <span class="kw">Port</span> ( A <span class="ot">:</span>  <span class="kw">in</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+           B <span class="ot">:</span>  <span class="kw">in</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+        Sel<span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic_vector</span>(<span class="dv">1</span> <span class="ot">downto</span> <span class="dv">0</span>);
+           C <span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic_vector</span>(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+        overflow<span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic</span>
+   );
+<span class="kw">end entity;</span>
+
+<span class="kw">architecture</span> <span class="kw">comportamento</span> <span class="kw">of</span> <span class="kw">ULA</span> <span class="kw">is</span>
+
+<span class="kw">begin</span>
+  <span class="kw">process</span> (A<span class="ot">,</span> B<span class="ot">,</span> Sel) <span class="kw">is</span>
+    <span class="ot">variable</span> tempOF <span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">2</span> <span class="ot">downto</span> <span class="dv">0</span>);
+    <span class="ot">variable</span> C9     <span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">8</span> <span class="ot">downto</span> <span class="dv">0</span>);
+  <span class="kw">begin</span>
+    C9 <span class="ot">:=</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span>);
+    <span class="kw">case</span> Sel <span class="kw">is</span>
+      <span class="kw">when</span> <span class="st">&quot;00&quot;</span> <span class="ot">=&gt;</span> C9 <span class="ot">:=</span> <span class="dt">std_logic_vector</span>(resize(<span class="dt">signed</span>(<span class="dt">std_logic_vector</span>(<span class="dt">signed</span>(A) <span class="ot">+</span> <span class="dt">signed</span>(B)))<span class="ot">,</span> C9<span class="bn">&#39;length)</span>);
+      <span class="kw">when</span> <span class="st">&quot;01&quot;</span> <span class="ot">=&gt;</span> C9 <span class="ot">:=</span> <span class="dt">std_logic_vector</span>(resize(<span class="dt">signed</span>(<span class="dt">std_logic_vector</span>(<span class="dt">signed</span>(A) <span class="ot">-</span> <span class="dt">signed</span>(B)))<span class="ot">,</span> C9<span class="bn">&#39;length)</span>);
+      <span class="kw">when</span> <span class="st">&quot;10&quot;</span> <span class="ot">=&gt;</span> C9(<span class="dv">8</span> <span class="ot">downto</span> <span class="dv">0</span>) <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span> <span class="ot">&amp;</span> <span class="dt">std_logic_vector</span>(A <span class="kw">XOR</span> B);
+      <span class="kw">when</span> <span class="st">&quot;11&quot;</span> <span class="ot">=&gt;</span> C9(<span class="dv">8</span> <span class="ot">downto</span> <span class="dv">0</span>) <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span> <span class="ot">&amp;</span> <span class="dt">std_logic_vector</span>(A <span class="kw">AND</span> B);
+      <span class="kw">when</span> <span class="ot">others</span> <span class="ot">=&gt;</span> C9 <span class="ot">:=</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span>);
+    <span class="kw">end case;</span>
+    C(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>) <span class="ot">&lt;=</span> C9(<span class="dv">7</span> <span class="ot">downto</span> <span class="dv">0</span>);
+    <span class="kw">case</span> Sel <span class="kw">is</span>
+      <span class="co">-- overflow = &quot;b001&quot; (entrada POSITIVA e saida NEGATIVA)  OU &quot;b110&quot; (entrada NEGATIVA e saida POSITIVA)</span>
+      <span class="kw">when</span> <span class="st">&quot;00&quot;</span> <span class="ot">=&gt;</span> tempOF <span class="ot">:=</span> A(A<span class="bn">&#39;high)</span> <span class="ot">&amp;</span> B(B<span class="bn">&#39;high)</span> <span class="ot">&amp;</span> C9(C9<span class="bn">&#39;high-1)</span>;
+      <span class="kw">when</span> <span class="st">&quot;01&quot;</span> <span class="ot">=&gt;</span> tempOF <span class="ot">:=</span> A(A<span class="bn">&#39;high)</span> <span class="ot">&amp;</span> <span class="kw">not</span>(B(B<span class="bn">&#39;high)</span>) <span class="ot">&amp;</span> C9(C9<span class="bn">&#39;high-1)</span>;
+      <span class="kw">when</span> <span class="ot">others</span> <span class="ot">=&gt;</span> tempOF <span class="ot">:=</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span>);
+    <span class="kw">end case;</span>
+    <span class="kw">case</span> tempOF <span class="kw">is</span>
+      <span class="kw">when</span> <span class="st">&quot;001&quot;</span>  <span class="ot">=&gt;</span> overflow <span class="ot">&lt;=</span> <span class="bn">&#39;1&#39;</span>;
+      <span class="kw">when</span> <span class="st">&quot;110&quot;</span>  <span class="ot">=&gt;</span> overflow <span class="ot">&lt;=</span> <span class="bn">&#39;1&#39;</span>;
+      <span class="kw">when</span> <span class="ot">others</span> <span class="ot">=&gt;</span> overflow <span class="ot">&lt;=</span> <span class="bn">&#39;0&#39;</span>;
+    <span class="kw">end case;</span>
+  <span class="kw">end process</span>;
+<span class="kw">end architecture;</span></code></pre></div>
+<hr />
+<h2 id="decodificador-hexadecimal-para-display-de-sete-segmentos">Decodificador Hexadecimal para Display de Sete Segmentos</h2>
+<p>Nome do arquivo: conversorHex7Seg.vhd</p>
+<div class="sourceCode"><pre class="sourceCode vhdl"><code class="sourceCode vhdl">
+<span class="kw">library</span> IEEE;
+<span class="kw">use</span> ieee<span class="ot">.</span>std_logic_1164<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">conversorHex7Seg</span> <span class="kw">is</span>
+  <span class="kw">port</span>
+  (
+    <span class="co">-- Input ports</span>
+    dadoHex  <span class="ot">:</span> <span class="kw">in</span>  <span class="dt">std_logic_vector</span>(<span class="dv">3</span> <span class="ot">downto</span> <span class="dv">0</span>);
+    apaga  <span class="ot">:</span> <span class="kw">in</span>  <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+    negativo <span class="ot">:</span> <span class="kw">in</span>  <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+    overFlow <span class="ot">:</span> <span class="kw">in</span>  <span class="dt">std_logic</span> <span class="ot">:=</span> <span class="bn">&#39;0&#39;</span>;
+    <span class="co">-- Output ports</span>
+    saida7seg <span class="ot">:</span> <span class="kw">out</span> <span class="dt">std_logic_vector</span>(<span class="dv">6</span> <span class="ot">downto</span> <span class="dv">0</span>)
+  );
+<span class="kw">end entity;</span>
+
+<span class="kw">architecture</span> <span class="kw">comportamento</span> <span class="kw">of</span> <span class="kw">conversorHex7Seg</span> <span class="kw">is</span>
+   <span class="co">--</span>
+   <span class="co">--       0</span>
+   <span class="co">--      ---</span>
+   <span class="co">--     |   |</span>
+   <span class="co">--    5|   |1</span>
+   <span class="co">--     | 6 |</span>
+   <span class="co">--      ---</span>
+   <span class="co">--     |   |</span>
+   <span class="co">--    4|   |2</span>
+   <span class="co">--     |   |</span>
+   <span class="co">--      ---</span>
+   <span class="co">--       3</span>
+   <span class="co">--</span>
+  <span class="ot">signal</span> rascSaida7seg<span class="ot">:</span> <span class="dt">std_logic_vector</span>(<span class="dv">6</span> <span class="ot">downto</span> <span class="dv">0</span>);
+
+<span class="kw">begin</span>
+  rascSaida7seg <span class="ot">&lt;=</span> <span class="st">&quot;1000000&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;0000&quot;</span> else <span class="co">---0</span>
+                   <span class="st">&quot;1111001&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;0001&quot;</span> else <span class="co">---1</span>
+                   <span class="st">&quot;0100100&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;0010&quot;</span> else <span class="co">---2</span>
+                   <span class="st">&quot;0110000&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;0011&quot;</span> else <span class="co">---3</span>
+                   <span class="st">&quot;0011001&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;0100&quot;</span> else <span class="co">---4</span>
+                   <span class="st">&quot;0010010&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;0101&quot;</span> else <span class="co">---5</span>
+                   <span class="st">&quot;0000010&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;0110&quot;</span> else <span class="co">---6</span>
+                   <span class="st">&quot;1111000&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;0111&quot;</span> else <span class="co">---7</span>
+                   <span class="st">&quot;0000000&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;1000&quot;</span> else <span class="co">---8</span>
+                   <span class="st">&quot;0010000&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;1001&quot;</span> else <span class="co">---9</span>
+                   <span class="st">&quot;0001000&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;1010&quot;</span> else <span class="co">---A</span>
+                   <span class="st">&quot;0000011&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;1011&quot;</span> else <span class="co">---B</span>
+                   <span class="st">&quot;1000110&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;1100&quot;</span> else <span class="co">---C</span>
+                   <span class="st">&quot;0100001&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;1101&quot;</span> else <span class="co">---D</span>
+                   <span class="st">&quot;0000110&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;1110&quot;</span> else <span class="co">---E</span>
+                   <span class="st">&quot;0001110&quot;</span> <span class="kw">when</span> dadoHex<span class="ot">=</span><span class="st">&quot;1111&quot;</span> else <span class="co">---F</span>
+                   <span class="st">&quot;1111111&quot;</span>; <span class="co">-- Apaga todos segmentos.</span>
+  <span class="co">--</span>
+  saida7seg <span class="ot">&lt;=</span>    <span class="st">&quot;0100011&quot;</span> <span class="kw">when</span> (overFlow<span class="ot">=</span><span class="bn">&#39;1&#39;</span>) else
+                  <span class="st">&quot;1111111&quot;</span> <span class="kw">when</span> (apaga<span class="ot">=</span><span class="bn">&#39;1&#39;</span> <span class="kw">and</span> negativo<span class="ot">=</span><span class="bn">&#39;0&#39;</span>) else
+                  <span class="st">&quot;0111111&quot;</span> <span class="kw">when</span> (apaga<span class="ot">=</span><span class="bn">&#39;0&#39;</span> <span class="kw">and</span> negativo<span class="ot">=</span><span class="bn">&#39;1&#39;</span>) else
+                  rascSaida7seg;
+<span class="er">end architecture;</span></code></pre></div>
+<hr />
+<h2 id="registrador">Registrador</h2>
+<p>Nome do arquivo: registradorGenerico.vhd</p>
+<div class="sourceCode"><pre class="sourceCode vhdl"><code class="sourceCode vhdl"><span class="kw">library</span> IEEE;
+<span class="kw">use</span> IEEE<span class="ot">.</span>STD_LOGIC_1164<span class="ot">.</span>ALL;
+
+ <span class="kw">entity</span> <span class="kw">registradorGenerico</span> <span class="kw">is</span>
+    <span class="kw">generic</span> (
+        larguraDados <span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">8</span>
+    );
+      <span class="kw">port</span> (DIN <span class="ot">:</span> <span class="kw">in</span>    <span class="dt">std_logic_vector</span>(larguraDados<span class="ot">-</span><span class="dv">1</span> <span class="ot">downto</span> <span class="dv">0</span>);
+           DOUT <span class="ot">:</span> <span class="kw">out</span>   <span class="dt">std_logic_vector</span>(larguraDados<span class="ot">-</span><span class="dv">1</span> <span class="ot">downto</span> <span class="dv">0</span>);
+           ENABLE <span class="ot">:</span> <span class="kw">in</span>  <span class="dt">std_logic</span>;
+           CLK<span class="ot">,</span>RST <span class="ot">:</span> <span class="kw">in</span> <span class="dt">std_logic</span>);
+ <span class="kw">end entity;</span>
+
+ <span class="kw">architecture</span> <span class="kw">comportamento</span> <span class="kw">of</span> <span class="kw">registradorGenerico</span> <span class="kw">is</span>
+ <span class="kw">begin</span>
+    <span class="co">-- In Altera devices, register signals have a set priority.</span>
+    <span class="co">-- The HDL design should reflect this priority.</span>
+    <span class="kw">process</span>(RST<span class="ot">,</span> CLK)
+    <span class="kw">begin</span>
+        <span class="co">-- The asynchronous reset signal has the highest priority</span>
+        <span class="kw">if</span> (RST <span class="ot">=</span> <span class="bn">&#39;1&#39;</span>) <span class="kw">then</span>
+            DOUT <span class="ot">&lt;=</span> (<span class="ot">others</span> <span class="ot">=&gt;</span> <span class="bn">&#39;0&#39;</span>);
+        <span class="kw">else</span>
+            <span class="co">-- At a clock edge, if asynchronous signals have not taken priority,</span>
+            <span class="co">-- respond to the appropriate synchronous signal.</span>
+            <span class="co">-- Check for synchronous reset, then synchronous load.</span>
+            <span class="co">-- If none of these takes precedence, update the register output</span>
+            <span class="co">-- to be the register input.</span>
+            <span class="kw">if</span> (<span class="kw">rising_edge</span>(CLK)) <span class="kw">then</span>
+                <span class="kw">if</span> (ENABLE <span class="ot">=</span> <span class="bn">&#39;1&#39;</span>) <span class="kw">then</span>
+                        DOUT <span class="ot">&lt;=</span> DIN;
+                <span class="kw">end if;</span>
+            <span class="kw">end if;</span>
+        <span class="kw">end if;</span>
+    <span class="kw">end process</span>;
+ <span class="kw">end architecture;</span></code></pre></div>
+<hr />
+<h2 id="divisor">Divisor</h2>
+<p>Nome do arquivo: divisorGenerico.vhd</p>
+<div class="sourceCode"><pre class="sourceCode vhd"><code class="sourceCode vhdl"><span class="kw">LIBRARY</span> ieee;
+<span class="kw">USE</span> ieee<span class="ot">.</span>std_logic_1164<span class="ot">.</span>ALL;
+<span class="kw">use</span> ieee<span class="ot">.</span>numeric_std<span class="ot">.</span>all;
+
+<span class="kw">entity</span> <span class="kw">divisorGenerico</span> <span class="kw">is</span>
+    <span class="kw">generic</span>
+    (divisor <span class="ot">:</span> <span class="dt">natural</span> <span class="ot">:=</span> <span class="dv">8</span>);
+    <span class="kw">port</span>(
+        clk         <span class="ot">:</span>   <span class="kw">in</span> <span class="dt">std_logic</span>;
+        saida_clk <span class="ot">:</span>   <span class="kw">out</span> <span class="dt">std_logic</span>
+        );
+<span class="er">end entity;</span>
+
+<span class="kw">architecture</span> <span class="kw">divisaoPor2</span> <span class="kw">of</span> <span class="kw">divisorGenerico</span> <span class="kw">is</span>
+    <span class="ot">signal</span> tick <span class="ot">:</span> <span class="dt">std_logic</span>;
+<span class="kw">begin</span>
+    <span class="kw">process</span>(clk)
+    <span class="kw">begin</span>
+        <span class="kw">if</span> <span class="kw">rising_edge</span>(clk) <span class="kw">then</span>
+            tick <span class="ot">&lt;=</span> <span class="kw">not</span> tick;
+        <span class="kw">end if;</span>
+    <span class="kw">end process</span>;
+    saida_clk <span class="ot">&lt;=</span> tick;
+<span class="kw">end architecture;</span>
+
+
+<span class="kw">architecture</span> <span class="kw">divisaoGenerica</span> <span class="kw">of</span> <span class="kw">divisorGenerico</span> <span class="kw">is</span>
+    <span class="ot">signal</span> cnt <span class="ot">:</span> <span class="dt">std_logic_vector</span>(divisor <span class="ot">downto</span> <span class="dv">0</span>);
+    <span class="kw">begin</span>
+        <span class="kw">process</span>(clk)
+        <span class="kw">begin</span>
+            <span class="kw">if</span> <span class="kw">rising_edge</span>(clk) <span class="kw">then</span>
+                cnt <span class="ot">&lt;=</span> <span class="dt">std_logic_vector</span>(<span class="dt">unsigned</span>(cnt) <span class="ot">+</span> <span class="dv">1</span>);
+            <span class="kw">end if;</span>
+        <span class="kw">end process</span>;
+        saida_clk <span class="ot">&lt;=</span> cnt(divisor);
+<span class="kw">end architecture;</span></code></pre></div>
+<hr />
+<p><br></p>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+</body>
+</html>

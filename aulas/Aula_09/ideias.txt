@@ -1,0 +1,39 @@
+Ideias:
+
+Um exercício para cada tópico do assemby. Ver:
+file:///home/paulo/dados/desComp/CursosUnivDiversas/inst.eecs.berkeley.edu/~cs61c/fa04/lectures/L12-dg-proceduresIIlogical.pdf
+
+ver:
+file:///home/paulo/dados/desComp/CursosUnivDiversas/alanclements.org/mips.html
+
+file:///home/paulo/dados/desComp/CursosUnivDiversas/alanclements.org/mips%20instruction%20encoding.html
+
+
+file:///home/paulo/dados/desComp/CursosUnivDiversas/alanclements.org/operating_systems.html
+
+
+Green Card 4 Ed.
+
+Tipos de instruções: 
+
+Macro instruções do assembler
+
+file:///home/paulo/dados/0-faculdades/Insper/2017/000-Git-DesignComputadores/Aulas/Aula_9%20Apresenta%C3%A7%C3%A3oPedidoProjeto/instrucoesMIPS.html
+
+
+Instrucoes imediatas: ver puc.rs calazans
+
+https://en.wikipedia.org/wiki/MIPS_architecture
+
+http://www.inf.pucrs.br/~calazans/undergrad/orgcomp_EC/
+
+/home/paulo/DesignComputadores/bibliografiaBasica/02-ComputerArchitecture-AQuantitativeApproach-Hennessy&Patterson-5Ed-2012.pdf
+
+
+file:///home/paulo/DesignComputadores/CursosUnivDiversas/www-id.imag.fr/CA225b.html
+file:///home/paulo/DesignComputadores/CursosUnivDiversas/courses.engr.illinois.edu/cs232/sp2012/lectures/index.html
+file:///home/paulo/DesignComputadores/CursosUnivDiversas/Ilinois/cs470/Labs/Lab1.pdf
+file:///home/paulo/DesignComputadores/CursosUnivDiversas/euler.ecs.umass.edu/ece232/MIPS_guide.pdf
+file:///home/paulo/DesignComputadores/MIPS_Simuladores/Introduction%20to%20the%20MIPS%20Processor.htm
+
+

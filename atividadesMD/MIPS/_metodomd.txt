@@ -1,0 +1,96 @@
+<a name="inicio"></a>
+
+## Método.
+
+Ir para o [fim do documento](#fimDocumento) e referências.
+
+### Visão Geral sobre Projeto de Computadores.
+
+De maneira sucinta, o projeto de um computador pode ser descrito como:
+
+-   A transformação, passando por vários níveis de abstração, de um conjunto de instruções em uma descrição da micro arquitetura e sua implementação em RTL.
+
+Ou, segundo Langdon<sup>[1](#footnote1)</sup>:
+
+-   Projeto é a organização dos componentes básicos (blocos construtivos) de tal modo que o resultado solucione o problema e alcance os objetivos.
+
+A complexidade, frequentemente, toma a forma de uma hierarquia. Um sistema complexo é analisado por sucessivos conjuntos de subsistemas<sup>[1](#footnote1)</sup>:
+
+-   Decompor funções digitais poderosas em funções digitais menos poderosas:
+    -   Uma ULA é dividida em portas lógicas.
+
+A decomposição de uma função maior em um conjunto de subfunções menores implica na mudança de nível na hierarquia conceitual<sup>[1](#footnote1)</sup>.
+
+Em um projeto, pode-se simplificar muitos problemas complexos pela simples divisão em fluxo de dados e fluxo de controle<sup>[1](#footnote1)</sup>.
+
+Duas filosofias de projeto são a _Top-Down_ e a _Botton-Up_<sup>[1](#footnote1)</sup>:
+
+-   _Top-Down_ é a sucessiva decomposição de um problema grande em subproblemas menores até chegar aos blocos construtivos básicos desejados.
+
+-   _Botton-Up_ é a construção, a partir de primitivas básicas, de blocos úteis para a solução do problema.
+
+Uma estratégia intermediária seria (_meet-in-the-middle_):
+
+-   Utilizar o tratamento _Top-Down_ para decompor o problema original em subproblemas menores e estes em sub módulos e assim por diante, adicionando detalhes das suas funções. Isso, até chegar em um ponto onde já possam ser utilizados os blocos construtivos disponíveis.
+
+-   Utilizar o tratamento _Botton-Up_ para construir novos blocos (super primitivas) orientados para a solução desses subproblemas que utilizam os blocos construtivos conhecidos (primitivas).
+
+Como outros tipos de projeto, é um processo iterativo.
+
+#### Princípios de projeto:
+
+-   Modularidade: decomposição das partes em componentes com interfaces bem definidas;
+
+-   Hierarquia: aplicação recursiva do princípio da modularidade;
+
+-   Encapsulamento: esconde os detalhes de implementação das interfaces;
+
+-   Regularidade: regularidade de blocos estruturais e físicos permitindo a reutilização desses blocos funcionais (tijolos padrão);
+
+-   Extensibilidade: incluir mecanismos para simplificar mudanças futuras.
+
+
+
+
+Um sistema complexo raramente tem seu projeto executado de forma linear. Além disso, podemos ter mais do que uma implementação final que atenda aos requisitos da descrição inicial.
+
+Uma analogia entre a unidade de controle com o fluxo de dados é a marionete, onde o homem puxa os cordões para definir o movimento ou resultado.
+
+O fluxo de dados é capaz de manipular os dados e o fluxo de controle representa o sequenciamento ou controle das ações que o fluxo de dados é capaz de desempenhar.
+
+
+Os sistemas de dados podem ser descritos de duas formas:
+
+-   A descrição comportamental: que define quais valores de saída esperar para os valores de entrada.
+
+-   A descrição estrutural: que define as interconexões entre os blocos construtivos.
+
+Para reutilizar uma unidade funcional precisamos saber:
+
+-   Seu comportamento;
+
+-   Seus pontos de conexão (sua interface);
+
+-   Como interconectar esse bloco (seu protocolo).
+
+
+
+
+
+
+**Referências:**
+
+<a name="footnote1">1</a>: Langdon, Glen J., Projeto de Computadores, 1985, editora
+
+<a name="footnote2">2</a>: Calazans, Ney Laert V., Métodos e Ferramentas para o Projeto de Sistemas Digitais - Instituto de Informática - Pontifícia Universidade Católica do Rio Grande do Sul.
+
+[Página com links][linksUteis] de referências sobre VHDL, Quartus, etc ...
+
+<a name="fimDocumento"></a> [Ir para o início do documento](#inicio).
+
+
+<!-- inicio dos links -->
+
+
+
+[linksUteis]: ./linksUteis.html

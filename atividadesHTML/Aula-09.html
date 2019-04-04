@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  .bloco .title {
+      display: block;
+  }
+  
+  /*Bloco de solucao de exercicio*/
+  .bloco .label,
+  .bloco .separator {
+      font-weight: bold;
+  }
+  
+  .bloco .separator {
+      margin-right: .6em;
+  }
+  /* Solução */
+  div.solucao {
+    border-left: .3em solid #dd4444;   /*#dc3c01; */
+    margin-left: -.8em;
+    padding-left: .4em;
+    position: relative;
+    font-size: 90%;
+  }
+  
+  div.solucao .conteudo {
+    display: none;
+    padding-top: 1px;
+  }
+  
+  div.solucao button {
+    color: #0000AF;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  div.solucao button.viewed {
+    color: #FF2020;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(0,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  /*Tamanho absoluto das imagens definidas em markdown*/
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  /*Tamanho relativo das imagens definidas em markdown*/
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+  <script type="text/javascript">
+      function exibe(e)
+      {
+          var div = e.parentNode.firstElementChild;
+  
+          if (div.style.display == "" || div.style.display == "none") {
+              div.style.display = "block";
+              e.setAttribute("class", "viewed");
+              e.innerHTML = "Esconder Solução";
+          } else {
+              div.style.display = "none";
+              e.innerHTML = "Ver Solução";
+          }
+      }
+  </script>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#atividades">Atividades</a><ul>
+<li><a href="#simular-as-instruções-que-serão-implementadas">1) Simular as instruções que serão implementadas</a><ul>
+<li><a href="#contextualização">Contextualização</a><ul>
+<li><a href="#chamadas-do-sistema">Chamadas do Sistema</a></li>
+<li><a href="#organização-da-memória">Organização da Memória</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#objetivo">Objetivo</a><ul>
+<li><a href="#familiarizando-se-com-o-qtspim">Familiarizando-se com o QtSPim</a></li>
+<li><a href="#executando-diretamente-no-mips">Executando diretamente no MIPS</a><ul>
+<li><a href="#referências">Referências</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="atividades">Atividades</h1>
+<p>Antes das atividades práticas, será necessário ler e discutir:</p>
+<ul>
+<li><p>A especificação do <a href="./Projetos/Projeto-2.html">projeto 2</a> (processador de 32 bits *);</p></li>
+<li><p>A arquitetura do <a href="./MIPS/_arquitetura.html">processador MIPS DLX</a>;</p></li>
+<li><p>As <a href="./MIPS/_instrucoesDLX.html">instruções</a> que serão implementadas nesse processador;</p></li>
+</ul>
+<blockquote>
+<p>*O processador que implementaremos é o MIPS DLX, uma versão simplificada do MIPS original.</p>
+</blockquote>
+<hr />
+<h2 id="simular-as-instruções-que-serão-implementadas">1) Simular as instruções que serão implementadas</h2>
+<p>Para tomar contato com o MIPS e seu conjunto de instruções, utilizaremos:</p>
+<ul>
+<li><p>Um simulador para o MIPS, o QtSpim;</p></li>
+<li><p>Um <a href="./MIPS/_programaSomaVetores.html">código de referência</a> que deve ser estudado;</p></li>
+<li><p>E convertido para uma versão que utilize somente as instruções que serão implementadas (opções A e B).</p></li>
+</ul>
+<p>Além disso, utilizaremos o <a href="./MIPS/COD_4e_GreenCard.pdf"><em>green card</em></a> do MIPS, que explica o funcionamento de todas as instruções e pseudo instruções.</p>
+<p>É importante se acostumar a consultar o <em>green card</em>. Ele possui, reunidas em duas páginas, uma grande quantidade de informações sobre o processador.</p>
+<h3 id="contextualização">Contextualização</h3>
+<p>O QtSpim é um simulador da arquitetrua MIPS-32, que possui <a href="./MIPS/_spim.html">mais instruções</a> que o MIPS original. Além das instruções extras, ele possui alguns recursos, como:</p>
+<ul>
+<li><p>Interpretar o código <em>assembly</em> diretamente;</p></li>
+<li><p>Um sistema de <em>debug</em>;</p></li>
+<li><p>Algumas chamadas de sistema operacional (<em>syscall</em>);</p></li>
+<li><p>Suporta as pseudo instruções do montador do MIPS;</p></li>
+<li><p>Possibilidade de ativar ou desativar o <em>delayed load</em> e o <em>delayed branch</em>.</p></li>
+</ul>
+<p>A ordenação dos bytes na memória segue a convenção da máquina em que o SPIM está rodando (no caso, os processadores Intel são <em>little endian</em>).</p>
+<h4 id="chamadas-do-sistema">Chamadas do Sistema</h4>
+<p>O QtSpim suporta 16 chamadas de sistema. As que poderemos utilizar estão mostradas na tabela abaixo:</p>
+<table style="width:74%;">
+<colgroup>
+<col width="13%" />
+<col width="6%" />
+<col width="31%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Serviço</th>
+<th align="center">Código</th>
+<th>Entrada</th>
+<th>Saída</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Imprime Inteiro</td>
+<td align="center">1</td>
+<td>$a0 = inteiro</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Imprime <em>String</em></td>
+<td align="center">4</td>
+<td>$a0 = endereço inicial da <em>string</em> (terminada com <em>NULL</em>)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Leitura de Inteiro</td>
+<td align="center">5</td>
+<td></td>
+<td>$v0 = inteiro digitado no console</td>
+</tr>
+<tr class="even">
+<td>Leitura de <em>String</em></td>
+<td align="center">8</td>
+<td>$a0 = endereço inicial do <em>buffer</em>. $a1 = comprimento do <em>buffer</em></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Terminar</td>
+<td align="center">10</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Imprime <em>Char</em></td>
+<td align="center">11</td>
+<td>$a0 = caractere</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Leitura de <em>Char</em></td>
+<td align="center">12</td>
+<td></td>
+<td>$v0 = caractere digitado</td>
+</tr>
+</tbody>
+</table>
+<h4 id="organização-da-memória">Organização da Memória</h4>
+<p>Ele utiliza a mesma convenção de segmentos de memória que o MIPS. Na inicialização, os ponteiros estão com os seguintes valores:</p>
+<ul>
+<li><p>O <em>stack pointer</em> aponta para: 0x7FFFFFFC;</p></li>
+<li><p>O <em>global pointer</em> aponta para: 0x10008000;</p></li>
+<li><p>O <em>program counter</em> aponta para: 0x00400000;</p></li>
+</ul>
+<div class="figure">
+<img src="./imagensMIPS/mapaMemoriaMIPS-1.svg" alt="Mapa de Memória do SPIM" />
+<p class="caption"><strong>Mapa de Memória do SPIM</strong></p>
+</div>
+<p><br></p>
+<p>Uma lista das instruções que serão impelementadas, com a explicação do seu funcionamento, pode ser encontrada <a href="./MIPS/_instrucoesDLX.html">aqui</a>.</p>
+<p>Um resumo da arquitetura do MIPS pode ser visto <a href="./MIPS/_arquitetura.html">aqui</a>.</p>
+<p>Caso não tenha feito o download do QtSpim, clique <a href="https://sourceforge.net/projects/spimsimulator/">aqui</a>.</p>
+<hr />
+<h2 id="objetivo">Objetivo</h2>
+<p>Utilizaremos o QtSpim, para analisar o funcionamento das instruções que serão implementadas <strong>(opções A e B)</strong> no <em>hardware</em>. As instruções da opção A são:</p>
+<ul>
+<li><p>Carrega palavra (<em>load word: lw</em>);</p></li>
+<li><p>Armazena palavra (<em>store word: sw</em>);</p></li>
+<li><p>Soma (<em>add</em>);</p></li>
+<li><p>Subtração (<em>sub</em>);</p></li>
+<li><p>E lógico (<em>and</em>);</p></li>
+<li><p>OU lógico (<em>or</em>);</p></li>
+<li><p>Comparação Menor Que (<em>set if less than: slt</em>);</p></li>
+<li><p>Desvia Se Igual (<em>branch equal: beq</em>);</p></li>
+<li><p>Salto incondicional (<em>jump: j</em>).</p></li>
+</ul>
+<p>Para auxiliar na construção do programa, outras instruções podem ser utilizadas.</p>
+<p>Também faça uso das instruções da opção B.</p>
+<h3 id="familiarizando-se-com-o-qtspim">Familiarizando-se com o QtSPim</h3>
+<p>Inicialmente iremos nos familiarizar com o QtSpim.</p>
+<p>E, para entender o que o projeto original do MIPS passou de responsabilidades para o montador/compilador, faremos alguns programas com a configuração:</p>
+<ul>
+<li>MIPS Simple Machine.</li>
+</ul>
+<p>Os programas devem executar as seguintes tarefas:</p>
+<ul>
+<li><p>Impressão de um valor inteiro no console;</p></li>
+<li><p>Impressão de uma <em>string</em> no console;</p></li>
+<li><p>A soma de dois vetores, criando um terceiro vetor (veja o <a href="./MIPS/_programaSomaVetores.html">programa de referência</a>). Além disso, ele deve:</p>
+<ul>
+<li><p>Imprimir o resultado da soma, passo a passo, no console;</p></li>
+<li><p>Quando terminar, deve fazer um salto para a rotina de finalização do programa:</p>
+<ul>
+<li>Que escreverá fim no console.</li>
+</ul></li>
+</ul></li>
+<li><p>Com a memória ainda contendo os valores do programa anterior:</p>
+<ul>
+<li><p>Subtrair do vetor de resultados, os valores do primeiro vetor;</p></li>
+<li><p>Imprimir os resultados, passo a passo, no console;</p></li>
+<li><p>Ao término, fazer um salto para a rotina de finalização do programa (a mesma rotina do programa de soma).</p></li>
+</ul></li>
+</ul>
+<p>Não se esqueça de guardar os fontes desses programas.</p>
+<p>Para auxiliar na execução, utilize o livro sobre o <a href="http://www.egr.unlv.edu/~ed/mips.html">QtSpim</a>, que também está <a href="./MIPS/MIPStextSMv11.pdf">aqui</a>.</p>
+<p>Para diminuir a digitação, tem um modelo de programa <em>assembly</em> <a href="./MIPS/_modeloProgSpim.html">aqui</a>.</p>
+<p>A ajuda do QtSPim possui (<strong>vale a pena verificar</strong>):</p>
+<ul>
+<li><p>Informações sobre o uso do programa;</p></li>
+<li><p>O conteúdo do apêndice A do livro texto:</p>
+<ul>
+<li>Sobre montadores e programação do MIPS.</li>
+</ul></li>
+</ul>
+<p>Aqui tem um resumo das <a href="./MIPS/_diretivasSPIM.html" title="Diretivas de montagem">diretivas aceitas pelo SPIM</a>.</p>
+<h3 id="executando-diretamente-no-mips">Executando diretamente no MIPS</h3>
+<p>Porém, durante o teste da sua implementação do MIPS, pode ser necessário executar alguns programas sem o auxílio do montador.</p>
+<p>Para entender essa diferença, execute os programas anteriores utilizando a configuração:</p>
+<ul>
+<li>MIPS Bare Machine.</li>
+</ul>
+<!---
+
+### Limitando-se às Instruções que serão Implementadas
+
+Entendidas as diferenças, vamos nos acostumar a utilizar somente as instruções que serão implementadas. Para tanto, iremos refazer os programas somente com essas instruções e utilizando a configuração:
+
+-   MIPS Bare Machine.
+
+Analise as limitações e indique qual instrução, que não está implementada, facilitaria a programação.
+
+--->
+<hr />
+<p><br></p>
+<h4 id="referências">Referências</h4>
+<p><a href="./linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!-- FIM -->
+<!--
+######### (inicio dos links) ##########
+#######################################
+########### Links Internos ############
+--->
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<p><a name="inicio"></a></p>
+<h2 id="compilação">Compilação:</h2>
+<p>O processo de compilação é dividido em algumas etapas:</p>
+<ul>
+<li><p><strong>Análise</strong>:</p>
+<ul>
+<li>Verifica cada unidade de projeto separadamente:
+<ul>
+<li>declaração da entidade, arquitetura, etc..</li>
+<li>facilita se utilizar um arquivo por unidade de projeto.</li>
+</ul></li>
+<li>Verifica se há erros de sintaxe (gramática) ou semântica (significado);</li>
+<li>As unidades analisadas são colocadas em uma biblioteca:
+<ul>
+<li>usando um formato interno a dependente da implementação;</li>
+<li>essa biblioteca é chamada de <em>work</em>.</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Elaboração</strong>:</p>
+<ul>
+<li>Transforma o projeto hierárquico em um projeto plano:
+<ul>
+<li>cria as portas (<em><code>ports</code></em>);</li>
+<li>cria os sinais (<em><code>signal</code></em>) e processos (<em><code>process</code></em>) dentro do corpo de cada arquitetura;</li>
+<li>para cada componente instanciado, copia a entidade e corpo de arquitetura do componente para o módulo que o utiliza;</li>
+<li>repete esse procedimento recursivamente nos corpos de arquitetura.</li>
+</ul></li>
+<li>Resultado da elaboração:
+<ul>
+<li>conjunto de processos (<em><code>process</code></em>) interligados por uma rede de sinais (<em><code>signal</code></em>), chamado de <em>netlist</em>.</li>
+</ul></li>
+<li>É o suficiente para que a simulação possa ser executada.</li>
+</ul></li>
+</ul>
+<!-- **Simulação** -->
+<ul>
+<li><p><strong>Síntese</strong>:</p>
+<ul>
+<li>Com o auxílio da biblioteca da tecnologia usada, traduz o projeto RTL em uma lista de conexões de portas lógicas (<em>gate-level netlist</em>):</li>
+<li>Existem restrições ao uso de algumas declarações no modelo RTL;</li>
+<li>Essas restrições dependem da ferramenta de síntese utilizada.</li>
+</ul></li>
+<li><p><strong>Alocação e Roteamento</strong>:</p>
+<ul>
+<li>Analisa a lista de conexões gerada na síntese e aloca os blocos funcionais (primitivas) no dispositivo alvo (modelo da FPGA ou ASIC);</li>
+<li>Faz o roteamento dos sinais que interconectam esses blocos funcionais;</li>
+<li>Verifica se foram satisfeitas as restrições (<em>constraints</em>) de área, temporização e potência.</li>
+<li>Gera um arquivo contendo todas as conexões necessárias para que a FPGA implemente a funcionalidade desejada.</li>
+</ul></li>
+</ul>
+<hr />
+<p><br></p>
+<p><strong>No Quartus, a compilação pode ser feita de três formas:</strong></p>
+<p><br></p>
+<p><em><code>Start Compilation</code></em>: Faz a compilação completa. Isso inclui: análise sintática, criação da netlist, roteamento para a tecnologia escolhida (<em>fitter</em>), verificação das restrições de temporização do projeto, alocação dos pinos da FPGA, geração do arquivo <em>assembly</em> para gravar a FPGA, etc ...</p>
+<p><em><code>Start Analysis &amp; Elaboration</code></em>: Analisa o projeto procurando por erros de sintaxe e semântica. Também executa a elaboração, que é a identificação da hierarquia criada. Após a execução, é possível utilizar o <em>RTL Viewer</em> e navegar pelos arquivos no <em>Project Navigator</em>.</p>
+<p><em><code>Start Analysis &amp; Synthesis</code></em>: Analisa o projeto procurando por erros de sintaxe e semântica. Faz a extração da <em>netlist</em> e cria um banco de dados com todos arquivos do projeto. Também faz o mapeamento do projeto para a arquitetura alvo (síntese). Após a execução, é possível fazer a simulação do circuito criado.</p>
+<ul>
+<li>Clique no ícone escolhido:
+<ul>
+<li>Aguarde a finalização do processo;</li>
+<li>Verifique se ocorreu algum erro.</li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="../imagensQuartus/telaCompilacao-1.png" alt="Tela de Compilação" />
+<p class="caption">Tela de Compilação</p>
+</div>
+<!--- [[imagens/Aula1/TelaAnalysisElaboration.png|Imagem da Tela]]  -->
+<p><br><br></p>
+<p><strong>Para verificar o circuito resultante da compilação, use:</strong></p>
+<ul>
+<li><code>Tools</code> &gt; <code>Net List Viewers</code> &gt; <code>RTL Viewer</code></li>
+</ul>
+<div class="figure">
+<img src="../imagensQuartus/rtlViewerMenu.png" alt="Menu" />
+<p class="caption">Menu</p>
+</div>
+<p><br><br><br></p>
+<p><strong>Fluxo da compilação (compilation flow) do Quartus Prime</strong></p>
+<div class="figure">
+<img src="../imagensQuartus/designFlowQuartus-1_svg.png" alt="Fluxo do Projeto" />
+<p class="caption">Fluxo do Projeto</p>
+</div>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<!--- (inicio dos links)  -->
+</body>
+</html>

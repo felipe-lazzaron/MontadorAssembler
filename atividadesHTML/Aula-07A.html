@@ -1,0 +1,553 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  .bloco .title {
+      display: block;
+  }
+  
+  /*Bloco de solucao de exercicio*/
+  .bloco .label,
+  .bloco .separator {
+      font-weight: bold;
+  }
+  
+  .bloco .separator {
+      margin-right: .6em;
+  }
+  /* Solução */
+  div.solucao {
+    border-left: .3em solid #dd4444;   /*#dc3c01; */
+    margin-left: -.8em;
+    padding-left: .4em;
+    position: relative;
+    font-size: 90%;
+  }
+  
+  div.solucao .conteudo {
+    display: none;
+    padding-top: 1px;
+  }
+  
+  div.solucao button {
+    color: #0000AF;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  div.solucao button.viewed {
+    color: #FF2020;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(0,100,100);  /*anterior:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  
+  /* Cores */
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* blockquote > p { */
+  blockquote{color: red}
+  blockquote p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  
+  /* ---- Front Matter ----
+  Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+  Only appears if one of those three are in the document.   */
+  
+  div#header, header
+      {
+      /* Put border on bottom. Separates it from TOC or body that comes after it. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  .title /* Pandoc title header (h1.title) */
+      {
+      text-align: center;
+      }
+  
+  .author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+      {
+      text-align: center;
+      }
+  
+  /* Pandoc table of contents DIV when using the --toc option.
+     NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+     Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+  */
+  
+  div#TOC, nav#TOC
+      {
+      /* Put border on bottom to separate it from body. */
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 0.5em;
+      }
+  
+  @media print
+      {
+      div#TOC, nav#TOC
+          {
+          /* Don't display TOC in print */
+          display: none;
+          }
+      }
+  /* ---- Images ---- */
+  img
+      {
+      /* Let it be inline left/right where it wants to be, but verticality make
+         it in the middle to look nicer, but opinions differ, and if in a multi-line
+         paragraph, it might not be so great.
+         vertical-align: middle;
+      */
+      vertical-align: middle;
+      }
+  div.figure /* Pandoc figure-style image */
+      {
+      /* Center the image and caption */
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+      }
+  p.caption /* Pandoc figure-style caption within div.figure */
+      {
+      /* Inherits div.figure props by default */
+      }
+  /*Tamanho absoluto das imagens definidas em markdown*/
+  img[src*='#200'] {
+    text-align: center;
+    width: 200px;
+  }
+  img[src*='#400'] {
+    text-align: center;
+    width: 400px;
+  }
+  img[src*='#600'] {
+    text-align: center;
+    width: 600px;
+  }
+  img[src*='#800'] {
+    text-align: center;
+    width: 800px;
+  }
+  /*Tamanho relativo das imagens definidas em markdown*/
+  img[src*='#p80'] {
+    text-align: center;
+    width: 80%;
+  }
+  img[src*='#p70'] {
+    text-align: center;
+    width: 70%;
+  }
+  img[src*='#p60'] {
+    text-align: center;
+    width: 60%;
+  }
+  img[src*='#p50'] {
+    text-align: center;
+    width: 50%;
+  }
+  img[src*='#p40'] {
+    text-align: center;
+    width: 40%;
+  }
+  img[src*='#p30'] {
+    text-align: center;
+    width: 30%;
+  }
+  img[src*='#p20'] {
+    text-align: center;
+    width: 20%;
+  }
+  img[src*='#p10'] {
+    text-align: center;
+    width: 10%;
+  }
+  /* ---- Tables ---- */
+  table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 24px;
+      border-spacing: 0;
+      border-bottom: 2px solid black;
+      border-top: 2px solid black;
+  }
+  table th {
+      padding: 3px 10px;
+      background-color: white;
+      border-top: 1px;
+      border-left: 1px;
+      border-right: 1px;
+      border-bottom: 1px solid black;
+  }
+  table td {
+      padding: 3px 10px;
+      border-top: 1px;
+      border-left: 1px;
+      border-bottom: 1px;
+      border-right: 1px;
+  }
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+  <script type="text/javascript">
+      function exibe(e)
+      {
+          var div = e.parentNode.firstElementChild;
+  
+          if (div.style.display == "" || div.style.display == "none") {
+              div.style.display = "block";
+              e.setAttribute("class", "viewed");
+              e.innerHTML = "Esconder Solução";
+          } else {
+              div.style.display = "none";
+              e.innerHTML = "Ver Solução";
+          }
+      }
+  </script>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#aula-7-temporização-em-circuitos-digitais">Aula 7: Temporização em Circuitos Digitais</a><ul>
+<li><a href="#objetivos">Objetivos</a></li>
+<li><a href="#temporização">Temporização</a><ul>
+<li><a href="#contextualização">Contextualização</a><ul>
+<li><a href="#tempo-de-atraso-de-propagação">Tempo de Atraso de Propagação</a></li>
+<li><a href="#tempo-de-contaminação">Tempo de Contaminação</a></li>
+<li><a href="#glitch">Glitch</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#atividade-temporização-na-lógica-combinacional">Atividade: Temporização na Lógica Combinacional</a><ul>
+<li><a href="#exercício-1">Exercício 1</a></li>
+<li><a href="#exercício-2">Exercício 2</a></li>
+<li><a href="#exercício-3">Exercício 3</a></li>
+</ul></li>
+<li><a href="#referências">Referências</a></li>
+</ul></li>
+</ul>
+</div>
+<p><a name="inicio"></a></p>
+<h1 id="aula-7-temporização-em-circuitos-digitais">Aula 7: Temporização em Circuitos Digitais</h1>
+<h2 id="objetivos">Objetivos</h2>
+<ol style="list-style-type: decimal">
+<li><p>Analisar os problemas decorrentes das características de temporização dos circuitos digitais.</p></li>
+<li><p>Propor soluções.</p></li>
+</ol>
+<h2 id="temporização">Temporização</h2>
+<p>Para simplificar, durante o projeto consideramos que o tempo que um sinal leva para atravessar uma porta lógica, ou tempo de propagação, é inexistente. Podemos assim, diminuir o total de variáveis a serem consideradas durante a fase inicial do projeto.</p>
+<p>Apesar do teste funcional não levar em consideração a temporização, é necessário verificar se o circuito ainda é funcional com os valores reais de temporização.</p>
+<p>As consequências dos atrasos de propagação são, muitas vezes, pouco intuitivas.</p>
+<h3 id="contextualização">Contextualização</h3>
+<p>A lógica combinacional possui duas características de temporização:</p>
+<ul>
+<li><p>O tempo de atraso de propagação;</p></li>
+<li><p>O tempo de contaminação.</p></li>
+</ul>
+<h4 id="tempo-de-atraso-de-propagação">Tempo de Atraso de Propagação</h4>
+<p>É o tempo máximo entre:</p>
+<ul>
+<li><p>Uma mudança nos sinais de entrada do circuito;</p></li>
+<li><p>E a estabilização de sua saída.</p></li>
+</ul>
+<p>Isso é devido à formação de circuitos RC dentro da porta. Dessa forma, o tempo de carga das capacitâncias (inclusive as parasitas) atrasa a passagem do sinal.</p>
+<p>Por exemplo, para uma porta do tipo <em>buffer</em> (uma porta não inversora), o tempo de propagação teria a seguinte influência no sinal de saída <strong>Y</strong>:</p>
+<div class="figure">
+<img src="imagensComponentes/atrasoBuffer-1.svg#p30" title="Tempo de propagação em uma porta simples." alt="Tempo de Propagação" />
+<p class="caption"><strong>Tempo de Propagação</strong></p>
+</div>
+<h4 id="tempo-de-contaminação">Tempo de Contaminação</h4>
+<p>O tempo de contaminação é o tempo mínimo:</p>
+<ul>
+<li><p>Entre a mudança dos sinais de entrada;</p></li>
+<li><p>E o início da mudança dos sinais de saída.</p></li>
+</ul>
+<div class="figure">
+<img src="imagensComponentes/atrasoBuffer-TempoContaminacao.svg#p30" title="DicaMouse" alt="Tempo de Contaminação" />
+<p class="caption"><strong>Tempo de Contaminação</strong></p>
+</div>
+<blockquote>
+<p>Fica claro que o tempo de contaminação deve ser menor ou igual ao tempo de propagação.</p>
+</blockquote>
+<p>Entre outras razões, a causa disso pode ser a diferença entre os caminhos, internos da porta, para o circuito de chaveamento para nível alto e o de chaveamento para o nível baixo.</p>
+<h4 id="glitch">Glitch</h4>
+<p>Considerando o circuito todo, ainda temos a influência do caminho percorrido pelos diferentes sinais que definem a saída.</p>
+<p>Para um determinado circuito, podemos ter caminhos diferentes, passando por uma quantidade de portas diferente em cada caminho. O resultado é que o circuito como um todo poderá ter um caminho mais longo (<strong>caminho crítico</strong>) e um caminho mais curto.</p>
+<div class="figure">
+<img src="imagensComponentes/caminhoCritico-1.svg#p30" title="Influência de caminhos diferentes para os sinais." alt="Diferenças entre o Caminho Crítico e Caminho Curto" />
+<p class="caption"><strong>Diferenças entre o Caminho Crítico e Caminho Curto</strong></p>
+</div>
+<!---
+O resultado é a ocorrência de um nível indesejado, de curta duração, entre o início e o fim das transições. Esse pulso é conhecido como _glitch_ - que veremos nos exercícios abaixo.
+--->
+<p><br></p>
+<p>O desenho abaixo mostra a diferença entre os atrasos em função do caminho. Para esse circuito, o tempo de propagação (<em><strong>tpd</strong></em>) é a soma das propagações das portas do caminho crítico. Por outro lado, o tempo de contaminação (<em><strong>tcd</strong></em>) é a soma das contaminações das portas do caminho curto.</p>
+<div class="figure">
+<img src="imagensComponentes/tempoCombinatorio-2.svg#p50" title="Atraso pelo caminho curto e crítico" alt="A diferença de Atraso do Caminho Crítico e do Curto" />
+<p class="caption"><strong>A diferença de Atraso do Caminho Crítico e do Curto</strong></p>
+</div>
+<hr />
+<h2 id="atividade-temporização-na-lógica-combinacional">Atividade: Temporização na Lógica Combinacional</h2>
+<h3 id="exercício-1">Exercício 1</h3>
+<div class="figure">
+<img src="imagensComponentes/raceCondition-1.svg#p30" alt="Exemplo da Influência da Temporização" />
+<p class="caption"><strong>Exemplo da Influência da Temporização</strong></p>
+</div>
+<p>Para o circuito mostrado acima, faça a sua tabela da verdade como mostrado abaixo.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">A</th>
+<th align="center">B</th>
+<th align="center">S</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div id="sol-0" class="bloco solucao">
+<div class="conteudo">
+<p>Abaixo temos a tabela da verdade para uma porta <em>AND</em>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">A</th>
+<th align="center">B</th>
+<th align="center">S</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<p>O circuito proposto sempre possui, nas suas entradas, um valor lógico e seu inverso.</p>
+<p>Fica claro, pela observação da tabela da porta <em>AND</em>, que a saída sempre terá nível <em>baixo</em>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">A</th>
+<th align="center">~A</th>
+<th align="center">A and ~A</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="imagensComponentes/temporizacaoCombinacional-1.svg#p40" alt="Carta de Tempo para o Circuito, sem Considerar o Tempo de Propagação" />
+<p class="caption"><strong>Carta de Tempo para o Circuito, sem Considerar o Tempo de Propagação</strong></p>
+</div>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<p style="color:brown">
+<strong>Considerando o tempo de propagação igual a zero, qual a função desse circuito?</strong>
+</p>
+<hr />
+<p><br></p>
+<h3 id="exercício-2">Exercício 2</h3>
+<div class="figure">
+<img src="imagensComponentes/raceCondition-1.svg#p30" alt="Exemplo da Influência da Temporização" />
+<p class="caption"><strong>Exemplo da Influência da Temporização</strong></p>
+</div>
+<p>Novamente, usaremos o mesmo circuito - mostrado acima.</p>
+<p>Porém, vamos considerar os atrasos das portas envolvidas.</p>
+<p>Para simplificar, os atrasos serão:</p>
+<ul>
+<li><p>Porta <em>NOT</em>: 1 unidade de tempo;</p></li>
+<li><p>Porta <em>AND</em>: 1 unidade de tempo.</p></li>
+</ul>
+<p><strong>Nessas condições, como ficaria a carta de tempo?</strong></p>
+<div class="figure">
+<img src="imagensComponentes/temporizacaoCombinacionalGrafico-1a.svg#800" alt="Carta de Tempo para Rascunho" />
+<p class="caption"><strong>Carta de Tempo para Rascunho</strong></p>
+</div>
+<p><a href="./wavedrom/WaveDromEditor.html?{signal%3A%20[{}%2C%0A%20%20[%27Entradas%27%2C%0A%20%20{name%3A%20%27Entrada%27%2C%20wave%3A%20%220..1.....%22}%2C%0A%20%20{name%3A%20%27E%27%2C%20%20%20%20%20%20%20wave%3A%20%27d........%27}%2C%0A%20%20{name%3A%20%27~E%27%2C%20%20%20%20%20%20wave%3A%20%27d........%27}%0A%20%20]%2C%0A%20%20{}%2C%0A%20%20[%27Saída%27%2C%0A%20%20{name%3A%20%27S%27%2C%20%20%20%20%20%20%20wave%3A%20%27d........%27}]%2C%0A]%2C%0A%20%20head%3A{%0A%20%20%20text%3A%27Tabela%20de%20Temporização%27%2C%0A%20%20%20tick%3A0%2C%0A%20}%2C%0A%20foot%3A{%0A%20%20%20text%3A%27Tempo%20em%20Unidades%20de%20Propagação%27%2C%0A%20%20%20tick%3A0%0A%20}%2C%0A}%0A//%20Instruções%3A%0A//%20Cada%20posição%20da%20string%20wave%20equivale%20a%20uma%20unidade%20de%20tempo.%0A//%20As%20posições%20podem%20conter%3A%0A//%20p%20-%20when%20first%20in%20string%20creates%20positive%20edged%20clock%20wave%0A//%20n%20-%20when%20first%20in%20string%20creates%20negative%20edged%20clock%20wave%0A//%20P%20-%20same%20as%20p%20but%20with%20arrow%0A//%20N%20-%20same%20as%20n%20but%20with%20arrow%0A//%200%20-%20low%20level%0A//%201%20-%20high%20level%0A//%20=%20-%20value%20(default%20color%202)%0A//%202%20-%20value%20with%20color%202%0A//%203%20-%20value%20with%20color%203%0A//%204%20-%20value%20with%20color%204%0A//%205%20-%20value%20with%20color%205%0A//%20x%20-%20undefined%20value%0A//%20.%20-%20extends%20previous%20cycle%0A//%20z%20-%20high-impedance%20state%0A//%20u%20-%20pull-up%20(weak%201)%0A//%20d%20-%20pull-down%20(weak%200)%0A//%20|%20-%20extends%20previous%20cycle%20and%20draw%20gap%20on%20top%20of%20it%0A%0A"  target="_blank"><b>Editar a Carta de Temporização</b></a></p>
+<hr />
+<div id="sol-1" class="bloco solucao">
+<div class="conteudo">
+<p><br></p>
+<p>A saída do circuito, em um primeiro instante, muda de acordo com o sinal que percorre o caminho curto (com menor atraso total). Esse é o sinal <em><strong>E</strong></em> e só possui o atraso de uma porta <em>AND</em>.</p>
+<p>Passada essa mudança, a saída do circuito dependerá do sinal que percorre o caminho crítico, ou seja, o sinal <em><strong>~E</strong></em>. Ele possui o atraso de uma porta inversora, que transforma <em>E</em> em <em>~E</em> e uma porta <em>AND</em>.</p>
+<div class="figure">
+<img src="imagensComponentes/temporizacaoCombinacional-2a.svg#p40" alt="Carta de Tempo para o Circuito, Considerando o Tempo de Propagação" />
+<p class="caption"><strong>Carta de Tempo para o Circuito, Considerando o Tempo de Propagação</strong></p>
+</div>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<p style="color:brown">
+<strong>Considerando o tempo de propagação para as portas, qual a função desse circuito?</strong>
+</p>
+<hr />
+<h3 id="exercício-3">Exercício 3</h3>
+<p>Para um circuito mais complicado, como o mostrado abaixo, qual seria a saída <em>Y</em> quando o sinal <em>B</em> fizer a transição de nível alto para nível baixo?</p>
+<div class="figure">
+<img src="imagensComponentes/glitch-A-1.svg#600" alt="Circuito Digital" />
+<p class="caption"><strong>Circuito Digital</strong></p>
+</div>
+<div class="figure">
+<img src="imagensComponentes/glitch-A-1-Karnaugh.svg#400" alt="Mapa de Karnaugh do Circuito Acima" />
+<p class="caption"><strong>Mapa de Karnaugh do Circuito Acima</strong></p>
+</div>
+<div class="figure">
+<img src="imagensComponentes/temporizacaoGlitch-A-1b.svg#800" alt="Carta de Tempo para Rascunho" />
+<p class="caption"><strong>Carta de Tempo para Rascunho</strong></p>
+</div>
+<p><a href="./wavedrom/WaveDromEditor.html?{signal%3A%20[{}%2C%0A%20%20[%27Entradas%27%2C%0A%20%20{name%3A%20%27A%27%2C%20wave%3A%20%20%220..........%22}%2C%0A%20%20{name%3A%20%27B%27%2C%20wave%3A%20%20%271...0......%27}%2C%0A%20%20{name%3A%20%27C%27%2C%20wave%3A%20%20%271..........%27}%0A%20%20]%2C%0A%20%20{}%2C%0A%20%20[%27Intermediário%27%2C%0A%20%20{name%3A%20%27n2%27%2C%20wave%3A%20%27d..........%27}%2C%0A%20%20{name%3A%20%27n1%27%2C%20wave%3A%20%27d..........%27}%2C%0A%20%20]%2C%0A%20%20{}%2C%0A%20%20[%27Saída%27%2C%0A%20%20{name%3A%20%27Y%27%2C%20wave%3A%20%20%27d..........%27}]%2C%0A]%2C%0A%20%20head%3A{%0A%20%20%20text%3A%27Tabela%20de%20Temporização%27%2C%0A%20%20%20tick%3A0%2C%0A%20}%2C%0A%20foot%3A{%0A%20%20%20text%3A%27Tempo%20em%20Unidades%20de%20Propagação%27%2C%0A%20%20%20tick%3A0%0A%20}%2C%0A}"  target="_blank"><b>Editar a Carta de Temporização</b></a></p>
+<hr />
+<div id="sol-2" class="bloco solucao">
+<div class="conteudo">
+<p>A carta de tempos está na figura abaixo. Em seguida está uma explicação com detalhes sobre o resultado.</p>
+<div class="figure">
+<img src="imagensComponentes/temporizacaoGlitch-A-1a.svg#800" alt="Carta de Tempo da Solução" />
+<p class="caption"><strong>Carta de Tempo da Solução</strong></p>
+</div>
+<p><br></p>
+<p>Na figura abaixo, é possível seguir a sequência de eventos das transições com mais detalhes.</p>
+<p>A transição do sinal <em>B</em> afeta tanto o caminho crítico quanto o caminho curto.</p>
+<p>No caminho curto, a mudança de <em>B</em> (de 1 para 0) implica na mudança de <em>n2</em> após uma unidade de tempo de propagação. E, consequentemente, <em>n2</em> implica na mudança da saída <em>Y</em>, de nível alto para nível baixo, após outra unidade de tempo de propagação. Ou seja, a saída mudou o seu estado após duas unidades de tempo de propagação, uma para a porta <em>AND</em> e outra para a porta <em>OR</em>.</p>
+<p>No caminho crítico, a mudança de <em>B</em> (de 1 para 0) implica na mudança de <em>n1</em> após duas unidades de tempo de propagação (uma unidade para a porta inversora e outra para a porta <em>AND</em>). Por sua vez, a mudança de <em>n1</em> faz com que a saída mude após uma unidade de propagação (referente à porta <em>OR</em>). Assim, a saída muda de 0 para 1 após três unidades de propagação.</p>
+<div class="figure">
+<img src="imagensComponentes/glitch-A-2.svg#p40" title="Influência das Características de Temporização" alt="Sequência de Eventos nos Caminhos Crítico e Curto" />
+<p class="caption"><strong>Sequência de Eventos nos Caminhos Crítico e Curto</strong></p>
+</div>
+<p>Essa sequência tem como resultado a aparição de uma transição indesejada na saída do circuito, ou seja, um <em>glitch</em>.</p>
+<p>Neste caso, o <em>glitch</em> que aparece na saída, com a mudança somente do sinal <em>B</em> de 1 para 0, pode ser previsto pelo mapa de Karnaugh. Lembre que o mapa de Karnaugh representa a função booleana através da <em>soma</em> de <em>produtos</em>, sendo que os produtos podem usar quaisquer valores de entrada ou o complemento desses valores. Ou seja, portas inversoras para o complemento, portas <em>AND</em> para o produto e uma porta <em>OU</em> para a soma de todos produtos.</p>
+<p>No mapa abaixo, temos os <em>produtos</em> em vermelho (<em>BC</em>) e verde (<em>~A~B</em>), que, <em>somados</em>, são o resultado da simplificação do circuito. Vale notar que, se os sinais <em>A = 0</em> e <em>C = 1</em> estiverem estáveis e ocorrer uma transição de 1 para 0 em <em>B</em>, haverá a desativação do produto <em>BC</em> e a ativação do produto <em>~A~B</em>. Assim, antes da transição, quem determina o valor da saída é o produto <em>BC</em>. Após a transição, quem determina o valor de saída, é o produto <em>~A~B</em>. Esse é o problema, durante a transição não existe um produto que mantenha a saída em nível alto. Portanto, a saída estará em 0 durante a transição.</p>
+<div class="figure">
+<img src="imagensComponentes/glitch-A-1-Karnaugh-detalhado.svg#400" alt="Mapa de Karnaugh com Realce na Transição de B Acima" />
+<p class="caption"><strong>Mapa de Karnaugh com Realce na Transição de B Acima</strong></p>
+</div>
+<p>Esse problema pode ser solucionado através da inclusão de mais um produto, cobrindo a transição. Esse produto é mostrado, em verde, na tabela abaixo e é o <em>~AC</em>.</p>
+<p>Durante a transição, os valores de <em>A</em> e <em>C</em> estão estáveis, respectivamente, em nível baixo e nível alto. Isso preenche a condição do produto <em>~AC</em> e manterá a saída em nível alto.</p>
+<div class="figure">
+<img src="imagensComponentes/glitch-A-1-KarnaughSemGlitch.svg#400" alt="Mapa de Karnaugh para Eliminação do Glitch" />
+<p class="caption"><strong>Mapa de Karnaugh para Eliminação do Glitch</strong></p>
+</div>
+<p>O resultado será um circuito um pouco maior, mais uma porta <em>AND</em>, mas sem transições indesejadas na saída. Esse circuito está mostrado abaixo:</p>
+<div class="figure">
+<img src="imagensComponentes/glitch-A-1-Eliminado.svg#600" alt="Mapa de Karnaugh do Circuito Acima" />
+<p class="caption"><strong>Mapa de Karnaugh do Circuito Acima</strong></p>
+</div>
+</div>
+<button onclick="exibe(this)">
+Ver Solução
+</button>
+</div>
+<hr />
+<h2 id="referências">Referências</h2>
+<p><a href="./linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<hr />
+<p><br></p>
+<hr />
+<hr />
+<!---
+######### (inicio dos links) ##########
+#######################################
+########### Links Internos ############
+--->
+<!-- FIM -->
+</body>
+</html>

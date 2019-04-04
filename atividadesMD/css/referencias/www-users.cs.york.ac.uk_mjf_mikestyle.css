@@ -1,0 +1,26 @@
+h1{
+	background-color: rgb(106,90,220);
+}
+
+h2{
+	background-color: rgb(106,90,220);
+}
+
+h3{
+	background-color: rgb(106,90,220);
+}
+
+pre{
+	font-size: 0.8em;
+	font-family: Courier new;
+	font-weight: bold;
+	color: rgb(106,90,220);
+	border-style: solid;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+
+table, th, td{
+	border-style: solid;
+}

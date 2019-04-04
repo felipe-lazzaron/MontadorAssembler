@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  /* fundo para o trecho de código */
+  div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+  
+  /* Alinhamento dos títulos e parágrafos */
+  
+  body{margin-left: 5%; margin-right: 5%;
+           color: black; background: white;}
+  
+  hr{
+      margin-left: -4%;
+      background-color: rgb(240,100,100);  /*Linha horizontal:    240,240,240 */
+  }
+  h1{
+      margin-left: -4%;
+      background-color: rgb(210,210,220);
+  }
+  
+  h2{
+      margin-left: -4%;
+      background-color: rgb(220,220,230);
+  }
+  
+  h3{
+      margin-left: -4%;
+      background-color: rgb(230,230,240);
+  }
+  
+  h4{
+      margin-left: -4%;
+      background-color: rgb(240,240,250);
+  }
+  i{color: red}
+  em{color: green}
+  cite{color: brown}
+  /* fundo para as linhas das tabelas */
+  tr.even{
+    background-color: rgb(250,250,255);
+  }
+  tr.odd{
+    background-color: rgb(250,250,250);
+  }
+  </style>
+</head>
+<body>
+<p><a name="inicio"></a></p>
+<h2 id="principais-tipos-de-arquivos-pertencentes-a-um-projeto-do-quartus">Principais tipos de arquivos pertencentes a um projeto do Quartus:</h2>
+<p><strong>Definições do projeto:</strong></p>
+<ul>
+<li>*.qpf - Quartus Project</li>
+<li>*.qsf - Quartus Settings File</li>
+</ul>
+<p><strong>Código:</strong></p>
+<ul>
+<li>*.vhd - VHDL Design File</li>
+<li>*.v - Verilog HDL Source</li>
+<li>*.bsf - Quartus Block Symbol File</li>
+<li>*.bdf - Quartus Block Diagram File</li>
+<li>*.qip - Quartus IP File</li>
+</ul>
+<p><strong>Memória:</strong></p>
+<ul>
+<li>*.sof - SRAM Object File</li>
+<li>*.mif - Memory Initialization File</li>
+</ul>
+<p><strong>Simulação:</strong></p>
+<ul>
+<li>*.vwf - Quartus Vector Waveform File</li>
+</ul>
+<p><strong>Outras:</strong></p>
+<ul>
+<li>*.pof - Programmer Object File</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="todos-os-tipos-de-arquivos-suportados-pelo-quartus">Todos os tipos de arquivos suportados pelo Quartus:</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Tipo de Arquivo</th>
+<th align="left">Extensão</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AHDL Include File</td>
+<td align="left">.inc</td>
+</tr>
+<tr class="even">
+<td align="left">ATOM Netlist File</td>
+<td align="left">.atm</td>
+</tr>
+<tr class="odd">
+<td align="left">Block Design File</td>
+<td align="left">.bdf</td>
+</tr>
+<tr class="even">
+<td align="left">Block Symbol File</td>
+<td align="left">.bsf</td>
+</tr>
+<tr class="odd">
+<td align="left">BSDL file</td>
+<td align="left">.bsd</td>
+</tr>
+<tr class="even">
+<td align="left">Chain Description File</td>
+<td align="left">.cdf</td>
+</tr>
+<tr class="odd">
+<td align="left">Comma-Separated Value File</td>
+<td align="left">.csv</td>
+</tr>
+<tr class="even">
+<td align="left">Component Declaration File</td>
+<td align="left">.cmp</td>
+</tr>
+<tr class="odd">
+<td align="left">Component Description File</td>
+<td align="left">_hw.tcl</td>
+</tr>
+<tr class="even">
+<td align="left">Compressed Vector Waveform File</td>
+<td align="left">.cvwf</td>
+</tr>
+<tr class="odd">
+<td align="left">Conversion Setup File</td>
+<td align="left">.cof</td>
+</tr>
+<tr class="even">
+<td align="left">Cross-Reference File</td>
+<td align="left">.xrf</td>
+</tr>
+<tr class="odd">
+<td align="left">database files</td>
+<td align="left">.cdb, .hdb, .rdb, .tdb</td>
+</tr>
+<tr class="even">
+<td align="left">Design Protocol File</td>
+<td align="left">.dpf</td>
+</tr>
+<tr class="odd">
+<td align="left">Graphic Design File</td>
+<td align="left">.gdf</td>
+</tr>
+<tr class="even">
+<td align="left">Hexadecimal (Intel Format) File</td>
+<td align="left">.hex</td>
+</tr>
+<tr class="odd">
+<td align="left">Hexadecimal (Intel Format) Output File</td>
+<td align="left">.hexout</td>
+</tr>
+<tr class="even">
+<td align="left">HSPICE Simulation Deck File</td>
+<td align="left">.sp</td>
+</tr>
+<tr class="odd">
+<td align="left">HTML Format Report File</td>
+<td align="left">.htm</td>
+</tr>
+<tr class="even">
+<td align="left">I/O Pin State File</td>
+<td align="left">.ips</td>
+</tr>
+<tr class="odd">
+<td align="left">IBIS Output File</td>
+<td align="left">.ibs</td>
+</tr>
+<tr class="even">
+<td align="left">In System Configuration File</td>
+<td align="left">.isc</td>
+</tr>
+<tr class="odd">
+<td align="left">IP Index File</td>
+<td align="left">.ipx</td>
+</tr>
+<tr class="even">
+<td align="left">Jam Byte Code File</td>
+<td align="left">.jbc</td>
+</tr>
+<tr class="odd">
+<td align="left">Jam File</td>
+<td align="left">.jam</td>
+</tr>
+<tr class="even">
+<td align="left">JTAG Debugging Information File</td>
+<td align="left">.jdi</td>
+</tr>
+<tr class="odd">
+<td align="left">JTAG Indirect Configuration File</td>
+<td align="left">.jic</td>
+</tr>
+<tr class="even">
+<td align="left">Library Mapping File</td>
+<td align="left">.lmf</td>
+</tr>
+<tr class="odd">
+<td align="left">License File</td>
+<td align="left">license.dat</td>
+</tr>
+<tr class="even">
+<td align="left">Logic Analyzer Interface File</td>
+<td align="left">.lai</td>
+</tr>
+<tr class="odd">
+<td align="left">Memory Initialization File</td>
+<td align="left">.mif</td>
+</tr>
+<tr class="even">
+<td align="left">Memory Map File</td>
+<td align="left">.map</td>
+</tr>
+<tr class="odd">
+<td align="left">PartMiner edaXML-Format File</td>
+<td align="left">.xml</td>
+</tr>
+<tr class="even">
+<td align="left">Pin-Out File</td>
+<td align="left">.pin</td>
+</tr>
+<tr class="odd">
+<td align="left">Pin Planner File</td>
+<td align="left">.ppf</td>
+</tr>
+<tr class="even">
+<td align="left">Programmer Object File</td>
+<td align="left">.pof</td>
+</tr>
+<tr class="odd">
+<td align="left">programming files</td>
+<td align="left">.cdf, .cof</td>
+</tr>
+<tr class="even">
+<td align="left">QMSG File</td>
+<td align="left">.qmsg</td>
+</tr>
+<tr class="odd">
+<td align="left">Intel® Quartus® Prime IP File</td>
+<td align="left">.qip</td>
+</tr>
+<tr class="even">
+<td align="left">Intel® Quartus® Prime Archive File</td>
+<td align="left">.qar</td>
+</tr>
+<tr class="odd">
+<td align="left">Intel® Quartus® Prime Archive Log File</td>
+<td align="left">.qarlog</td>
+</tr>
+<tr class="even">
+<td align="left">Quartus User-Defined Device File</td>
+<td align="left">.qud</td>
+</tr>
+<tr class="odd">
+<td align="left">Intel® Quartus® Prime Default Settings File</td>
+<td align="left">.qdf</td>
+</tr>
+<tr class="even">
+<td align="left">Intel® Quartus® Prime Exported Partition File</td>
+<td align="left">.qxp</td>
+</tr>
+<tr class="odd">
+<td align="left">Intel® Quartus® Prime Message Flag Rule File</td>
+<td align="left">.frf</td>
+</tr>
+<tr class="even">
+<td align="left">Intel® Quartus® Prime Message Suppression Rule File</td>
+<td align="left">.srf</td>
+</tr>
+<tr class="odd">
+<td align="left">Intel® Quartus® Prime Project File</td>
+<td align="left">.qpf</td>
+</tr>
+<tr class="even">
+<td align="left">Intel® Quartus® Prime Settings File</td>
+<td align="left">.qsf</td>
+</tr>
+<tr class="odd">
+<td align="left">Intel® Quartus® Prime Workspace File</td>
+<td align="left">.qws</td>
+</tr>
+<tr class="even">
+<td align="left">Raw Binary File</td>
+<td align="left">.rbf</td>
+</tr>
+<tr class="odd">
+<td align="left">Raw Programming Data File</td>
+<td align="left">.rpd</td>
+</tr>
+<tr class="even">
+<td align="left">Routing Constraints File</td>
+<td align="left">.rcf</td>
+</tr>
+<tr class="odd">
+<td align="left">Signal Activity File</td>
+<td align="left">.saf</td>
+</tr>
+<tr class="even">
+<td align="left">Signal Tap File</td>
+<td align="left">.stp</td>
+</tr>
+<tr class="odd">
+<td align="left">Sources and Probes File</td>
+<td align="left">.spf</td>
+</tr>
+<tr class="even">
+<td align="left">SRAM Object File</td>
+<td align="left">.sof</td>
+</tr>
+<tr class="odd">
+<td align="left">State Machine File</td>
+<td align="left">.smf</td>
+</tr>
+<tr class="even">
+<td align="left">Symbol File</td>
+<td align="left">.sym</td>
+</tr>
+<tr class="odd">
+<td align="left">Synopsys® Design Constraints File</td>
+<td align="left">.sdc</td>
+</tr>
+<tr class="even">
+<td align="left">Tab-Separated Value File</td>
+<td align="left">.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">Tabular Text File</td>
+<td align="left">.ttf</td>
+</tr>
+<tr class="even">
+<td align="left">Tcl Script File</td>
+<td align="left">.tcl</td>
+</tr>
+<tr class="odd">
+<td align="left">Text Design File</td>
+<td align="left">.tdf</td>
+</tr>
+<tr class="even">
+<td align="left">Text Format Report File</td>
+<td align="left">.rpt</td>
+</tr>
+<tr class="odd">
+<td align="left">Token File</td>
+<td align="left">ted.tok</td>
+</tr>
+<tr class="even">
+<td align="left">Vector Table Output File</td>
+<td align="left">.tbl</td>
+</tr>
+<tr class="odd">
+<td align="left">vector source files</td>
+<td align="left">.tbl, .vwf, .vec</td>
+</tr>
+<tr class="even">
+<td align="left">Vector Waveform File</td>
+<td align="left">.vwf</td>
+</tr>
+<tr class="odd">
+<td align="left">Verilog Design File</td>
+<td align="left">.v, .vh, .verilog,.vlg</td>
+</tr>
+<tr class="even">
+<td align="left">Verilog Output File</td>
+<td align="left">.vo</td>
+</tr>
+<tr class="odd">
+<td align="left">Verilog Quartus Mapping File</td>
+<td align="left">.vqm</td>
+</tr>
+<tr class="even">
+<td align="left">Verilog Test Bench File</td>
+<td align="left">.vt</td>
+</tr>
+<tr class="odd">
+<td align="left">Value Change Dump File</td>
+<td align="left">.vcd</td>
+</tr>
+<tr class="even">
+<td align="left">version-compatible database files</td>
+<td align="left">.atm, .hdbx, .rcf, .xml</td>
+</tr>
+<tr class="odd">
+<td align="left">VHDL Design File</td>
+<td align="left">.vhd, .vhdl</td>
+</tr>
+<tr class="even">
+<td align="left">VHDL Output File</td>
+<td align="left">.vho</td>
+</tr>
+<tr class="odd">
+<td align="left">VHDL Test Bench File</td>
+<td align="left">.vht</td>
+</tr>
+<tr class="even">
+<td align="left">XML files</td>
+<td align="left">.cof, .stp, .xml</td>
+</tr>
+<tr class="odd">
+<td align="left">waveform files</td>
+<td align="left">.scf, .stp, .tbl, .vec, .vwf</td>
+</tr>
+<tr class="even">
+<td align="left">Waveform Settings File</td>
+<td align="left">.wsf</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Referências:</strong></p>
+<p><a href="../linksUteis.html">Página com links</a> de referências sobre VHDL, Quartus, etc ...</p>
+<hr />
+<p><a name="fimDocumento"></a> <a href="#inicio">Ir para o início do documento</a>.</p>
+<!---
+######### (inicio dos links) ##########
+--->
+</body>
+</html>

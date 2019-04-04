@@ -1,0 +1,725 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title></title>
+  <meta name="generator" content="LibreOffice 5.4.6.2 (Linux)"/>
+  <meta name="created" content="2017-09-06T20:33:50.041438722"/>
+  <meta name="changed" content="2019-03-19T22:31:17.873785765"/>
+</head>
+<body>
+<h1><b>Design de Computadores</b></h1>
+<h2>Aula 10</h2>
+<h2>Decomposição de Instruções</h2>
+<h2> Tipo R</h2>
+<h1 style="page-break-before:always; "></h1>
+<ul>
+<li>Tópicos:</li>
+<ul>
+<li>Formato das instruções; </li>
+<li>Codificação das instruções;</li>
+<li>Análise do funcionamento das instruções;</li>
+<li>Esboço de fluxo de dados que execute essas instruções;</li>
+<li>Simulação manual do funcionamento do FD;</li>
+<li>Implementação do FD em VHDL.</li>
+</ul>
+</ul>
+<h1 style="page-break-before:always; ">Como visto anteriormente, o MIPS possui:</h1>
+<ul>
+<li>Como visto anteriormente, o MIPS possui:</li>
+<ul>
+<li>3 formatos básicos de instruções:</li>
+<ul>
+<li>Tipo R (registro);</li>
+<li>Tipo I (imediato);</li>
+<li>Tipo J (salto).</li>
+</ul>
+</ul>
+<li>Além disso, a codificação dessas instruções:</li>
+<ul>
+<li>Utiliza uma palavra de 32 bits;</li>
+<li>Que foi dividida em campos bem definidos.</li>
+</ul>
+</ul>
+<ul>
+<li>opcode</li>
+</ul>
+<ul>
+<li>funct</li>
+</ul>
+<ul>
+<li>Rs</li>
+</ul>
+<ul>
+<li>Rt</li>
+</ul>
+<ul>
+<li>Rd</li>
+</ul>
+<ul>
+<li>shamt</li>
+</ul>
+<ul>
+<li>6 bits</li>
+</ul>
+<ul>
+<li>6 bits</li>
+</ul>
+<ul>
+<li>5 bits</li>
+</ul>
+<ul>
+<li>5 bits</li>
+</ul>
+<ul>
+<li>5 bits</li>
+</ul>
+<ul>
+<li>5 bits</li>
+</ul>
+<ul>
+<li>MSB (b31)</li>
+</ul>
+<ul>
+<li>LSB (b0)</li>
+</ul>
+<h1 style="page-break-before:always; ">Esses campos podem ser agrupados:</h1>
+<ul>
+<li>Esses campos podem ser agrupados:</li>
+<ul>
+<li>Dependendo do tipo de instrução.</li>
+</ul>
+<li>O significado dos nomes dos campos:</li>
+<ul>
+<ul>
+<li><b>Opcode</b>: Contém o código da instrução a ser executada;</li>
+<li><b>Rs</b>: O número do registrador com o primeiro operando da instrução definida em op;</li>
+<li><b>Rt</b>: O número do registrador com o segundo operando da instrução definida em op;</li>
+<li><b>Rd</b>: O número do registrador de destino do resultado da instrução definida em op;</li>
+<li><b>shamt</b>: Total de deslocamento (shift amount).</li>
+<li><b>funct</b>: Seleciona uma variação específica da operação definida em opcode.</li>
+</ul>
+</ul>
+</ul>
+<ul>
+<li>opcode</li>
+</ul>
+<ul>
+<li>funct</li>
+</ul>
+<ul>
+<li>Rs</li>
+</ul>
+<ul>
+<li>Rt</li>
+</ul>
+<ul>
+<li>Rd</li>
+</ul>
+<ul>
+<li>shamt</li>
+</ul>
+<ul>
+<li>6 bits</li>
+</ul>
+<ul>
+<li>6 bits</li>
+</ul>
+<ul>
+<li>5 bits</li>
+</ul>
+<ul>
+<li>5 bits</li>
+</ul>
+<ul>
+<li>5 bits</li>
+</ul>
+<ul>
+<li>5 bits</li>
+</ul>
+<h1 style="page-break-before:always; ">Analisaremos o formato das instruções do tipo R:</h1>
+<ul>
+<li>Analisaremos o formato das instruções do tipo R:</li>
+<ul>
+<li>Para determinar a estrutura de hardware necessária para implementar esse tipo de instrução.</li>
+</ul>
+<li>Todas instruções do tipo R:</li>
+<ul>
+<li>Utilizam 3 registradores;</li>
+<li>O campo opcode é sempre igual a zero;</li>
+<li>O campo “funct” define a função a ser realizada.</li>
+</ul>
+<li>A função dos registradores:</li>
+<ul>
+<li>Rs e Rt contém os argumentos da operação;</li>
+<li>Rd é o destino do resultado da operação. </li>
+</ul>
+</ul>
+<h1 style="page-break-before:always; ">A soma mostrada abaixo:</h1>
+<ul>
+<li>A soma mostrada abaixo:</li>
+<h2>add $t0, $s1, $s2</h2>
+<li>Qual seria a sua codificação?</li>
+<ul>
+<li>Dicas:</li>
+<ul>
+<li>Consulte valor de “funct” e o endereço dos registradores no <b>greencard</b>. </li>
+</ul>
+</ul>
+</ul>
+<p>opcode</p>
+<ul>
+<li>funct</li>
+</ul>
+<ul>
+<li>Rs</li>
+</ul>
+<ul>
+<li>Rt</li>
+</ul>
+<ul>
+<li>Rd</li>
+</ul>
+<ul>
+<li>shamt</li>
+</ul>
+<ul>
+<li>6 bits</li>
+<li>31~26</li>
+</ul>
+<ul>
+<li>6 bits</li>
+<li>5 ~0</li>
+</ul>
+<ul>
+<li>5 bits</li>
+<li>25 ~21</li>
+</ul>
+<ul>
+<li>5 bits</li>
+<li>20 ~16</li>
+</ul>
+<ul>
+<li>5 bits</li>
+<li>15 ~11</li>
+</ul>
+<ul>
+<li>5 bits</li>
+<li>10 ~6</li>
+</ul>
+<p>0x00</p>
+<h1 style="page-break-before:always; ">A subtração mostrada abaixo:</h1>
+<ul>
+<li>A subtração mostrada abaixo:</li>
+<h2>sub $a0, $sp, $s2</h2>
+<li>Qual seria a sua codificação?</li>
+<ul>
+<li>Dica: consulte o <b>greencard</b>. </li>
+</ul>
+</ul>
+<p>opcode</p>
+<ul>
+<li>funct</li>
+</ul>
+<ul>
+<li>Rs</li>
+</ul>
+<ul>
+<li>Rt</li>
+</ul>
+<ul>
+<li>Rd</li>
+</ul>
+<ul>
+<li>shamt</li>
+</ul>
+<ul>
+<li>6 bits</li>
+<li>31~26</li>
+</ul>
+<ul>
+<li>6 bits</li>
+<li>5 ~0</li>
+</ul>
+<ul>
+<li>5 bits</li>
+<li>25 ~21</li>
+</ul>
+<ul>
+<li>5 bits</li>
+<li>20 ~16</li>
+</ul>
+<ul>
+<li>5 bits</li>
+<li>15 ~11</li>
+</ul>
+<ul>
+<li>5 bits</li>
+<li>10 ~6</li>
+</ul>
+<p>0x00</p>
+<h1 style="page-break-before:always; ">Agora que a codificação das instruções do tipo R, já é conhecida:</h1>
+<ul>
+<li>Agora que a codificação das instruções do tipo R, já é conhecida:</li>
+<ul>
+<li>Vamos analisar o seu funcionamento.</li>
+</ul>
+<li>Mas, primeiro vamos lembrar:</li>
+<ul>
+<li>De alguns blocos construtivos;</li>
+<li>Algumas características do MIPS.</li>
+</ul>
+<li>E, depois, conhecer a sintaxe básica:</li>
+<ul>
+<li>Da RTN (register transfer notation).</li>
+</ul>
+</ul>
+<h1 style="page-break-before:always; ">Lembrando dos blocos construtivos que conhecemos:</h1>
+<ul>
+<li>Lembrando dos blocos construtivos que conhecemos:</li>
+<ul>
+<li>Registrador de uso geral (n bits, configurável);</li>
+<li>Memória (RAM e ROM);</li>
+<li>Banco de Registradores;</li>
+<li>ULA:</li>
+<ul>
+<li>Considere que a ULA executa qualquer operação lógica ou aritmética;</li>
+<li>Quando acabar a analise de todas instruções, saberemos quais operações a ULA necessitará;</li>
+</ul>
+<li>MUX.</li>
+</ul>
+</ul>
+<h1 style="page-break-before:always; ">Características do MIPS original</h1>
+<h2>Características do MIPS original</h2>
+<ul>
+<ul>
+<li>Arquitetura do tipo Load/Store;</li>
+<li>Granularidade do endereçamento da memória:</li>
+<ul>
+<li>Um byte (endereços de 32 bits).</li>
+</ul>
+<li>Granularidade do acesso à memória:</li>
+<ul>
+<li>Palavra de 32 bits (2^30 palavras de memória).</li>
+</ul>
+<li>Alinhamento do acesso à memória: 4 bytes;</li>
+<li>Big Endian ou Little Endian (selecionável);</li>
+<li>Formato regular para as instruções;</li>
+<li>Não possui:</li>
+<ul>
+<li>Flags de estado;</li>
+<li>Suporte de hardware para gerenciar pilhas.</li>
+</ul>
+<li>Possui interrupção através do coprocessador.</li>
+</ul>
+</ul>
+<h1 style="page-break-before:always; ">Continuação:</h1>
+<ul>
+<li>Continuação:</li>
+<ul>
+<li>Divide a execução de uma instrução em 5 partes menores ou ciclos:</li>
+<ul>
+<li>Busca da instrução (instruction fetch: IF):</li>
+<ul>
+<li>Carrega da posição de memória apontada pelo PC, a instrução a ser executada.</li>
+</ul>
+<li>Decodificação (instruction decode: ID):</li>
+<ul>
+<li>Lê os dados a serem utilizados;</li>
+<li>Calcula o endereço da próxima instrução (incrementa o PC).</li>
+</ul>
+<li>Execução (EX):</li>
+<ul>
+<li>A ALU faz a operação indicada na instrução.</li>
+</ul>
+<li>Acesso à memória (memory access: MA):</li>
+<ul>
+<li>Escreve ou lê dados na memória. Só funciona nas instruções lw e sw.</li>
+</ul>
+<li>Escreve o resultado nos registradores (write back: WB)</li>
+<ul>
+<li>Ocorre na maioria das instruções.</li>
+</ul>
+</ul>
+</ul>
+</ul>
+<h1 style="page-break-before:always; ">RTN</h1>
+<h2>RTN</h2>
+<ul>
+<li>Básico sobre RTN (register transfer notation):</li>
+<ul>
+<li>Formaliza a descrição :</li>
+<ul>
+<li>Do funcionamento. RTN abstrata: usa a arquitetura; </li>
+<li>Da estrutura. RTN concreta: usa a organização:</li>
+<ul>
+<li>Cada passo é um pulso de clock.</li>
+</ul>
+</ul>
+<li>Misto de linguagem natural e expressões matemáticas:</li>
+<ul>
+<li>Estabelece a relação entre o que está do lado esquerdo do símbolo com o que está do lado direito.</li>
+</ul>
+<li>As transferências só acontecem no pulso de clock;</li>
+<li>Considera que os sinais estão estáveis no momento do clock;</li>
+<li>Considera que a lógica combinacional tem resposta instantânea.</li>
+</ul>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<table>
+  <tr>
+    <td>
+<p><b>Símbolo</b></p>
+    </td>
+    <td>
+<p><b>Significado</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>&lt;-</b></p>
+    </td>
+    <td>
+<p><b>Transferência entre registradores: Regesquerda recebe o valor do Regdireita .</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>[ ]</b></p>
+    </td>
+    <td>
+<p><b>Índice de Word: seleciona uma palavra, ou a faixa de palavras, da memória indicada.</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>&lt; &gt;</b></p>
+    </td>
+    <td>
+<p><b>Índice de Bit: seleciona a faixa de bits ou um bit  da memória indicada.</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>n...m</b></p>
+    </td>
+    <td>
+<p><b>Índice de Faixa: indica a faixa da esquerda para a direita (pode ser decrescente).</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>-&gt;</b></p>
+    </td>
+    <td>
+<p><b>If-then: verdadeiro na esquerda implica receber valor ou aplicar ação na direita.</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>:=</b></p>
+    </td>
+    <td>
+<p><b>Definição:  ajuda a documentar. ld(opcode:=3) →  R[ra] ← M[MA]</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>#</b></p>
+    </td>
+    <td>
+<p><b>Concatenação de bits.</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>:</b></p>
+    </td>
+    <td>
+<p><b>Separador de ações que acontecem em paralelo.</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>;</b></p>
+    </td>
+    <td>
+<p><b>Separador de ações que acontecem em sequência: da esquerda para direita.</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>@</b></p>
+    </td>
+    <td>
+<p><b>Repete o número de vezes, da direita, o que está na esquerda (concatena).</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>{ }</b></p>
+    </td>
+    <td>
+<p><b>Modificador de operação.</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>( )</b></p>
+    </td>
+    <td>
+<p><b>Agrupamento de operações ou valores.</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>= ≠ &lt; ≤ ≥ &gt;</b></p>
+    </td>
+    <td>
+<p><b>Operadores de comparação, retorna valores binários (≠ pode ser: !=).</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>+ - * /</b></p>
+    </td>
+    <td>
+<p><b>Operadores aritméticos.</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>^v¬⊕≡</b></p>
+    </td>
+    <td>
+<p><b>Operadores lógicos: and, or, not, xor, equivalência. Pode usar: &amp; | !</b></p>
+    </td>
+  </tr>
+</table>
+<p><b>Símbolos e significados em RTN:</b></p>
+<h1 style="page-break-before:always; ">Exemplos:</h1>
+<ul>
+<li>Exemplos:</li>
+<ul>
+<li>Flip-flop:   A ← B</li>
+<li>Registrador:  A&lt;m..1&gt; ← B&lt;m..1&gt;</li>
+<li>Incremento do PC:  PC ← PC + 4</li>
+<li>Carrega instrução da memória:</li>
+<ul>
+<li>RTN abstrata:  IR ← M[PC]</li>
+<li>RTN concreta:  </li>
+</ul>
+<li>Extensão de sinal de 16 para 32 bits, do Reg1: </li>
+<ul>
+<li>(16@Reg1&lt;15&gt;#Reg1&lt;15..0&gt;)</li>
+</ul>
+<li>Seleção de registrador (rn) no banco de regs.:</li>
+<ul>
+<li>A ← (rn = 0 → 0 : rn != 0 → R[rn] )</li>
+</ul>
+</ul>
+</ul>
+<p>MAd ← PC : C ← PC + 4</p>
+<p>MD ← M[MAd] : PC ← C</p>
+<p>IR ← MD</p>
+<h1 style="page-break-before:always; ">Memória</h1>
+<h2>Memória</h2>
+<ul>
+<li>Em relação ao modelo de memória que utilizaremos:</li>
+<ul>
+<li>As instruções estão na memória do computador:</li>
+<ul>
+<li>No segmento “text”.</li>
+</ul>
+<li>Dentro do processador existe uma memória específica para instruções;</li>
+<li>Que é separada da memória do computador:</li>
+<ul>
+<li>E alimentada através de um cache.</li>
+</ul>
+</ul>
+</ul>
+<h1 style="page-break-before:always; ">Análise</h1>
+<h2>Análise</h2>
+<ul>
+<li>Utilizando a definição da instrução “add”<b>*</b>:</li>
+<ul>
+<li>Defina os blocos construtivos necessários para executá-la;</li>
+<li>Descreva, em RTN, o fluxo entre esses blocos;</li>
+<li>Para cada comando RTN:</li>
+<ul>
+<li>Conecte os blocos construtivos necessários;</li>
+<li>Para que a instrução execute;</li>
+<li>E anote os pontos de controle utilizados.</li>
+</ul>
+<li>Faça um rascunho do fluxo de dados;</li>
+<li>Simule manualmente (papel e caneta).</li>
+<h2><b></b></h2>
+<h2><b>*</b>A definição das instruções pode ser encontrada:</h2>
+<li>No greencard;</li>
+<li>Na página de atividades (links úteis).</li>
+</ul>
+</ul>
+<h1 style="page-break-before:always; ">Quando o FD estiver pronto:</h1>
+<ul>
+<li>Quando o FD estiver pronto:</li>
+<ul>
+<li>Verifique se atende o funcionamento de todas as outras instruções, do tipo R, que implementaremos:</li>
+<ul>
+<li>Subtração (sub);</li>
+<li>E lógico (and);</li>
+<li>OU lógico (or);</li>
+<li>Comparação Menor Que (set if less than: slt).</li>
+</ul>
+</ul>
+<li>Crie uma tabela com as instruções e os pontos de controle:</li>
+<ul>
+<li>Descrevendo o estado de cada ponto de controle; </li>
+<li>Para cada instrução implementada.</li>
+</ul>
+</ul>
+<h1 style="page-break-before:always; ">Exemplo de tabela:</h1>
+<ul>
+<li>Exemplo de tabela:</li>
+<ul>
+<li>Com os sinais de controle;</li>
+<li>E as instruções.</li>
+</ul>
+</ul>
+<table>
+  <tr>
+    <td>
+<p><b>Instrução</b></p>
+    </td>
+    <td>
+<p><b>CtrlR1</b></p>
+    </td>
+    <td>
+<p><b>CtrlR2</b></p>
+    </td>
+    <td>
+<p><b>OpALU</b></p>
+    </td>
+    <td>
+<p><b>RegWr</b></p>
+    </td>
+    <td>
+<p><b>MemRd</b></p>
+    </td>
+    <td>
+<p><b>MemWr</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>add</b></p>
+    </td>
+    <td>
+<p><b>1</b></p>
+    </td>
+    <td>
+<p><b>0</b></p>
+    </td>
+    <td>
+<p><b>001</b></p>
+    </td>
+    <td>
+<p><b>1</b></p>
+    </td>
+    <td>
+<p><b>0</b></p>
+    </td>
+    <td>
+<p><b>0</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>sub</b></p>
+    </td>
+    <td>
+<p><b>0</b></p>
+    </td>
+    <td>
+<p><b>1</b></p>
+    </td>
+    <td>
+<p><b>010</b></p>
+    </td>
+    <td>
+<p><b>1</b></p>
+    </td>
+    <td>
+<p><b>0</b></p>
+    </td>
+    <td>
+<p><b>0</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>…</b></p>
+    </td>
+    <td>
+<p><b>...</b></p>
+    </td>
+    <td>
+<p><b>...</b></p>
+    </td>
+    <td>
+<p><b>…</b></p>
+    </td>
+    <td>
+<p><b>...</b></p>
+    </td>
+    <td>
+<p><b>...</b></p>
+    </td>
+    <td>
+<p><b>...</b></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<p><b>slt</b></p>
+    </td>
+    <td>
+<p><b>0</b></p>
+    </td>
+    <td>
+<p><b>1</b></p>
+    </td>
+    <td>
+<p><b>100</b></p>
+    </td>
+    <td>
+<p><b>1</b></p>
+    </td>
+    <td>
+<p><b>0</b></p>
+    </td>
+    <td>
+<p><b>0</b></p>
+    </td>
+  </tr>
+</table>
+<h1 style="page-break-before:always; ">Agora que o FD atende as instruções R:</h1>
+<ul>
+<li>Agora que o FD atende as instruções R:</li>
+<ul>
+<li>Implemente em VHDL;</li>
+<li>Verifique o funcionamento usando simulação:</li>
+<ul>
+<li>Use a tabela com os pontos de controle.</li>
+</ul>
+<li>Implemente no kit de desenvolvimento:</li>
+<ul>
+<li>E faça os testes necessários.</li>
+</ul>
+</ul>
+</ul>
+<h1 style="page-break-before:always; "></h1>
+<p>www.insper.edu.br</p>
+</body>
+</html>

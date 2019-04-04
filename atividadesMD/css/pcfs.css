@@ -1,0 +1,261 @@
+<style>
+/* fundo para o trecho de código */
+div.sourceCode { overflow-x: auto; background-color: rgb(250,250,250);}
+
+.bloco .title {
+    display: block;
+}
+
+/*Bloco de solucao de exercicio*/
+.bloco .label,
+.bloco .separator {
+    font-weight: bold;
+}
+
+.bloco .separator {
+    margin-right: .6em;
+}
+/* Solução */
+div.solucao {
+  border-left: .3em solid #dd4444;   /*#dc3c01; */
+  margin-left: -.8em;
+  padding-left: .4em;
+  position: relative;
+  font-size: 90%;
+}
+
+div.solucao .conteudo {
+  display: none;
+  padding-top: 1px;
+}
+
+div.solucao button {
+  color: #0000AF;
+  background-color: white;
+  border-radius: 5px;
+}
+
+div.solucao button.viewed {
+  color: #FF2020;
+  background-color: white;
+  border-radius: 5px;
+}
+
+/* Alinhamento dos títulos e parágrafos */
+
+body{margin-left: 5%; margin-right: 5%;
+         color: black; background: white;}
+
+hr{
+    margin-left: -4%;
+    background-color: rgb(0,100,100);  /*anterior:    240,240,240 */
+}
+h1{
+    margin-left: -4%;
+    background-color: rgb(210,210,220);
+}
+
+h2{
+    margin-left: -4%;
+    background-color: rgb(220,220,230);
+}
+
+h3{
+    margin-left: -4%;
+    background-color: rgb(230,230,240);
+}
+
+h4{
+    margin-left: -4%;
+    background-color: rgb(240,240,250);
+}
+
+/* Cores */
+i{color: red}
+em{color: green}
+cite{color: brown}
+/* blockquote > p { */
+blockquote{color: red}
+blockquote p {
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 2em;
+}
+
+/* ---- Front Matter ----
+Pandoc header DIV. Contains .title, .author and .date. Comes before div#TOC.
+Only appears if one of those three are in the document.   */
+
+div#header, header
+    {
+    /* Put border on bottom. Separates it from TOC or body that comes after it. */
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
+    }
+
+.title /* Pandoc title header (h1.title) */
+    {
+    text-align: center;
+    }
+
+.author, .date /* Pandoc author(s) and date headers (h2.author and h3.date) */
+    {
+    text-align: center;
+    }
+
+/* Pandoc table of contents DIV when using the --toc option.
+   NOTE: this doesn't support Pandoc's --id-prefix option for #TOC and #header.
+   Probably would need to use div[id$='TOC'] and div[id$='header'] as selectors.
+*/
+
+div#TOC, nav#TOC
+    {
+    /* Put border on bottom to separate it from body. */
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
+    }
+
+@media print
+    {
+    div#TOC, nav#TOC
+        {
+        /* Don't display TOC in print */
+        display: none;
+        }
+    }
+/* ---- Images ---- */
+img
+    {
+    /* Let it be inline left/right where it wants to be, but verticality make
+       it in the middle to look nicer, but opinions differ, and if in a multi-line
+       paragraph, it might not be so great.
+       vertical-align: middle;
+    */
+    vertical-align: middle;
+    }
+div.figure /* Pandoc figure-style image */
+    {
+    /* Center the image and caption */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-style: italic;
+    }
+p.caption /* Pandoc figure-style caption within div.figure */
+    {
+    /* Inherits div.figure props by default */
+    }
+/*Tamanho absoluto das imagens definidas em markdown*/
+img[src*='#200'] {
+  text-align: center;
+  width: 200px;
+}
+img[src*='#400'] {
+  text-align: center;
+  width: 400px;
+}
+img[src*='#600'] {
+  text-align: center;
+  width: 600px;
+}
+img[src*='#800'] {
+  text-align: center;
+  width: 800px;
+}
+/*Tamanho relativo das imagens definidas em markdown*/
+img[src*='#p80'] {
+  text-align: center;
+  width: 80%;
+}
+img[src*='#p70'] {
+  text-align: center;
+  width: 70%;
+}
+img[src*='#p60'] {
+  text-align: center;
+  width: 60%;
+}
+img[src*='#p50'] {
+  text-align: center;
+  width: 50%;
+}
+img[src*='#p40'] {
+  text-align: center;
+  width: 40%;
+}
+img[src*='#p30'] {
+  text-align: center;
+  width: 30%;
+}
+img[src*='#p20'] {
+  text-align: center;
+  width: 20%;
+}
+img[src*='#p10'] {
+  text-align: center;
+  width: 10%;
+}
+/* ---- Tables ---- */
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: 1px;
+    border-left: 1px;
+    border-right: 1px;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: 1px;
+    border-left: 1px;
+    border-bottom: 1px;
+    border-right: 1px;
+}
+/* fundo para as linhas das tabelas */
+tr.even{
+  background-color: rgb(250,250,255);
+}
+tr.odd{
+  background-color: rgb(250,250,250);
+}
+</style>
+<script type="text/javascript">
+    function exibe(e)
+    {
+        var div = e.parentNode.firstElementChild;
+        var nome = e.parentNode.id;
+        var tipo=nome.substring(0, 3).toUpperCase()
+        if ( tipo == "SOL"){
+            nome = "Solução";
+        }
+        if (div.style.display == "" || div.style.display == "none") {
+            div.style.display = "block";
+            e.setAttribute("class", "viewed");
+            e.innerHTML = "Esconder ";
+        } else {
+            div.style.display = "none";
+            e.innerHTML = "Ver "+nome;
+        }
+    }
+    function validaBinario(nome) {
+        var valor, tamanho, i;
+        document.getElementById(nome).style.color = "black";
+        valor = document.getElementById(nome).value;
+        tamanho=valor.length;
+        for (i=0;i<tamanho; i=i+1){
+            if ( valor[i] != 1 && valor[i] != 0 ){
+                document.getElementById(nome).style.color = "red";
+            }
+        }
+    }
+</script>
+
