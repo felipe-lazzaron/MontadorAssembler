@@ -48,13 +48,13 @@ Faça o download dos arquivos a seguir (salve na mesma todos os
 arquivos):
 
 -   Quartus Lite 20.01 :
-    http://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib\_installers/QuartusLiteSetup-20.1.0.711-linux.run
+    https://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib_installers/QuartusLiteSetup-20.1.0.711-linux.run
 
 -   ModelSim :
-    http://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib\_installers/ModelSimSetup-20.1.0.711-linux.run
+    https://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib_installers/ModelSimSetup-20.1.0.711-linux.run
 
 -   Cyclone V (Chip usado no curso) :
-    http://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib\_installers/cyclonev-20.1.0.711.qdz
+    https://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib_installers/cyclonev-20.1.0.711.qdz
 
 Abra o terminal na pasta que os arquivos foram salvos e execute os dois
 comandos a seguir:
