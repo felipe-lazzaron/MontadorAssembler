@@ -20,13 +20,13 @@ Instalando
     os arquivos):
 
 -   Quartus Lite 20.01:
-    http://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib\_installers/QuartusLiteSetup-20.1.0.711-windows.exe
+    https://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib_installers/QuartusLiteSetup-20.1.0.711-windows.exe
 
 -   ModelSim:
-    http://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib\_installers/ModelSimSetup-20.1.0.711-windows.exe
+    https://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib_installers/ModelSimSetup-20.1.0.711-windows.exe
 
 -   Cyclone V (Chip usado no curso) :
-    http://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib\_installers/cyclonev-20.1.0.711.qdz
+    https://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib_installers/cyclonev-20.1.0.711.qdz
 
 2.  Execute o arquivo **QuartusLiteSetup-20.1.0.711-windows.exe** e
     clique **Next** até a instalação iniciar:
