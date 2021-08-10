@@ -119,6 +119,10 @@ Validando
 
 2.  Selecione a segunda opção **Run the Quartus Prime Software**
 
+<p align="center">
+  <img src="imgs/Run.png">
+</p>
+
 3.  Por fim, o programa deverá abrir:
 
 <p align="center">
