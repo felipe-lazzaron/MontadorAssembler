@@ -33,7 +33,7 @@ Instalando
 
 <center>
     
-![installQuartus](imgs/installQuartus.png)
+![installQuartus](imgs/installQuartus.png?style=centerme)
     
 </center>
 
