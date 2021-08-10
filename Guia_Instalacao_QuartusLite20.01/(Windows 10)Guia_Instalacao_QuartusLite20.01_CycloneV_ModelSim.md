@@ -30,8 +30,6 @@ Instalando
 
 2.  Execute o arquivo **QuartusLiteSetup-20.1.0.711-windows.exe** e
     clique **Next** até a instalação iniciar:
-    
-![installQuartus](imgs/installQuartus.png)
 
 <p align="center">
   <img src="imgs/installQuartus.png">
@@ -40,13 +38,17 @@ Instalando
 
 3.  Após a instalação, finalize-a com as seguintes opções:
 
-![finish](imgs/finish.png)
+<p align="center">
+  <img src="imgs/finish.png">
+</p>
 
 
 
 4.  A instalação do USB Blaster deverá iniciar em seguida:
 
-![UBSblaster](imgs/UBSblaster.png)
+<p align="center">
+  <img src="imgs/UBSblaster.png">
+</p>
 
 
 
@@ -57,21 +59,28 @@ Mesmo instalando o driver é necessário atualiza-lo.
 
 1.  Pressione Windows + R no teclado e insira o comando **devmgmt.msc**:
 
-![devmgmt](imgs/devmgmt.png)
+<p align="center">
+  <img src="imgs/devmgmt.png">
+</p>
+
 
 
 
 2.  O gerenciador de dispositivo deverá abrir:
 
-![gerenciadorDISP](imgs/gerenciadorDISP.png)
+<p align="center">
+  <img src="imgs/gerenciadorDISP.png">
+</p>
+
 
 
 
 3.  Conecte a placa e o driver USB-Blaster será reconhecido da seguinte
     maneira:
 
-![blasterNreconhecido](imgs/blasterNreconhecido.png)
-
+<p align="center">
+  <img src="imgs/blasterNreconhecido.png">
+</p>
 
 
 4.  O símbolo de atenção em amarelo indica que o driver está
@@ -79,8 +88,9 @@ Mesmo instalando o driver é necessário atualiza-lo.
     botão direito do mouse em cima do USB-Blaster, a janela a baixo
     deverá abrir:
 
-![atualizarBlaster](imgs/atualizarBlaster.png)
-
+<p align="center">
+  <img src="imgs/atualizarBlaster.png">
+</p>
 
 
 5.  Selecione a opção **Procurar software de driver no computador** e
@@ -88,14 +98,18 @@ Mesmo instalando o driver é necessário atualiza-lo.
     o caminho de instalação do quartus o padrão é "\*\*C:\_lite\*\*"),
     selecione incluir subpastas e clique em avançar:
 
-![incluirSub](imgs/incluirSub.png)
-
+<p align="center">
+  <img src="imgs/incluirSub.png">
+</p>
 
 
 6.  Aguarde a instalação do drive e o USB-Blaster agora deverá aparecer
     como **Altera USB-Blaster**, conforme a imagem abaixo:
 
-![AlteraUSB](imgs/AlteraUSB.png)
+<p align="center">
+  <img src="imgs/AlteraUSB.png">
+</p>
+
 
 
 
@@ -105,7 +119,9 @@ Validando
 1.  Execute o Quartus (**Quartus (Quartus Prime 20.1) Lite Edition**),
     esse ícone deverá estar na sua área de trabalho:
 
-![IconeQuartus](imgs/IconeQuartus.png)
+<p align="center">
+  <img src="imgs/IconeQuartus.png">
+</p>
 
 
 
@@ -113,6 +129,6 @@ Validando
 
 3.  Por fim, o programa deverá abrir:
 
-![quartusAberto](imgs/quartusAberto.png)
-
-quartusAberto
+<p align="center">
+  <img src="imgs/quartusAberto.png">
+</p>
