@@ -32,7 +32,9 @@ Instalando
     clique **Next** até a instalação iniciar:
 
 <center>
+    
 ![installQuartus](imgs/installQuartus.png)
+    
 </center>
 
 
