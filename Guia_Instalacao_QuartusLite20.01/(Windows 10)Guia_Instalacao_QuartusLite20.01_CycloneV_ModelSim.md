@@ -30,13 +30,9 @@ Instalando
 
 2.  Execute o arquivo **QuartusLiteSetup-20.1.0.711-windows.exe** e
     clique **Next** até a instalação iniciar:
-
-<center>
     
 ![installQuartus](imgs/installQuartus.png?style=centerme)
     
-</center>
-
 
 3.  Após a instalação, finalize-a com as seguintes opções:
 
