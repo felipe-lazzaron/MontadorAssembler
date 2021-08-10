@@ -28,13 +28,14 @@ Instalando
 -   Cyclone V (Chip usado no curso) :
     https://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib_installers/cyclonev-20.1.0.711.qdz
 
+
 2.  Execute o arquivo **QuartusLiteSetup-20.1.0.711-windows.exe** e
     clique **Next** até a instalação iniciar:
 
 <p align="center">
   <img src="imgs/installQuartus.png">
 </p>
-    
+
 
 3.  Após a instalação, finalize-a com as seguintes opções:
 
@@ -43,13 +44,11 @@ Instalando
 </p>
 
 
-
 4.  A instalação do USB Blaster deverá iniciar em seguida:
 
 <p align="center">
   <img src="imgs/UBSblaster.png">
 </p>
-
 
 
 Atualizando o USB Blaster
@@ -64,15 +63,11 @@ Mesmo instalando o driver é necessário atualiza-lo.
 </p>
 
 
-
-
 2.  O gerenciador de dispositivo deverá abrir:
 
 <p align="center">
   <img src="imgs/gerenciadorDISP.png">
 </p>
-
-
 
 
 3.  Conecte a placa e o driver USB-Blaster será reconhecido da seguinte
@@ -111,8 +106,6 @@ Mesmo instalando o driver é necessário atualiza-lo.
 </p>
 
 
-
-
 Validando
 =========
 
@@ -122,7 +115,6 @@ Validando
 <p align="center">
   <img src="imgs/IconeQuartus.png">
 </p>
-
 
 
 2.  Selecione a segunda opção **Run the Quartus Prime Software**
