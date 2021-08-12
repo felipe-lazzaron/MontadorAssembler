@@ -47,7 +47,7 @@ Instalando
 Faça o download dos arquivos a seguir (salve na mesma todos os
 arquivos):
 
--   Quartus Lite 20.01 :
+-   Quartus Lite 20.1 :
     https://download.altera.com/akdlm/software/acdsinst/20.1std/711/ib_installers/QuartusLiteSetup-20.1.0.711-linux.run
 
 -   ModelSim :
@@ -166,5 +166,5 @@ Validando
 2.  **Programador:** Com a FPGA plugada no pc, digite `jtagconfig` ele
     deve aparecer o device.
 3.  **Modelsim:** Escreva `vsim` no terminal, o mesmo deve abrir a
-    janela do ModeolSim
+    janela do ModelSim
 
