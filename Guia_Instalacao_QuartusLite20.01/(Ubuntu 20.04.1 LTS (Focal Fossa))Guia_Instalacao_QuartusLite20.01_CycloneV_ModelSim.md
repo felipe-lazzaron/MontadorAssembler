@@ -14,7 +14,7 @@ Quartus Prime e ModelSim
 ========================
 
 Execute no terminal os comandos a seguir, o Quartus necessita de
-dependências da arquitetura i384.
+dependências da arquitetura i384:
 
 ``` {.sourceCode .bash}
 $ sudo dpkg --add-architecture i386
