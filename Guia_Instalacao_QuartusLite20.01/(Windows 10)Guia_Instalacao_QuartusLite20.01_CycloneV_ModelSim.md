@@ -96,7 +96,7 @@ Mesmo instalando o driver é necessário atualiza-lo.
 
 
 6.  Selecione a opção **Procurar software de driver no computador** e
-    defina o caminho da pasta do driver que foi baixado no passo **1.** (Exemplo: "C:\Users\ArqComp\Downloads\driver_USB-Blater_DE0-CV"),
+    defina o caminho da pasta do driver que foi baixado no passo **1.** (**Exemplo:** "C:\Users\ArqComp\Downloads\driver_USB-Blater_DE0-CV"),
     selecione incluir subpastas e clique em avançar:
 
 <p align="center">
