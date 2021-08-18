@@ -58,21 +58,26 @@ Atualizando o USB Blaster
 
 Mesmo instalando o driver é necessário atualiza-lo.
 
-1.  Pressione Windows + R no teclado e insira o comando **devmgmt.msc**:
+1.  Faça o download da pasta que contém o driver:
+
+https://drive.google.com/drive/folders/1Fwxb5FHSR3s5fs2rNVUVys8bli5j52PV?usp=sharing
+
+
+2.  Pressione Windows + R no teclado e insira o comando **devmgmt.msc**:
 
 <p align="center">
   <img src="imgs/devmgmt.png">
 </p>
 
 
-2.  O gerenciador de dispositivo deverá abrir:
+3.  O gerenciador de dispositivo deverá abrir:
 
 <p align="center">
   <img src="imgs/gerenciadorDISP.png">
 </p>
 
 
-3.  Conecte a placa e o driver USB-Blaster será reconhecido da seguinte
+4.  Conecte a placa e o driver USB-Blaster será reconhecido da seguinte
     maneira:
 
 <p align="center">
@@ -80,7 +85,7 @@ Mesmo instalando o driver é necessário atualiza-lo.
 </p>
 
 
-4.  O símbolo de atenção em amarelo indica que o driver está
+5.  O símbolo de atenção em amarelo indica que o driver está
     desatualizado, selecione a opção **Atualizar driver** clicando com o
     botão direito do mouse em cima do USB-Blaster, a janela a baixo
     deverá abrir:
@@ -90,9 +95,8 @@ Mesmo instalando o driver é necessário atualiza-lo.
 </p>
 
 
-5.  Selecione a opção **Procurar software de driver no computador** e
-    defina o caminho da pasta intelFPGA\_lite (caso tenha sido alterado
-    o caminho de instalação do quartus o padrão é "\*\*C:\_lite\*\*"),
+6.  Selecione a opção **Procurar software de driver no computador** e
+    defina o caminho da pasta do driver que foi baixado no passo 1. (Ex: "C:\Users\ArqComp\Downloads\driver_USB-Blater_DE0-CV"),
     selecione incluir subpastas e clique em avançar:
 
 <p align="center">
@@ -100,7 +104,7 @@ Mesmo instalando o driver é necessário atualiza-lo.
 </p>
 
 
-6.  Aguarde a instalação do drive e o USB-Blaster agora deverá aparecer
+7.  Aguarde a instalação do drive e o USB-Blaster agora deverá aparecer
     como **Altera USB-Blaster**, conforme a imagem abaixo:
 
 <p align="center">
