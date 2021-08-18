@@ -52,6 +52,8 @@ Instalando
   <img src="imgs/UBSblaster.png">
 </p>
 
+**OBS:** Mesmo se der erro, siga para o passo de Atualização do driver USB Blaster
+
 
 Atualizando o USB Blaster
 -------------------------
