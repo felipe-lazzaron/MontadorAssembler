@@ -60,7 +60,7 @@ Mesmo instalando o driver é necessário atualiza-lo.
 
 1.  Faça o download da pasta que contém o driver:
 
-https://drive.google.com/drive/folders/1Fwxb5FHSR3s5fs2rNVUVys8bli5j52PV?usp=sharing
+    https://drive.google.com/drive/folders/1Fwxb5FHSR3s5fs2rNVUVys8bli5j52PV?usp=sharing
 
 
 2.  Pressione Windows + R no teclado e insira o comando **devmgmt.msc**:
