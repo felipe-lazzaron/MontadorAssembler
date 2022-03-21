@@ -1,0 +1,16 @@
+tmp(0) := x"90E";	-- JSR @14 	#comentario1
+tmp(1) := x"605";	-- JMP @5  	#comentario3
+tmp(2) := x"709";	-- JEQ @9
+tmp(3) := x"000";	-- NOP
+tmp(4) := x"000";	-- NOP
+tmp(5) := x"405";	-- LDI $5
+tmp(6) := x"500";	-- STA $0
+tmp(7) := x"800";	-- CEQ @0
+tmp(8) := x"602";	-- JMP @2  	#comentario4
+tmp(9) := x"000";	-- NOP
+tmp(10) := x"404";	-- LDI $4
+tmp(11) := x"800";	-- CEQ @0
+tmp(12) := x"703";	-- JEQ @3
+tmp(13) := x"60D";	-- JMP @13
+tmp(14) := x"000";	-- NOP
+tmp(15) := x"A00";	-- RET
