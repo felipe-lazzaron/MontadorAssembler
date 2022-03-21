@@ -4,19 +4,15 @@ Questão: Como criar um montador (assembler) utilizando python ?
 
 ## Objetivos
 
-1. Implementar um código em python que traduz seu código assembly em linguagem de máquina para o processador desenvolvido na disciplina Design de Computadores - Engenharia de Computação (INSPER).
+Implementar um código em python que traduz seu código assembly em linguagem de máquina para o processador desenvolvido na disciplina Design de Computadores - Engenharia de Computação (INSPER).
 
 ## Contextualização
 
 ​	Com o advento da implementação das memórias ROM aos computadores, os programas se tornaram cada vez mais complexos e com isso surgiu a necessidade de simplificar a sua escrita. Para isso foi criado a linguagem assembly, uma linguagem que através de mnemônicos permite programar o software que será implementado em um computador.
 
-​	Cada arquitetura possui seu próprio código de máquina, por isso, não existe uma padronização da linguagem assembly, tornando dificultoso a portabilidade do código. Para este estudo guiado usaremos o assembly (imagem 1) desenvolvido na disciplina de Design de Computadores (2022a) do curso de Engenharia de Computação do INSPER.
+​	Cada arquitetura possui seu próprio código de máquina, por isso, não existe uma padronização da linguagem assembly, tornando dificultoso a portabilidade do código. Para este estudo guiado usaremos o assembly desenvolvido na disciplina de Design de Computadores (2022a) do curso de Engenharia de Computação do INSPER.
 
-
-
-![image-20220321133739798](C:\Users\MarcoASMA\AppData\Roaming\Typora\typora-user-images\image-20220321133739798.png)
-
-Imagem 1
+![ASM_txt](imgs/ASM_txt.png)
 
 
 
@@ -26,9 +22,7 @@ O Assembler desenvolvido em python (AssemblerASM_BIN_VHDL.py) irá traduzir a li
 
 
 
-![ASMtoBIN](C:\Users\MarcoASMA\Downloads\ASMtoBIN.svg)
-
-ASM to BIN (VHDL)
+![ASMtoBIN](imgs/ASMtoBIN.svg)
 
 
 
