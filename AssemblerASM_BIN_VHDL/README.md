@@ -50,7 +50,7 @@ Implementar um código em python que traduz seu código assembly em linguagem de
 
 
 
-## Como funciona
+## Funcionamento
 
 O Assembler desenvolvido em python (AssemblerASM_BIN_VHDL.py) irá traduzir a linguagem assembly (contida no arquivo ASM.txt) em linguagem de máquina pronta para ser utilizada no módulo memoriaROM do processador desenvolvido em VHDL (contida no arquivo BIN.txt).
 
