@@ -4,11 +4,11 @@ Questão: Como criar um montador (assembler) utilizando python ?
 
 ## Objetivos
 
-Implementar um código em python que traduz seu código assembly em linguagem de máquina para o processador desenvolvido na disciplina Design de Computadores - Engenharia de Computação (INSPER).
+Implementar um programa em linguagem python que traduz seu código assembly em linguagem de máquina do processador desenvolvido na disciplina Design de Computadores - Engenharia de Computação (INSPER).
 
 ## Contextualização
 
-​	Com o advento da implementação das memórias ROM aos computadores, os programas se tornaram cada vez mais complexos e com isso surgiu a necessidade de simplificar a sua escrita. Para isso foi criado a linguagem assembly, uma linguagem que através de mnemônicos permite programar o software que será implementado em um computador.
+Os programas para computadores ao longo do tempo se tornaram cada vez mais complexos, com isso surgiu a necessidade de simplificar a escrita desses programas. Para isso foi criado a linguagem assembly, uma linguagem que através de mnemônicos permite programar o software que será implementado em um computador.
 
 ​	Cada arquitetura possui seu próprio código de máquina, por isso, não existe uma padronização da linguagem assembly, tornando dificultoso a portabilidade do código. Para este estudo guiado usaremos a arquitetura acumulador e o assembly desenvolvido na disciplina de Design de Computadores (2022a) do curso de Engenharia de Computação do INSPER.
 
@@ -89,7 +89,7 @@ mne =	{
 }
 ```
 
-### 3. Funções de conversões
+### 3. Funções de conversão
 
 ```python
 #Converte o valor após o caractere arroba '@'
@@ -186,5 +186,5 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
 
 ## Atividade:
 
-Criar um programa em assembly no arquivo **ASM.txt** e executar o código python  **AssemblerASM_BIN_VHDL**
+Criar um programa em assembly no arquivo **ASM.txt** e executar o código python  **AssemblerASM_BIN_VHDL** para a arquitetura da Aula5
 
