@@ -12,7 +12,7 @@ Implementar um código em python que traduz seu código assembly em linguagem de
 
 ​	Cada arquitetura possui seu próprio código de máquina, por isso, não existe uma padronização da linguagem assembly, tornando dificultoso a portabilidade do código. Para este estudo guiado usaremos a arquitetura acumulador e o assembly desenvolvido na disciplina de Design de Computadores (2022a) do curso de Engenharia de Computação do INSPER.
 
-​	OBS: Para fins de simplificação considerei todos os imediatos como 8  bits, alterando assim um pouco o **Fluxo de Dados** (alterações em laranja) e o **Formato das instruções**
+​	**OBS:** Para fins de simplificação considerei todos os imediatos como 8  bits, alterando assim um pouco o **Fluxo de Dados** (alterações em laranja) e o **Formato das instruções**
 
 
 
