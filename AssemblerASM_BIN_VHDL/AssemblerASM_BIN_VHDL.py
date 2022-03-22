@@ -86,7 +86,7 @@ mne =	{
        "JMP":   "6",
        "JEQ":   "7",
        "CEQ":   "8",
-       'JSR':   '9',
+       "JSR":   "9",
        "RET":   "A",
 }
 
@@ -119,14 +119,15 @@ def defineComentario(line):
 #Remove o comentário a partir do caractere cerquilha '#',
 #deixando apenas a instrução
 def defineInstrucao(line):
-    line = line.split(' #')
+    line = line.split('#')
     line = line[0]
     return line
     
 #Consulta o dicionário e "converte" o mnemônico em
 #seu respectivo valor em hexadecimal
 def trataMnemonico(line):
-    line = line.replace("\n", "") #Remove o character de final de linha
+    line = line.replace("\n", "") #Remove o caracter de final de linha
+    line = line.replace("\t", "") #Remove o caracter de tabulacao
     line = line.split(' ')
     line[0] = mne[line[0]]
     line = "".join(line)
@@ -151,13 +152,11 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
         else:
             
             #Exemplo de linha => 1. JSR @14 #comentario1
-            
             comentarioLine = defineComentario(line).replace("\n","") #Define o comentário da linha. Ex: #comentario1
             instrucaoLine = defineInstrucao(line).replace("\n","") #Define a instrução. Ex: JSR @14
-
+            
             instrucaoLine = trataMnemonico(instrucaoLine) #Trata o mnemonico. Ex(JSR @14): x"9" @14
-                
-                
+                  
             if '@' in instrucaoLine: #Se encontrar o caractere arroba '@' 
                 instrucaoLine = converteArroba(instrucaoLine) #converte o número após o caractere Ex(JSR @14): x"9" x"0E"
                     

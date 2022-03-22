@@ -10,7 +10,41 @@ Implementar um código em python que traduz seu código assembly em linguagem de
 
 ​	Com o advento da implementação das memórias ROM aos computadores, os programas se tornaram cada vez mais complexos e com isso surgiu a necessidade de simplificar a sua escrita. Para isso foi criado a linguagem assembly, uma linguagem que através de mnemônicos permite programar o software que será implementado em um computador.
 
-​	Cada arquitetura possui seu próprio código de máquina, por isso, não existe uma padronização da linguagem assembly, tornando dificultoso a portabilidade do código. Para este estudo guiado usaremos o assembly desenvolvido na disciplina de Design de Computadores (2022a) do curso de Engenharia de Computação do INSPER.
+​	Cada arquitetura possui seu próprio código de máquina, por isso, não existe uma padronização da linguagem assembly, tornando dificultoso a portabilidade do código. Para este estudo guiado usaremos a arquitetura acumulador e o assembly desenvolvido na disciplina de Design de Computadores (2022a) do curso de Engenharia de Computação do INSPER.
+
+​	OBS: Para fins de simplificação considerei todos os imediatos como 8  bits, alterando assim um pouco o **Fluxo de Dados** (alterações em laranja) e o **Formato das instruções**
+
+
+
+### 1. Fluxo de Dados - Arquitetura Baseada em Acumulador
+
+
+
+![FluxodeDados2022a](imgs/FluxodeDados2022a.svg)
+
+
+
+### 2. Formato das Instruções
+
+![formatoINSTRUCAO](imgs/formatoINSTRUCAO.svg)
+
+
+
+### 3. Mnemônicos - Arquitetura Baseada em Acumulador
+
+![Mnemonicos](imgs/Mnemonicos.png)
+
+
+
+### 4. Programa de teste
+
+
+
+![image-20220322110337458](C:\Users\MarcoASMA\AppData\Roaming\Typora\typora-user-images\image-20220322110337458.png)
+
+
+
+### 5. Arquivo "ASM.txt" com o programa teste
 
 ![ASM_txt](imgs/ASM_txt.png)
 
@@ -50,7 +84,7 @@ mne =	{
        "JMP":   "6",
        "JEQ":   "7",
        "CEQ":   "8",
-       'JSR':   '9',
+       "JSR":   "9",
        "RET":   "A",
 }
 ```
@@ -87,14 +121,15 @@ def defineComentario(line):
 #Remove o comentário a partir do caractere cerquilha '#',
 #deixando apenas a instrução
 def defineInstrucao(line):
-    line = line.split(' #')
+    line = line.split('#')
     line = line[0]
     return line
     
 #Consulta o dicionário e "converte" o mnemônico em
 #seu respectivo valor em hexadecimal
 def trataMnemonico(line):
-    line = line.replace("\n", "") #Remove o character de final de linha
+    line = line.replace("\n", "") #Remove o caracter de final de linha
+    line = line.replace("\t", "") #Remove o caracter de tabulacao
     line = line.split(' ')
     line[0] = mne[line[0]]
     line = "".join(line)
@@ -123,13 +158,11 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
         else:
             
             #Exemplo de linha => 1. JSR @14 #comentario1
-            
             comentarioLine = defineComentario(line).replace("\n","") #Define o comentário da linha. Ex: #comentario1
             instrucaoLine = defineInstrucao(line).replace("\n","") #Define a instrução. Ex: JSR @14
-
+            
             instrucaoLine = trataMnemonico(instrucaoLine) #Trata o mnemonico. Ex(JSR @14): x"9" @14
-                
-                
+                  
             if '@' in instrucaoLine: #Se encontrar o caractere arroba '@' 
                 instrucaoLine = converteArroba(instrucaoLine) #converte o número após o caractere Ex(JSR @14): x"9" x"0E"
                     
