@@ -40,7 +40,7 @@ Implementar um código em python que traduz seu código assembly em linguagem de
 
 
 
-![image-20220322110337458](imgs/Programa de teste.png)
+![image-20220322110337458](imgs/ProgramaTeste.png)
 
 
 
