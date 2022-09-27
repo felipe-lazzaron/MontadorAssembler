@@ -63,8 +63,8 @@ O Assembler desenvolvido em python (AssemblerASM_BIN_VHDL.py) irá traduzir a li
 ### 1. Definição dos arquivos
 
 ```python
-assembly = 'ASM.txt' #Arquivo de entrada de contem o assembly
-destinoBIN = 'BIN.txt' #Arquivo de saída que contem o binário formatado para VHDL
+assembly = 'ASM.txt' #Arquivo de entrada que contém o assembly
+destinoBIN = 'BIN.txt' #Arquivo de saída que contém o binário formatado para VHDL
 ```
 
 
@@ -73,7 +73,7 @@ destinoBIN = 'BIN.txt' #Arquivo de saída que contem o binário formatado para V
 
 ```python
 #definição dos mnemônicos e seus
-#respectivo OPCODEs (em Hexadecimal)
+#respectivos OPCODEs (em Hexadecimal)
 mne =	{ 
        "NOP":   "0",
        "LDA":   "1",
