@@ -146,7 +146,7 @@ def trataMnemonico(line):
     return line
 ```
 
-### 3. Sequência de conversão
+### 4. Sequência de conversão
 
 ```python
 with open(assembly, "r") as f: #Abre o arquivo ASM
@@ -193,6 +193,54 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
             
             print(line,end = '') #Print apenas para debug
 ```
+
+
+### 5. Formatando para aquivo .mif
+
+```python
+############################             
+############################            
+#Conversão para arquivo .mif
+############################             
+############################
+            
+with open(outputMIF, "r") as f: #Abre o arquivo de MIF
+    headerMIF = f.readlines() #Faz a leitura das linhas do arquivo,
+                              #para fazer a aquisição do header
+    
+    
+with open(outputBIN, "r") as f: #Abre o arquivo BIN
+    lines = f.readlines() #Faz a leitura das linhas do arquivo
+    
+    
+with open(outputMIF, "w") as f:  #Abre o destino MIF
+
+    cont = 0 #Cria uma variável para contagem
+    
+    for lineHeader in headerMIF:       
+        if cont < 21:           #Contagem das linhas de cabeçalho
+            f.write(lineHeader) #Escreve no arquivo se saída .mif o cabeçalho (21 linhas)
+        cont = cont + 1         #Incrementa varíavel de contagem
+        
+    for line in lines:
+    
+        replacements = [('t', ''), ('m', ''), ('p', ''), ('(', ''), (')', ''), ('=', ''), ('x', ''), ('"', '')] #Define os caracteres que serão excluídos
+        
+        for char, replacement in replacements:
+            if char in line:
+                line = line.replace(char, replacement) #Remove os caracteres que foram definidos
+                
+        line = line.split('#') #Remove o comentário da linha
+        
+        if "\n" in line[0]:
+            line = line[0] 
+        else:
+            line = line[0] + '\n' #Insere a quebra de linha ('\n') caso não tenha
+
+        f.write(line) #Escreve no arquivo initROM.mif
+    f.write("END;") #Acrescente o indicador de finalização da memória.
+```
+
 ## OBS:
 
 1) Ao final da Aula 5, o processador possui 9 bits de endereço em sua instrução, para facilitar a conversão, esse assembler considera 8 bits de endereço. Para utilizar 9 bits de endereço, deixei disponível uma função que acresceta esse bit (habilita memória) "a mais" no endereço, basta substituir na **linha 167** do arquivo python a função **converteArroba** para **converteArroba9bits**
