@@ -99,6 +99,16 @@ def  converteArroba(line):
     line[1] = hex(int(line[1]))[2:].upper().zfill(2)
     line = ''.join(line)
     return line
+
+#Converte o valor após o caractere arroba '@'
+#em um valor hexadecimal de 2 dígitos (8 bits) e...
+#concatena com o bit de habilita 
+def  converteArroba9bits(line):
+    line = line.split('@')
+    line[1] = hex(int(line[1]))[2:].upper().zfill(2)
+    line[1] = "\" & '1' & \"" + line[1]
+    line = ''.join(line)
+    return line
  
 #Converte o valor após o caractere cifrão'$'
 #em um valor hexadecimal de 2 dígitos (8 bits) 
@@ -183,6 +193,19 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
             
             print(line,end = '') #Print apenas para debug
 ```
+## OBS:
+
+1) Ao final da Aula 5, o processador possui 9 bits de endereço em sua instrução, por motivos de facilitar a conversão, esse assembler considera 8 bits de endereço. Para utilizar 9 bits para endereço, deixei disponível uma função que acresceta esse bit (habilita memória) "a mais" no endereço, basta substituir na **linha 167** desse arquivo a função converteArroba para **converteArroba9bits**
+
+2) Esse programa também formata para arquivo .mif, no seguinte padrão:
+
+> WIDTH=8;
+> DEPTH=256;
+> ADDRESS_RADIX=DEC;
+> DATA_RADIX=HEX;
+> 
+> endereco    :       dado;
+>    0       :       90E;
 
 ## Atividade:
 
