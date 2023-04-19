@@ -202,11 +202,15 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
 > WIDTH=8;
 > 
 > DEPTH=256;
-ADDRESS_RADIX=DEC;
-DATA_RADIX=HEX;
-
-endereco    :       dado;
-   0       :       90E;
+> 
+> ADDRESS_RADIX=DEC;
+> 
+> DATA_RADIX=HEX;
+> 
+>
+>endereco    :       dado;
+>
+>0       :       90E;
 
 ## Atividade:
 
