@@ -244,7 +244,7 @@ with open(outputMIF, "w") as f:  #Abre o destino MIF
 
 1) Ao final da Aula 5, o processador possui 9 bits de endereço em sua instrução, para facilitar a conversão, esse assembler considera 8 bits de endereço. Para utilizar 9 bits de endereço, deixei disponível uma função que acresceta esse bit (habilita memória) "a mais" no endereço, basta substituir na **linha 167** do arquivo python a função **converteArroba** para **converteArroba9bits**
 
-2) Esse programa também formata para arquivo .mif, no seguinte padrão:
+2) Esse programa também formata o código ASM para arquivo um .mif, no seguinte padrão:
 
 ```vhdl
 WIDTH=8;
