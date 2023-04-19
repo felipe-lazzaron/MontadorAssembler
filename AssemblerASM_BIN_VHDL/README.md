@@ -200,7 +200,7 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
 ```python
 ############################             
 ############################            
-#Conversão para arquivo .mif
+#Formatação para arquivo .mif
 ############################             
 ############################
             
