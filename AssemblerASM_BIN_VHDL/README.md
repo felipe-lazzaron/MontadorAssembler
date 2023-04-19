@@ -205,8 +205,7 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
 ############################
             
 with open(outputMIF, "r") as f: #Abre o arquivo de MIF
-    headerMIF = f.readlines() #Faz a leitura das linhas do arquivo,
-                              #para fazer a aquisição do header
+    headerMIF = f.readlines() #Faz a leitura das linhas do arquivo, para fazer a aquisição do header
     
     
 with open(outputBIN, "r") as f: #Abre o arquivo BIN
