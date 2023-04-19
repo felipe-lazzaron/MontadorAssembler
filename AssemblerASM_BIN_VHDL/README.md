@@ -200,12 +200,12 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
 2) Esse programa também formata para arquivo .mif, no seguinte padrão:
 
 > WIDTH=8;
-> DEPTH=256;
-> ADDRESS_RADIX=DEC;
-> DATA_RADIX=HEX;
-> 
-> endereco    :       dado;
->    0       :       90E;
+DEPTH=256;
+ADDRESS_RADIX=DEC;
+DATA_RADIX=HEX;
+
+endereco    :       dado;
+   0       :       90E;
 
 ## Atividade:
 
