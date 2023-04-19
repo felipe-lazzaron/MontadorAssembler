@@ -195,7 +195,7 @@ with open(outputBIN, "w+") as f:  #Abre o destino BIN
             
 ############################             
 ############################            
-#Convessão para arquivo .mif
+#Conversão para arquivo .mif
 ############################             
 ############################
             
