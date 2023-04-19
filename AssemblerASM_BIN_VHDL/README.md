@@ -195,7 +195,7 @@ with open(destinoBIN, "w") as f:  #Abre o destino BIN
 ```
 ## OBS:
 
-1) Ao final da Aula 5, o processador possui 9 bits de endereço em sua instrução, por motivos de facilitar a conversão, esse assembler considera 8 bits de endereço. Para utilizar 9 bits para endereço, deixei disponível uma função que acresceta esse bit (habilita memória) "a mais" no endereço, basta substituir na **linha 167** desse arquivo a função converteArroba para **converteArroba9bits**
+1) Ao final da Aula 5, o processador possui 9 bits de endereço em sua instrução, para facilitar a conversão, esse assembler considera 8 bits de endereço. Para utilizar 9 bits de endereço, deixei disponível uma função que acresceta esse bit (habilita memória) "a mais" no endereço, basta substituir na **linha 167** do arquivo python a função **converteArroba** para **converteArroba9bits**
 
 2) Esse programa também formata para arquivo .mif, no seguinte padrão:
 
