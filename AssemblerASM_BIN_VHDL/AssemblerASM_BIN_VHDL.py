@@ -76,6 +76,8 @@ inputASM = 'ASM.txt' #Arquivo de entrada de contém o assembly
 outputBIN = 'BIN.txt' #Arquivo de saída que contém o binário formatado para VHDL
 outputMIF = 'initROM.mif' #Arquivo de saída que contém o binário formatado para .mif
 
+noveBits = True;
+
 #definição dos mnemônicos e seus
 #respectivo OPCODEs (em Hexadecimal)
 mne =	{ 
@@ -105,8 +107,13 @@ def  converteArroba(line):
 #concatena com o bit de habilita 
 def  converteArroba9bits(line):
     line = line.split('@')
-    line[1] = hex(int(line[1]))[2:].upper().zfill(2)
-    line[1] = "\" & '1' & \"" + line[1]
+    if(int(line[1]) > 255 ):
+        line[1] = str(int(line[1]) - 256)
+        line[1] = hex(int(line[1]))[2:].upper().zfill(2)
+        line[1] = "\" & '1' & x\"" + line[1]
+    else:
+        line[1] = hex(int(line[1]))[2:].upper().zfill(2)
+        line[1] = "\" & '0' & x\"" + line[1]
     line = ''.join(line)
     return line
  
@@ -115,6 +122,18 @@ def  converteArroba9bits(line):
 def  converteCifrao(line):
     line = line.split('$')
     line[1] = hex(int(line[1]))[2:].upper().zfill(2)
+    line = ''.join(line)
+    return line
+    
+def  converteCifrao9bits(line):
+    line = line.split('$')
+    if(int(line[1]) > 255 ):
+        line[1] = str(int(line[1]) - 256)
+        line[1] = hex(int(line[1]))[2:].upper().zfill(2)
+        line[1] = "\" & '1' & x\"" + line[1]
+    else:
+        line[1] = hex(int(line[1]))[2:].upper().zfill(2)
+        line[1] = "\" & '0' & x\"" + line[1]
     line = ''.join(line)
     return line
         
@@ -172,14 +191,23 @@ with open(outputBIN, "w+") as f:  #Abre o destino BIN
             instrucaoLine = trataMnemonico(instrucaoLine) #Trata o mnemonico. Ex(JSR @14): x"9" @14
                   
             if '@' in instrucaoLine: #Se encontrar o caractere arroba '@' 
-                instrucaoLine = converteArroba(instrucaoLine) #converte o número após o caractere Ex(JSR @14): x"9" x"0E"
+                if noveBits == False:
+                    instrucaoLine = converteArroba(instrucaoLine) #converte o número após o caractere Ex(JSR @14): x"9" x"0E"
+                else:
+                    instrucaoLine = converteArroba9bits(instrucaoLine) #converte o número após o caractere Ex(JSR @14): x"9" x"0E"
                     
-            elif '$' in instrucaoLine: #Se encontrar o caractere cifrao '$' 
-                instrucaoLine = converteCifrao(instrucaoLine) #converte o número após o caractere Ex(LDI $5): x"4" x"05"
+            elif '$' in instrucaoLine: #Se encontrar o caractere cifrao '$'
+                if noveBits == False:
+                    instrucaoLine = converteCifrao(instrucaoLine) #converte o número após o caractere Ex(LDI $5): x"4" x"05"
+                else:
+                    instrucaoLine = converteCifrao9bits(instrucaoLine) #converte o número após o caractere Ex(LDI $5): x"4" x"05"
                 
-            else: #Senão, se a instrução nao possuir nenhum imediator, ou seja, nao conter '@' ou '$'
+            else: #Senão, se a instrução nao possuir nenhum imediato, ou seja, nao conter '@' ou '$'
                 instrucaoLine = instrucaoLine.replace("\n", "") #Remove a quebra de linha
-                instrucaoLine = instrucaoLine + '00' #Acrescenta o valor x"00". Ex(RET): x"A" x"00"
+                if noveBits == False:
+                    instrucaoLine = instrucaoLine + '00' #Acrescenta o valor x"00". Ex(RET): x"A" x"00"
+                else:
+                    instrucaoLine = instrucaoLine + "\" & " + "\'0\' & " + "x\"00" #Acrescenta o valor x"00". Ex(RET): x"A" x"00"
                 
             
             line = 'tmp(' + str(cont) + ') := x"' + instrucaoLine + '";\t-- ' + comentarioLine + '\n'  #Formata para o arquivo BIN
@@ -234,6 +262,3 @@ with open(outputMIF, "w") as f:  #Abre o destino MIF
 
         f.write(line) #Escreve no arquivo initROM.mif
     f.write("END;") #Acrescente o indicador de finalização da memória.
-            
-
-        
