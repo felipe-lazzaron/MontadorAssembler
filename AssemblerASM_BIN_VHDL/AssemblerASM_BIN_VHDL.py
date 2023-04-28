@@ -124,7 +124,10 @@ def  converteCifrao(line):
     line[1] = hex(int(line[1]))[2:].upper().zfill(2)
     line = ''.join(line)
     return line
-    
+
+#Converte o valor após o caractere arroba '$'
+#em um valor hexadecimal de 2 dígitos (8 bits) e...
+#concatena com o bit de habilita 
 def  converteCifrao9bits(line):
     line = line.split('$')
     if(int(line[1]) > 255 ):
@@ -227,7 +230,7 @@ with open(outputBIN, "w+") as f:  #Abre o destino BIN
 ############################             
 ############################
             
-with open(outputMIF, "r") as f: #Abre o arquivo de MIF
+with open(outputMIF, "r") as f: #Abre o arquivo .mif
     headerMIF = f.readlines() #Faz a leitura das linhas do arquivo,
                               #para fazer a aquisição do header
     
@@ -236,22 +239,31 @@ with open(outputBIN, "r") as f: #Abre o arquivo BIN
     lines = f.readlines() #Faz a leitura das linhas do arquivo
     
     
-with open(outputMIF, "w") as f:  #Abre o destino MIF
+with open(outputMIF, "w") as f:  #Abre o destino .mif novamente
+                                 #agora para preenchê-lo com o pograma
 
     cont = 0 #Cria uma variável para contagem
     
-    for lineHeader in headerMIF:       
+    #########################################
+    #Preenche com o header lido anteriormente 
+    for lineHeader in headerMIF:      
         if cont < 21:           #Contagem das linhas de cabeçalho
             f.write(lineHeader) #Escreve no arquivo se saída .mif o cabeçalho (21 linhas)
         cont = cont + 1         #Incrementa varíavel de contagem
-        
-    for line in lines:
+   #-----------------------------------------
+   ##########################################
+  
+    for line in lines: #Varre as linhas do código formatado para a ROM (VHDL)
     
         replacements = [('t', ''), ('m', ''), ('p', ''), ('(', ''), (')', ''), ('=', ''), ('x', ''), ('"', '')] #Define os caracteres que serão excluídos
         
+        ##########################################
+        #Remove os caracteres que foram definidos
         for char, replacement in replacements:
             if char in line:
-                line = line.replace(char, replacement) #Remove os caracteres que foram definidos
+                line = line.replace(char, replacement)
+        #-----------------------------------------
+        ##########################################
                 
         line = line.split('#') #Remove o comentário da linha
         
@@ -261,4 +273,4 @@ with open(outputMIF, "w") as f:  #Abre o destino MIF
             line = line[0] + '\n' #Insere a quebra de linha ('\n') caso não tenha
 
         f.write(line) #Escreve no arquivo initROM.mif
-    f.write("END;") #Acrescente o indicador de finalização da memória.
+    f.write("END;") #Acrescente o indicador de finalização da memória. (END;)
