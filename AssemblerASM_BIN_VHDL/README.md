@@ -246,7 +246,20 @@ DATA_RADIX=HEX;
      0       :    90E;
 ```
 
-## Atividade:
+## Atividades:
 
-Criar um programa em assembly no arquivo **ASM.txt** e executar o código python  **AssemblerASM_BIN_VHDL** para a arquitetura da Aula5
+- Implementar a funcionalidade de utilização de labels nesse assembler:
+
+```asm
+JMP .label0
+.
+.
+.
+label0:
+.
+.
+.
+```
+
+- Criar um programa em assembly no arquivo **ASM.txt** e executar o código python  **AssemblerASM_BIN_VHDL** para a arquitetura da Aula5
 
