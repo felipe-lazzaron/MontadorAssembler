@@ -99,16 +99,6 @@ def  converteArroba(line):
     line[1] = hex(int(line[1]))[2:].upper().zfill(2)
     line = ''.join(line)
     return line
-
-#Converte o valor após o caractere arroba '@'
-#em um valor hexadecimal de 2 dígitos (8 bits) e...
-#concatena com o bit de habilita 
-def  converteArroba9bits(line):
-    line = line.split('@')
-    line[1] = hex(int(line[1]))[2:].upper().zfill(2)
-    line[1] = "\" & '1' & \"" + line[1]
-    line = ''.join(line)
-    return line
  
 #Converte o valor após o caractere cifrão'$'
 #em um valor hexadecimal de 2 dígitos (8 bits) 
