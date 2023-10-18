@@ -24,7 +24,7 @@ Este é um utilitário de linha de comando Python que converte código assembly 
 2. Execute o programa:
 
    ```bash
-   python AssemblerASM_BIN_VHDL.py
+   python montador.py
    ```
 
 3. O programa solicitará que você forneça o caminho para o arquivo de código assembly.
