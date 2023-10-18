@@ -1,58 +1,107 @@
+from AssemblerASM_BIN_VHDL import defineComentario, defineInstrucao, trataMnemonico, converteArroba, converteArroba9bits, converteCifrao, converteCifrao9bits
+
 def main():
-    input_asm = './AssemblerASM_BIN_VHDL/ASM.txt'  # Nome do arquivo de entrada com o código assembly
-    output_bin = './AssemblerASM_BIN_VHDL/BIN.txt'  # Nome do arquivo de saída com o código binário formatado para VHDL
-    output_mif = './AssemblerASM_BIN_VHDL/initROM.mif'  # Nome do arquivo de saída no formato .mif
+    inputASM = './AssemblerASM_BIN_VHDL/ASM.txt'  # Arquivo de entrada que contém o assembly
+    outputBIN = './AssemblerASM_BIN_VHDL/BIN.txt'  # Arquivo de saída que contém o binário formatado para VHDL
+    outputMIF = './AssemblerASM_BIN_VHDL/initROM.mif'  # Arquivo de saída que contém o binário formatado para .mif
 
-    # Abre o arquivo de entrada ASM
-    with open(input_asm, "r") as asm_file:
-        asm_lines = asm_file.readlines()
+    noveBits = False
 
-    # Abre o arquivo de saída BIN
-    with open(output_bin, "w") as bin_file:
+    mne = { 
+        "NOP": "0",
+        "LDA": "1",
+        "SOMA": "2",
+        "SUB": "3",
+        "LDI": "4",
+        "STA": "5",
+        "JMP": "6",
+        "JEQ": "7",
+        "CEQ": "8",
+        "JSR": "9",
+        "RET": "A",
+    }
+
+    with open(inputASM, "r") as f:
+        lines = f.readlines()
+
+    with open(outputBIN, "w+") as f:
         cont = 0
+        for line in lines:
+            if line.startswith('\n') or line.startswith(' ') or line.startswith('#'):
+                line = line.replace("\n", "")
+                print("-- Sintaxe inválida" + ' na Linha: ' + ' --> (' + line + ')')
+            else:
+                comentarioLine = defineComentario(line).replace("\n", "")
+                instrucaoLine = defineInstrucao(line).replace("\n", "")
+                instrucaoLine = trataMnemonico(instrucaoLine)
 
-        for asm_line in asm_lines:
-            asm_line = asm_line.strip()  # Remove espaços em branco no início e no final
-            if not asm_line or asm_line.startswith("#"):
-                continue  # Ignora linhas em branco e comentários
+                if '@' in instrucaoLine:
+                    if not noveBits:
+                        instrucaoLine = converteArroba(instrucaoLine)
+                    else:
+                        instrucaoLine = converteArroba9bits(instrucaoLine)
+                elif '$' in instrucaoLine:
+                    if not noveBits:
+                        instrucaoLine = converteCifrao(instrucaoLine)
+                    else:
+                        instrucaoLine = converteCifrao9bits(instrucaoLine)
+                else:
+                    instrucaoLine = instrucaoLine.replace("\n", "")
+                    if not noveBits:
+                        instrucaoLine = instrucaoLine + '00'
+                    else:
+                        instrucaoLine = instrucaoLine + "\" & " + "\'0\' & " + "x\"00"
 
-            # Realize o processamento e formatação das linhas do código assembly aqui
-            # Substitua a lógica a seguir pelo seu próprio processamento
-            instruction, comment = asm_line.split('#', 1)
-            opcode, operand = instruction.strip().split(None, 1)
-            address = hex(cont)[2:].zfill(2).upper()
-            formatted_line = f"tmp({cont}) := x\"{opcode}{operand}\"; -- {comment.strip()}\n"
+                line = 'tmp(' + str(cont) + ') := x"' + instrucaoLine[0] + '" & \'0\' & x"' + instrucaoLine[1:] + '";\t-- ' + comentarioLine + '\n'
+                cont += 1
+                f.write(line)
+                print(line, end='')
 
-            bin_file.write(formatted_line)
-            cont += 1
+    with open(outputMIF, "r") as f:
+        headerMIF = f.readlines()
 
-    # Abre o arquivo de saída .mif
-    with open(output_mif, "w") as mif_file:
-        mif_file.write("DEPTH = 256;\n")
-        mif_file.write("WIDTH = 8;\n")
-        mif_file.write("ADDRESS_RADIX = DEC;\n")
-        mif_file.write("DATA_RADIX = HEX;\n")
-        mif_file.write("CONTENT\n")
-        mif_file.write("BEGIN\n")
+    with open(outputBIN, "r") as f:
+        lines = f.readlines()
 
-        cont = 0
+    with open(outputMIF, "w") as f:
 
-        for asm_line in asm_lines:
-            asm_line = asm_line.strip()
-            if not asm_line or asm_line.startswith("#"):
-                continue
+        # Adicione as linhas de comentário no início do arquivo
+        f.write("-- Copyright (C) 2017  Intel Corporation. All rights reserved.\n")
+        f.write("-- Your use of Intel Corporation's design tools, logic functions\n")
+        f.write("-- and other software and tools, and its AMPP partner logic\n")
+        f.write("-- functions, and any output files from any of the foregoing\n")
+        f.write("-- (including device programming or simulation files), and any\n")
+        f.write("-- associated documentation or information are expressly subject\n")
+        f.write("-- to the terms and conditions of the Intel Program License\n")
+        f.write("-- Subscription Agreement, the Intel Quartus Prime License Agreement,\n")
+        f.write("-- the Intel FPGA IP License Agreement, or other applicable license\n")
+        f.write("-- agreement, including, without limitation, that your use is for\n")
+        f.write("-- the sole purpose of programming logic devices manufactured by\n")
+        f.write("-- Intel and sold by Intel or its authorized distributors.  Please\n")
+        f.write("-- refer to the applicable agreement for further details.\n\n")
+        
+        f.write("WIDTH=8;\n")
+        f.write("DEPTH=256;\n")
+        f.write("ADDRESS_RADIX=DEC;\n")
+        f.write("DATA_RADIX=HEX;\n\n")
+        f.write("CONTENT BEGIN\n")
+        f.write("--endereco : dado;\n")
 
-            # Realize o processamento e formatação das linhas do código assembly aqui
-            # Substitua a lógica a seguir pelo seu próprio processamento
-            instruction, _ = asm_line.split('#', 1)
-            opcode, operand = instruction.strip().split(None, 1)
-            address = cont
-            formatted_line = f"{address}: {opcode}{operand};\n"
+        for line in lines:
+            replacements = [('t', ''), ('m', ''), ('p', ''), ('(', ''), (')', ''), ('=', ''), ('x', ''), ('"', '')]
+            for char, replacement in replacements:
+                if char in line:
+                    line = line.replace(char, replacement)
 
-            mif_file.write(formatted_line)
-            cont += 1
+            line = line.split('#')
 
-        mif_file.write("END;")
+            if "\n" in line[0]:
+                line = line[0]
+            else:
+                line = line[0] + '\n'
+
+            f.write(line)  # Escreve as linhas formatadas no arquivo .mif
+
 
 if __name__ == "__main__":
     main()
