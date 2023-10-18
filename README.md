@@ -1,7 +1,7 @@
 # MontadorAssembler
 Disciplina de Projeto de Computadores
 
-```markdown
+
 # AssemblerASM_BIN_VHDL
 
 Este é um utilitário de linha de comando Python que converte código assembly para representação binária formatada para uso em projetos VHDL. Também inclui a funcionalidade de gerar um arquivo MIF a partir do código binário formatado.
@@ -71,5 +71,4 @@ Sinta-se à vontade para contribuir para o projeto. Abra uma issue ou envie um p
 
 Este projeto é licenciado sob a MIT License - consulte o arquivo [LICENSE](LICENSE) para detalhes.
 
-```
 
