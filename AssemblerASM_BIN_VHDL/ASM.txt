@@ -1,16 +1,71 @@
-JSR @14	#Deve desviar para a posição 14
-JMP @5	#Deve desviar para a posição 5
-JEQ @9	#Deve desviar para a posição 9
-NOP
-NOP
-LDI $5	#Carrega acumulador com valor 5
-STA $0	#Armazena 5 na posição 0 da memória
-CEQ @0	#A Comparação deve fazer o flagIgual ser 1
-JMP @2	#Vai testar o flagIgual depois do jump
-NOP
-LDI $4	#Carrega acumulador com valor 4
-CEQ @0	#Compara com valor 5, deve fazer o flagIgual ser 0
-JEQ @3	#Não deve ocorrer o desvio
-JMP @13	#Fim. Deve ficar neste laço
-NOP
-RET		#Retorna para a posição 1
+SETUP:
+ LDI R0 $0 # Salva 0 no registrador R0
+ STA @0 R0 # Salva 0, o que está no R0, no endereço 0, que vai ser um valor constante
+ STA @13 R0 # Salva 0 na flag de hora para verificar limite nas dezenas de hora
+ STA .HEX0 R0 # Salva R0 no endereço HEX0
+ STA .HEX1 R0 # Salva R0 no endereço HEX1
+ STA .HEX2 R0 # Salva R0 no endereço HEX2
+ STA .HEX3 R0 # Salva R0 no endereço HEX3
+ STA .HEX4 R0 # Salva R0 no endereço HEX4
+ STA .HEX5 R0 # Salva R0 no endereço HEX5
+ STA .KEY1 R0 # Salva R0 no endereço KEY1
+ STA .LED8 R0 # Salva R0 no endereço LED8
+ STA .LED9 R0 # Salva R0 no endereço LED9
+ STA @6 R0 # Salva o valor de R0 no endereço 6 (unidade seg)
+ STA @7 R0 # Salva o valor de R0 no endereço 7 (dezena seg)
+ STA @8 R0 # Salva o valor de R0 no endereço 8 (unidade min)
+ CONTA_SEGUNDOS:
+ STA @9 R0 # Salva o valor de R0 no endereço 9 (dezena min)
+ STA @10 R0 # Salva o valor de R0 no endereço 10 (unidade hora)
+ STA @11 R0 # Salva o valor de R0 no endereço 11 (dezena hora)
+ LDI R0 $1 # Salva 1 no registrador R0
+ STA @1 R0 # Salva 1 no endereço 1
+ LDI R0 $2 # Salva 2 no registrador R0
+ STA @2 R0 # Salva 2 no endereço 2
+ LDI R0 $3 # Salva 3 no registrador R0
+ STA @3 R0 # Salva 3 no endereço 3
+ LDI R0 $5 # Salva 5 no registrador R0
+ STA @4 R0 # Salva 5 no endereço 4
+ LDI R0 $9 # Salva 9 no registrador R0
+ STA @5 R0 # Salva 9 no endereço 5
+ LDI R0 $4 # Salva 4 no registrador R0
+ STA @14 R0 # Salva 4 no endereço 14
+ LOOP:
+ JSR .CHOOSE_LIMIT # Escolhe um valor específico para começar a contar
+ JSR .CHOOSE_TEMPO # Vai para a subrotina responsável pela escolha da basedo tempo
+ OP_AND R0 @1 # Faz a operação AND entre R0 e o valor do endereço 1
+CEQ R0 @1 # Compara se R0 é igual ao valor do endereço 1
+JEQ .UNIDADE_SEG # Se for igual vai para o endereço UNIDADE_SEG
+ JMP .LOOP # Volta para ter um loop principal
+CHOOSE_LIMIT:
+ LDA R2 .KEY1 # Carrega o valor de KEY1
+ STA .CLEARKEY1 R2 # Limpa a leitura de KEY1
+ OP_AND R2 @1 # OP_AND com 1
+ CEQ R2 @1 # Compara o que foi a leitura de KEY1 com R2
+ JEQ .SET_UNI_SEG # Pula para a label que escolhe os limites para a unidade de segundo
+ RET
+SET_UNI_SEG:
+ LDA R1 .KEY1 # Carrega a chave no registrador R1
+ STA .HEX0 R1 # Atualiza display do HEX0
+ LDI R1 $1 # Carrega o imediato no R1
+ STA .KEY1 R1 # Liga o LED na posição respectiva ao display.
+ LDA R2 .KEY1 # Carrega o valor de KEY1
+ OP_AND R2 @1 # OP_AND com 1
+ CEQ R2 @0 # Compara o que foi a leitura de KEY1 com R2
+ JEQ .SET_UNI_SEG # Pula para a label que escolhe os limites para aunidades de segundos, para ter o LOOP 
+ CONTA_SEGUNDOS:
+  LDA R2 .KEY1 # Carrega o valor de KEY1
+UNIDADE_SEG:
+  LDA R1 .KEY1 # Carrega a chave no registrador R1
+  STA .HEX0 R1 # Atualiza display do HEX0
+  LDI R1 $1 # Carrega o imediato no R1
+  STA .KEY1 R1 # Liga o LED na posição respectiva ao display.
+  LDA R2 .KEY1 # Carrega o valor de KEY1
+  OP_AND R2 @1 # OP_AND com 1
+  CEQ R2 @0 # Compara o que foi a leitura de KEY1 com R2
+  JEQ .UNIDADE_SEG # Pula para a label que escolhe os limites para aunidades de segundos, para ter o LOOP 
+  LDA R2 .KEY1 # Carrega o valor de KEY1
+  OP_AND R2 @2 # OP_AND com 2
+  CEQ R2 @0 # Compara o que foi a leitura de KEY1 com R2
+  JEQ .CONTA_SEGUNDOS # Pula para a label que escolhe os limites para a dezena de segundos
+  JMP .CONTA_SEGUNDOS # Volta para a label que conta os segundos

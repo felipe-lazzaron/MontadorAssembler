@@ -1,0 +1,328 @@
+SETUP:   
+    LDI R0 $0                   # Salva 0 no registrador R0
+    STA @0 R0                   # Salva 0, o que está no R0, no endereço 0, que vai ser um valor constante
+
+# Set dos displays
+    STA .HEX0 R0                # Salva R0 no endereço HEX0
+    STA .HEX1 R0                # Salva R0 no endereço HEX1
+    STA .HEX2 R0                # Salva R0 no endereço HEX2
+    STA .HEX3 R0                # Salva R0 no endereço HEX3
+    STA .HEX4 R0                # Salva R0 no endereço HEX4
+    STA .HEX5 R0                # Salva R0 no endereço HEX5
+
+# Set dos LEDS
+    STA .LED07 R0               # Salva R0 no endereço LED07
+    STA .LED8 R0                # Salva R0 no endereço LED8
+    STA .LED9 R0                # Salva R0 no endereço LED9
+
+# Salvando o contador inicial como 000 000
+    STA @6 R0                   # Salva o valor de R0 no endereço 6 (unidade)
+    STA @7 R0                   # Salva o valor de R0 no endereço 7 (dezena)
+    STA @8 R0                   # Salva o valor de R0 no endereço 8 (centena)
+    STA @9 R0                   # Salva o valor de R0 no endereço 9 (milhar)
+    STA @10 R0                  # Salva o valor de R0 no endereço 10 (dezena de milhar)
+    STA @11 R0                  # Salva o valor de R0 no endereço 11 (centena de milhar)
+
+# Configurando valores constantes 
+
+    LDI R0 $1                   # Salva 1 no registrador R0
+    STA @1 R0                   # Salva 1 no endereço 1
+    LDI R0 $2                   # Salva 2 no registrador R0
+    STA @2 R0                   # Salva 2 no endereço 2
+    LDI R0 $3                   # Salva 3 no registrador R0
+    STA @3 R0                   # Salva 3 no endereço 3
+    LDI R0 $5                   # Salva 5 no registrador R0
+    STA @4 R0                   # Salva 5 no endereço 4
+    LDI R0 $9                   # Salva 9 no registrador R0
+    STA @5 R0                   # Salva 9 no endereço 5
+    LDI R0 $4                   # Salva 4 no registrador R0
+    STA @14 R0                  # Salva 4 no endereço 14
+
+
+SET_UNIDADE:                    
+    LDA R1 .SW07                # Carrega a chave no registrador R1
+    STA .HEX0 R1                # Atualiza display do HEX0
+    LDI R1 $1                   # Carrega o imediato no R1
+    STA .LED07 R1               # Liga o LED na posição respectiva ao display.            
+
+    LDA R2 .KEY1                # Carrega o valor de KEY1                  
+    CEQ R2 @0                   # Compara o que foi a leitura de KEY1 com R2 
+    JEQ .SET_UNIDADE            # Pula para a label que escolhe os limites para a unidades , para ter o LOOP 
+    JMP .LIMITA_A_NOVE_UNIDADE      # Pula para a label que verifica se é maior que nove
+
+UPDATE_UNI_SEG:
+    STA @6 R2                   # Carrega a memoria que guarda a unidade de segundos 
+    STA .HEX0 R2                # Atualiza o display do HEX0
+    STA .CLEARKEY1 R2           # Limpa a leitura do KEY1
+
+SET_DEZ_SEC:
+    LDA R1 .SW07                # Carrega a chave no registrador R1
+    STA .HEX1 R1                # Atualiza display do HEX1 
+    LDI R1 $2                   # Carrega o imediato no R1
+    STA .LED07 R1               # Liga o LED na posição respectiva ao display
+
+    LDA R2 .KEY1                # Carrega o valor de KEY1 
+    OP_AND R2 @1                # OP_AND com 1
+    CEQ R2 @0                   # Compara o que foi a leitura de KEY1 com R2
+    JEQ .SET_DEZ_SEC            # Pula para a label que escolhe os limites para a dezenas de segundos, para ter o LOOP 
+
+    JMP .LIMITA_A_CINCO_SEG     # Pula para a label que verifica se é maior que 5
+
+UPDATE_DEZ_SEG:
+    STA @7 R2                   # Carrega a memoria que guarda a unidade de segundos 
+    STA .HEX1 R2                # Atualiza o display do HEX1
+    STA .CLEARKEY1 R2           # Limpa a leitura do KEY1
+
+SET_UNI_MIN:
+    LDA R1 .SW07                # Carrega a chave no registrador R1
+    STA .HEX2 R1                # Atualiza display do HEX2  
+    LDI R1 $4                   # Carrega o imediato no R1
+    STA .LED07 R1               # Liga o LED na posição respectiva ao display.  
+
+    LDA R2 .KEY1                # Carrega o valor de KEY1 
+    OP_AND R2 @1                # OP_AND com 1
+    CEQ R2 @0                   # Compara o que foi a leitura de KEY1 com R2
+    JEQ .SET_UNI_MIN            # Pula para a label que escolhe os limites para a unidades de minutos, para ter o LOOP 
+
+    JMP .LIMITA_A_NOVE_MIN      # Pula para a label que verifica se é maior que 9
+
+UPDATE_UNI_MIN:
+    STA @8 R2                   # Carrega a memoria que guarda a unidade de minutos 
+    STA .HEX2 R2                # Atualiza o display do HEX2
+    STA .CLEARKEY1 R2           # Limpa a leitura do KEY1
+
+SET_DEZ_MIN:
+    LDA R1 .SW07                # Carrega a chave no registrador R1
+    STA .HEX3 R1                # Atualiza display do HEX3   
+    LDI R1 $8                   # Carrega o imediato no R1
+    STA .LED07 R1               # Liga o LED na posição respectiva ao display.  
+
+    LDA R2 .KEY1                # Carrega o valor de KEY1 
+    OP_AND R2 @1                # OP_AND com 1
+    CEQ R2 @0                   # Compara o que foi a leitura de KEY1 com R2
+    JEQ .SET_DEZ_MIN            # Pula para a label que escolhe os limites para a dezenas de minutos, para ter o LOOP 
+
+    JMP .LIMITA_A_CINCO_MIN     # Pula para a label que verifica se é maior que 5
+
+UPDATE_DEZ_MIN:
+    STA @9 R2                   # Carrega a memoria que guarda a dezena de minutos 
+    STA .HEX3 R2                # Atualiza o display do HEX3
+    STA .CLEARKEY1 R2           # Limpa a leitura do KEY1
+
+SET_UNI_HOUR:
+    LDA R1 .SW07                # Carrega a chave no registrador R1
+    STA .HEX4 R1                # Atualiza display do HEX4  
+    LDI R1 $16                  # Carrega o imediato no R1
+    STA .LED07 R1               # Liga o LED na posição respectiva ao display.
+
+    LDA R2 .KEY1                # Carrega o valor de KEY1 
+    OP_AND R2 @1                # OP_AND com 1
+    CEQ R2 @0                   # Compara o que foi a leitura de KEY1 com R2
+    JEQ .SET_UNI_HOUR           # Pula para a label que escolhe os limites para a unidade de horas, para ter o LOOP 
+
+    JMP .NOVE_HOUR              # Pula para a label que verifica se é maior que 9
+UPDATE_UNI_HOUR:
+    STA @10 R2                  # Carrega a memoria que guarda a unidade de horas 
+    STA .HEX4 R2                # Atualiza o display do HEX4
+    STA .CLEARKEY1 R2           # Limpa a leitura do KEY1
+
+SET_DEZ_HOR:
+    LDA R1 .SW07                # Carrega a chave no registrador R1
+    STA .HEX5 R1                # Atualiza display do HEX5
+    LDI R1 $32                  # Carrega o imediato no R1
+    STA .LED07 R1               # Liga o LED na posição respectiva ao display.
+
+    LDA R2 .KEY1                # Carrega o valor de KEY1 
+    OP_AND R2 @1                # OP_AND com 1
+    CEQ R2 @0                   # Compara o que foi a leitura de KEY1 com R2
+    JEQ .SET_DEZ_HOR            # Pula para a label que escolhe os limites para a dezena de horas, para ter o LOOP 
+
+    JMP .LIMIT_DEZ_HOUR         # Pula para a label que verifica se é maior que 9
+
+UPDATE_DEZ_HOUR:
+    STA @11 R2                  # Carrega o que está em R2 no endereço 11, de dezena de horas
+    STA .HEX5 R2                # Atualiza display do HEX5 
+    STA .CLEARKEY1 R1           # Limpa a leitura do KEY1
+    LDA R1 @0                   # Carrega o que está no endereço de memória 0 no registrador
+    STA .LED07 R1               # Carrega o que está no registrador no LED07
+    RET                         # Retorna para a subrotina CHOOSE_LIMIT
+
+FAST:
+    LDA R0 .BASE_TEMPO2 O       # Salva o endereço da base_tempo2 no R0        
+    STA .CLEARFAST R0           # Limpa a leitura da base_tempo2
+    LDA R5 @1                   # Carrega 1 no registrador para acender o LED9
+    STA .LED9 R5                # Acende o LED
+    RET                         # Retorna para o LOOP
+
+# Começa a contar
+
+UNIDADE_SEG:
+    LDA R1 @6                  # Salva o valor da unidade de segundos no R1
+    CEQ R1 @5                  # Compara se a unidade é igual a 9
+    JEQ .DEZENA_SEG            # Se for igual, pula para a dezena
+    ADDI R1 $1                 # Soma o que está no registrador com 1
+    STA @6 R1                  # Salva o valor atualizado no endereço 6
+    STA .HEX0 R1               # Atualiza display
+    JMP .LOOP                  # Retorna para o LOOP        
+
+DEZENA_SEG:
+    LDA R1 @0                  # Salva 0 no R1
+    STA @6 R1                  # Salva o que está em R1 no endereço de unidades de segundos
+    STA .HEX0 R1               # Atualiza display
+
+    LDA R1 @7                  # Salva o valor da dezena de segundos no R1
+    CEQ R1 @4                  # Compara se a unidade é igual a 5
+    JEQ .UNIDADE_MIN           # Se for igual, pula para a unidade de minuto
+    ADDI R1 $1                 # Soma o que está no registrador com 1
+    STA @7 R1                  # Salva o valor atualizado no endereço 6
+    STA .HEX1 R1               # Atualiza display da dezena de segundos
+    JMP .LOOP                  # Retorna para o LOOP 
+
+UNIDADE_MIN:
+    LDA R1 @0                  # Salva 0 no R1
+    STA @6 R1                  # Salva 0 na unidade de segundos
+    STA @7 R1                  # Salva 0 na dezena de segundos 
+    STA .HEX0 R1               # Atualiza display da unidade de segundos
+    STA .HEX1 R1               # Atualiza display da dezena de segundos
+
+    LDA R1 @8                  # Salva o valor da unidade de minutos no R1
+    CEQ R1 @5                  # Compara se a unidade é igual a 9
+    JEQ .DEZENA_MIN            # Se for igual, pula para a dezena de minuto
+    ADDI R1 $1                 # Soma o que está no registrador com 1
+    STA @8 R1                  # Salva o valor atualizado no endereço 8
+    STA .HEX2 R1               # Salva valor no display HEX2
+    JMP .LOOP                  # Retorna para o LOOP 
+
+DEZENA_MIN:
+    LDA R1 @0                 # Salva 0 no R1
+    STA @6 R1                 # Salva 0 na unidade de segundos
+    STA @7 R1                 # Salva 0 na dezena de segundos 
+    STA @8 R1                 # Salva 0 na unidade de minutos
+    STA .HEX0 R1              # Atualiza display da unidade de segundos
+    STA .HEX1 R1              # Atualiza display da dezena de segundos
+    STA .HEX2 R1              # Atualiza display da unidade de minutos
+
+    LDA R1 @9                  # Salva o valor da unidade de minutos no R1
+    CEQ R1 @4                  # Compara se a unidade é igual a 5
+    JEQ .UNIDADE_HOR           # Se for igual, pula para a unidade de hora
+    ADDI R1 $1                 # Soma o que está no registrador com 1
+    STA @9 R1                  # Salva o valor atualizado no endereço 9
+    STA .HEX3 R1               # Salva valor no display HEX3
+    JMP .LOOP                  # Retorna para o LOOP 
+
+UNIDADE_HOR:
+    LDA R1 @0                 # Salva 0 no R1
+    STA @6 R1                 # Salva 0 na unidade de segundos
+    STA @7 R1                 # Salva 0 na dezena de segundos 
+    STA @8 R1                 # Salva 0 na unidade de minutos
+    STA @9 R1                 # Salva 0 na dezena de minutos
+    STA .HEX0 R1              # Atualiza display da unidade de segundos
+    STA .HEX1 R1              # Atualiza display da dezena de segundos
+    STA .HEX2 R1              # Atualiza display da unidade de minutos
+    STA .HEX3 R1              # Atualiza display da dezena de minutos
+
+    LDA R1 @11                # Carrega o valor das dezenas de horas no registrador
+    CEQ R1 @2                 # Compara com 2
+    JEQ .LIMITE1              # Se for verdade, pula para o LIMITE1
+
+BACK_TO:
+    LDA R1 @10                 # Salva o valor da unidade de horas no R1
+    CEQ R1 @5                  # Compara se a unidade é igual a 9
+    JEQ .DEZENA_HOR            # Se for igual, pula para a dezena de hora
+    ADDI R1 $1                 # Soma o que está no registrador com 1
+    STA @10 R1                 # Salva o valor atualizado no endereço 10
+    STA .HEX4 R1               # Salva valor no display HEX4
+    JMP .LOOP                  # Retorna para o LOOP
+
+DEZENA_HOR:
+    LDA R1 @0                  # Salva 0 no R1
+    STA @6 R1                  # Salva 0 na unidade de segundos
+    STA @7 R1                  # Salva 0 na dezena de segundos 
+    STA @8 R1                  # Salva 0 na unidade de minutos
+    STA @9 R1                  # Salva 0 na dezena de minutos
+    STA @10 R1                 # Salva 0 na unidade de hora
+    STA .HEX0 R1               # Atualiza display da unidade de segundos
+    STA .HEX1 R1               # Atualiza display da dezena de segundos
+    STA .HEX2 R1               # Atualiza display da unidade de minutos
+    STA .HEX3 R1               # Atualiza display da dezena de minutos
+    STA .HEX4 R1               # Atualiza display da unidade de horas
+
+    LDA R1 @11                 # Salva o valor da dezena de horas no R1
+    ADDI R1 $1                 # Soma o que está no registrador com 1
+    STA @11 R1                 # Salva o valor atualizado no endereço 10
+    STA .HEX5 R1               # Salva valor no display HEX5
+    JMP .LOOP                  # Retorna para o LOOP
+
+LIMITE1:
+    LDA R2 @10                 # Carrega a unidade das horas no registrador
+    CEQ R2 @3                  # Compara se é 3
+    JEQ .SETUP                 # Ser é verdade, volta para o padrão
+    JMP .BACK_TO               # Se não, volta para o incremento
+
+CHECK_UNI:
+    LDA R2 @10                 # Carrega a unidade das horas no registrador
+    CEQ R2 @1                  # Compara se é 1
+    JEQ .SETUP                 # Ser é verdade, volta para o padrão
+    JMP .BACK_TO               # Se não, volta para o incremento
+
+LIMITA_A_NOVE_UNIDADE:
+    LDA R2 .SW07               # Carrega o valor das chaves no registrador.
+    CEQ R2 $10                  # Compara se é igual a 10
+    JEQ .UPDATE_UNI_SEG        # Se for, vai para a atualização da unidade dos segundos
+    LDA R2 @5                  # Carrega 9 no registrador
+    JMP .UPDATE_UNI_SEG        # Se for, vai para a atualização da unidade dos segundos
+
+LIMITA_A_CINCO_SEG:
+    LDA R2 .SW07               # Carrega o valor das chaves no registrador.
+    CLT R2 @4                  # Compara se é menor que 5
+    JLT .UPDATE_DEZ_SEG        # Se for, vai para a atualização da dezena dos segundos
+    LDA R2 @4                  # Carrega 5 no registrador
+    JMP .UPDATE_DEZ_SEG        # Se for, vai para a atualização da dezena dos segundos
+
+LIMITA_A_NOVE_MIN:
+    LDA R2 .SW07               # Carrega o valor das chaves no registrador.
+    CLT R2 @5                  # Compara se é menor que 9
+    JLT .UPDATE_UNI_MIN        # Se for, vai para a atualização da unidade dos minutos
+    LDA R2 @5                  # Carrega 9 no registrador
+    JMP .UPDATE_UNI_MIN        # Se for, vai para a atualização da unidade dos minutos
+
+LIMITA_A_CINCO_MIN:
+    LDA R2 .SW07               # Carrega o valor das chaves no registrador.
+    CLT R2 @4
+    JLT .UPDATE_DEZ_MIN        # Se for, vai para a atualização da dezena dos minutos
+    LDA R2 @4
+    JMP .UPDATE_DEZ_MIN        # Se for, vai para a atualização da dezena dos minutos
+
+NOVE_HOUR:
+    LDA R2 .SW07               # Carrega o valor das chaves no registrador.
+    CLT R2 @5                  # Compara se é menor que 9
+    JLT .UPDATE_UNI_HOUR       # Se for, vai para a atualização da unidade das horas
+    LDI R2 $1                  # Carrega 1 no registrador            
+    STA @13 R2                 # Carrega um na flag que representa se a unidade de hora é 9.
+    LDA R2 @5                  # Compara se é menor que 9
+    JMP .UPDATE_UNI_HOUR       # Se for, vai para a atualização da unidade das horas
+
+LIMIT_DEZ_HOUR:
+    LDA R2 .SW07               # Carrega o valor das chaves no registrador.
+    CLT R2 @2                  # Compara se é menor que 2
+    JLT .UPDATE_DEZ_HOUR       # Se for, vai para a atualização da dezena das horas
+
+    LDA R3 @13                 # Carrega o valor da flag no registrador.
+    CEQ R3 @1                  # Compara se é igual a 1
+    JEQ .ATUALIZA_HOUR         # Se for, vai para a atualização da dezenas das horas        
+
+    LDA R3 @10                 # Carrega o valor da unidade das horas no registrador.            
+    CLT R3 @14                 # Compara se é menor que 4
+    JLT .MENOR_QUE_4           # Se for, vai para a atualização da dezenas das horas         
+    LDA R2 @1                  # Carrega o valor da unidade das horas no registrador. 
+    JMP .UPDATE_DEZ_HOUR       # Se for, vai para a atualização da dezena das horas
+
+ATUALIZA_HOUR:
+    LDI R3 $0                  # Carrega 0 no registrador
+    STA @13 R3                 # Carrega a flag no registrador
+    LDA R2 @1                  # Carrega 1 no registrador
+    JMP .UPDATE_DEZ_HOUR       # Se for, vai para a atualização da dezena das horas
+
+MENOR_QUE_4:
+    LDA R2 @2                  # Carrega 2 no registrador
+    JMP .UPDATE_DEZ_HOUR       # Se for, vai para a atualização da dezena das horas

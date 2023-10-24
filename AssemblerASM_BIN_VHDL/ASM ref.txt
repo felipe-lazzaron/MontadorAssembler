@@ -1,0 +1,110 @@
+# Inicialização
+LDI R0 $0          # Inicializa a unidade com 0
+STA .HEX0         # Salva no endereço HEX0
+LDI R0 $0          # Inicializa a dezena com 0
+STA .HEX1         # Salva no endereço HEX1
+LDI R0 $0          # Inicializa a centena com 0
+STA .HEX2         # Salva no endereço HEX2
+LDI R0 $0          # Inicializa o milhar com 0
+STA .HEX3         # Salva no endereço HEX3
+LDI R0 $0          # Inicializa a dezena de milhar com 0
+STA .HEX4         # Salva no endereço HEX4
+LDI R0 $0          # Inicializa a centena de milhar com 0
+STA .HEX5         # Salva no endereço HEX5
+
+# Loop principal
+LOOP:
+  # Verifica o estado da chave .KEY0
+  LDA .KEY0        # Carrega o estado da chave no registrador
+  CEQ R0           # Compara com 0 (chave não pressionada)
+  JEQ .NO_INCREMENT  # Se não pressionada, pule o incremento
+
+  # Incrementa a unidade
+  LDA .HEX0        # Carrega a unidade no registrador
+  LDI R1 $1         # Carrega 1 no R1
+  SOMA R1          # Soma a unidade com 1
+  STA .HEX0        # Salva de volta na unidade
+
+  # Verifica se a unidade atingiu $10
+  LDA .HEX0        # Carrega a unidade no registrador
+  LDI R1 $10        # Carrega $10 no R1
+  CEQ R1           # Compara a unidade com $10
+  JEQ .CHECK_TEN   # Se igual, verifique a dezena
+  JMP .NO_INCREMENT
+
+NO_INCREMENT:
+  # Continue contando
+  JMP .LOOP
+
+CHECK_TEN:
+  # Incrementa a dezena
+  LDA .HEX1        # Carrega a dezena no registrador
+  LDI R1 $1         # Carrega 1 no R1
+  SOMA R1          # Soma a dezena com 1
+  STA .HEX1        # Salva de volta na dezena
+
+  # Verifica se a dezena atingiu $10
+  LDA .HEX1        # Carrega a dezena no registrador
+  LDI R1 $10        # Carrega $10 no R1
+  CEQ R1           # Compara a dezena com $10
+  JEQ .CHECK_HUND  # Se igual, verifique a centena
+  JMP .NO_INCREMENT
+
+CHECK_HUND:
+  # Incrementa a centena
+  LDA .HEX2        # Carrega a centena no registrador
+  LDI R1 $1         # Carrega 1 no R1
+  SOMA R1          # Soma a centena com 1
+  STA .HEX2        # Salva de volta na centena
+
+  # Verifica se a centena atingiu $10
+  LDA .HEX2        # Carrega a centena no registrador
+  LDI R1 $10        # Carrega $10 no R1
+  CEQ R1           # Compara a centena com $10
+  JEQ .CHECK_THOU  # Se igual, verifique o milhar
+  JMP .NO_INCREMENT
+
+CHECK_THOU:
+  # Incrementa o milhar
+  LDA .HEX3        # Carrega o milhar no registrador
+  LDI R1 $1         # Carrega 1 no R1
+  SOMA R1          # Soma o milhar com 1
+  STA .HEX3        # Salva de volta no milhar
+
+  # Verifica se o milhar atingiu $10
+  LDA .HEX3        # Carrega o milhar no registrador
+  LDI R1 $10        # Carrega $10 no R1
+  CEQ R1           # Compara o milhar com $10
+  JEQ .CHECK_TT    # Se igual, verifique a dezena de milhar
+  JMP .NO_INCREMENT
+
+CHECK_TT:
+  # Incrementa a dezena de milhar
+  LDA .HEX4        # Carrega a dezena de milhar no registrador
+  LDI R1 $1         # Carrega 1 no R1
+  SOMA R1          # Soma a dezena de milhar com 1
+  STA .HEX4        # Salva de volta na dezena de milhar
+
+  # Verifica se a dezena de milhar atingiu $10
+  LDA .HEX4        # Carrega a dezena de milhar no registrador
+  LDI R1 $10        # Carrega $10 no R1
+  CEQ R1           # Compara a dezena de milhar com $10
+  JEQ .CHECK_HH    # Se igual, verifique a centena de milhar
+  JMP .NO_INCREMENT
+
+CHECK_HH:
+  # Incrementa a centena de milhar
+  LDA .HEX5        # Carrega a centena de milhar no registrador
+  LDI R1 $1         # Carrega 1 no R1
+  SOMA R1          # Soma a centena de milhar com 1
+  STA .HEX5        # Salva de volta na centena de milhar
+
+  # Verifica se a centena de milhar atingiu $10
+  LDA .HEX5        # Carrega a centena de milhar no registrador
+  LDI R1 $10        # Carrega $10 no R1
+  CEQ R1           # Compara a centena de milhar com $10
+  JEQ .NO_INCREMENT # Se igual, continue contando
+
+  JMP .LOOP
+
+# Resto do código permanece o mesmo
